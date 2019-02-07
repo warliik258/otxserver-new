@@ -25,6 +25,6 @@
 
 -> Skype: e_nunes@live.com
 
--> [Grupo do Whatsapp] (https://chat.whatsapp.com/EaoiRFXYxmdKqgmdQpWfg8)
+-> [Grupo do Whatsapp] (https://chat.whatsapp.com/JtKmezKYrw5DEK5Zl9qvPw)
 
 -> [Grupo do Discord] (https://discord.gg/7dnCeau)
