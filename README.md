@@ -2,7 +2,7 @@
 -> Servidor de Tibia mantido por vários voluntários de  bom coração. O servidor usa como base OTX Server 3.10 <- 
 
 # Servidor de testes online:
--> Site [Acesse aqui!](http://35.199.127.221)
+-> Site [Acesse aqui!](http://www.otserv.com.br)
 
 # Referências:
 -> [Fórum OTBR](http://www.otserv.com.br)
@@ -10,11 +10,8 @@
 # Tutoriais
 -> Temos uma Wiki explicando como compilar o servidor  [TFS Wiki](https://github.com/otland/forgottenserver/wiki/Compiling)
 
-# Ferramentas
--> Nosso SDK está disponivel com as ferramentas configuradas para nosso servidor [Download aqui!](https://gitlab.com/malucooo/OTXServer-SDK/-/archive/master/OTXServer-SDK-master.zip)
-
-# Cliente 10
--> Cliente disponivel constantemente atualizado e compativel ao nosso servidor [Download aqui!](https://gitlab.com/guilhermesidney/cliente10/-/archive/master/cliente10-master.zip)
+# Ferramentas e Cliente
+-> Nosso SDK está disponivel com as ferramentas e Clients configurados para nosso servidor [Download aqui!](https://gitlab.com/guilhermesidney/cliente10/-/archive/master/cliente10-master.zip)
 
 # Sites Compativeis
 -> by Leonardo Pereira (jlcvp) [Gesior Compativel](https://github.com/jlcvp/GesiorMonteiro/archive/master.zip).
@@ -28,6 +25,6 @@
 
 -> Skype: e_nunes@live.com
 
--> [Grupo do Whatsapp] (https://chat.whatsapp.com/EaoiRFXYxmdKqgmdQpWfg8)
+-> [Grupo do Whatsapp] (https://chat.whatsapp.com/JtKmezKYrw5DEK5Zl9qvPw)
 
 -> [Grupo do Discord] (https://discord.gg/7dnCeau)
