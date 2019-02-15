@@ -1,6 +1,6 @@
 # OTXServer Global Free Version!  
 [![pipeline status](https://github.com/malucooo/otxserver-new/badges/master/pipeline.svg)](https://github.com/malucooo/otxserver-new/commits/master)
-[![Build status](https://ci.appveyor.com/api/projects/status/uel8kgjtmkfa9m75?svg=true)](https://ci.appveyor.com/project/malucooo/otxserver-new) 
+[![Build status](https://ci.appveyor.com/api/projects/status/91062aadnesgwa4d?svg=true)](https://ci.appveyor.com/project/malucooo/otxserver-new)
 
 -> Servidor de Tibia mantido por vários voluntários de  bom coração. O servidor usa como base OTX Server 3.10 <- 
 
