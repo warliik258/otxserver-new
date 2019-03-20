@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actions>
+  
+  <!--New-->
+  <action itemid="26165" script="other/mysterious_remains.lua" />
+	<action itemid="25419" script="other/shaggy_ogre_bag.lua" />
+	<action itemid="32014" script="other/surprise_jar.lua" />
 
 	<!-- Store -->
 	<action itemid="26378" script="other/goldconverter.lua" />
