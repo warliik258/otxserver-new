@@ -280,7 +280,7 @@ local Imbuements = {
 		Levels = {"Basic", "Intricate", "Powerful"},
 		LevelsPercent = {3, 8, 15},
 		Weapons = {"backpack"},
-		Items = {{28998, 25}, {29006, 10}, {22539, 5}}
+		Items = {{28999, 25}, {29007, 10}, {22539, 5}}
 	}
 }
 
