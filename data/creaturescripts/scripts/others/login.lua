@@ -62,6 +62,15 @@ local events = {
 	'UpperSpikeKill',
 	'MiddleSpikeKill',
 	'LowerSpikeKill'
+  'LadyTenebrisKilled',
+  'LloydKilled',
+  'ThornKnightKilled',
+  'DragonkingKilled',
+  'HorrorKilled',
+  'TimeGuardianKilled',
+  'GoldenServantKilled',
+  'DiamondServantKilled',
+  'LastLoreKilled'
 }
  
 local function onMovementRemoveProtection(cid, oldPosition, time)
