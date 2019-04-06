@@ -5,6 +5,15 @@
 	<event type="kill" name="thornknight" script="hallsofhope/thornknight.lua" />
 	<event type="kill" name="timeguardian" script="hallsofhope/timeguardian.lua" />
 	<event type="kill" name="TreeKill" script="hallsofhope/treeKill.lua" />
+  <event type="kill" name="LadyTenebrisKilled" script="quests/forgotten knowledge/LadyTenebrisKilled.lua" />
+  <event type="kill" name="LloydKilled" script="quests/forgotten knowledge/LloydKilled.lua" />
+  <event type="kill" name="ThornKnightKilled" script="quests/forgotten knowledge/ThornKnightKilled.lua" />
+  <event type="kill" name="DragonkingKilled" script="quests/forgotten knowledge/DragonkingKilled.lua" />
+  <event type="kill" name="HorrorKilled" script="quests/forgotten knowledge/HorrorKilled.lua" />
+  <event type="kill" name="TimeGuardianKilled" script="quests/forgotten knowledge/TimeGuardianKilled.lua" />
+  <event type="kill" name="DiamondServantKilled" script="quests/forgotten knowledge/DiamondServantKilled.lua" />
+  <event type="kill" name="GoldenServantKilled" script="quests/forgotten knowledge/GoldenServantKilled.lua" />
+	<event type="kill" name="LastLoreKilled" script="quests/forgotten knowledge/LastLoreKilled.lua" />
     
     <!-- New Summons (Pets) -->	
     <event type="login" name="petlogin" script="pet.lua" />
