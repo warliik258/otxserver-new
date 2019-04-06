@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <outfits>
 	<!-- Female outfits -->
 	<outfit type="0" looktype="136" name="Citizen" premium="no" unlocked="yes" enabled="yes" />
@@ -20,7 +19,7 @@
 	<outfit type="0" looktype="269" name="Nightmare" premium="yes" unlocked="no" enabled="yes" />
 	<outfit type="0" looktype="270" name="Jester" premium="yes" unlocked="no" enabled="yes" />
 	<outfit type="0" looktype="279" name="Brotherhood" premium="yes" unlocked="no" enabled="yes" />
-	<outfit type="0" looktype="288" name="Demon Hunter" premium="yes" unlocked="no" enabled="yes" />
+	<outfit type="0" looktype="288" name="Demon Hunter" premium="yes" unlocked="yes" enabled="yes" />
 	<outfit type="0" looktype="324" name="Yalaharian" premium="yes" unlocked="no" enabled="yes" />
 	<outfit type="0" looktype="329" name="Newly Wed" premium="no" unlocked="no" enabled="yes" />
 	<outfit type="0" looktype="336" name="Warmaster" premium="yes" unlocked="no" enabled="yes" />
@@ -68,7 +67,7 @@
 	<outfit type="0" looktype="973" name="Retro Hunter" premium="yes" unlocked="no" enabled="yes" />
 	<outfit type="0" looktype="975" name="Retro Citizen" premium="yes" unlocked="no" enabled="yes" />
 	<outfit type="0" looktype="1020" name="Herbalist" premium="yes" unlocked="no" enabled="yes" />
-	<outfit type="0" looktype="1023" name="Sun Priest" premium="yes" unlocked="no" enabled="yes" />
+	<outfit type="0" looktype="1024" name="Sun Priest" premium="yes" unlocked="no" enabled="yes" />
 	<outfit type="0" looktype="1043" name="Makeshift Warrior" premium="yes" unlocked="no" enabled="yes" />
 	<outfit type="0" looktype="1050" name="Siege Master" premium="yes" unlocked="no" enabled="yes" />
 	<outfit type="0" looktype="1057" name="Mercenary" premium="yes" unlocked="no" enabled="yes" />
@@ -76,6 +75,10 @@
 	<outfit type="0" looktype="1095" name="Discoverer" premium="yes" unlocked="no" enabled="yes" />
 	<outfit type="0" looktype="1103" name="Sinister Archer" premium="yes" unlocked="no" enabled="yes" />
 	<outfit type="0" looktype="1128" name="Pumpkin Mummy" premium="yes" unlocked="no" enabled="yes" />
+	<outfit type="0" looktype="1147" name="Dream Warrior" premium="yes" unlocked="no" enabled="yes" />
+	<outfit type="0" looktype="1162" name="Percht Raider" premium="yes" unlocked="no" enabled="yes" />
+	<outfit type="0" looktype="1174" name="Owl Keeper" premium="yes" unlocked="no" enabled="yes" />
+
 
 	<!-- Male outfits -->
 	<outfit type="1" looktype="128" name="Citizen" premium="no" unlocked="yes" enabled="yes" />
@@ -97,7 +100,7 @@
 	<outfit type="1" looktype="268" name="Nightmare" premium="yes" unlocked="no" enabled="yes" />
 	<outfit type="1" looktype="273" name="Jester" premium="yes" unlocked="no" enabled="yes" />
 	<outfit type="1" looktype="278" name="Brotherhood" premium="yes" unlocked="no" enabled="yes" />
-	<outfit type="1" looktype="289" name="Demon Hunter" premium="yes" unlocked="no" enabled="yes" />
+	<outfit type="1" looktype="289" name="Demon Hunter" premium="yes" unlocked="yes" enabled="yes" />
 	<outfit type="1" looktype="325" name="Yalaharian" premium="yes" unlocked="no" enabled="yes" />
 	<outfit type="1" looktype="328" name="Newly Wed" premium="no" unlocked="no" enabled="yes" />
 	<outfit type="1" looktype="335" name="Warmaster" premium="yes" unlocked="no" enabled="yes" />
@@ -145,7 +148,7 @@
 	<outfit type="1" looktype="972" name="Retro Hunter" premium="yes" unlocked="no" enabled="yes" />
 	<outfit type="1" looktype="974" name="Retro Citizen" premium="yes" unlocked="no" enabled="yes" />
 	<outfit type="1" looktype="1021" name="Herbalist" premium="yes" unlocked="no" enabled="yes" />
-	<outfit type="1" looktype="1024" name="Sun Priest" premium="yes" unlocked="no" enabled="yes" />
+	<outfit type="1" looktype="1023" name="Sun Priest" premium="yes" unlocked="no" enabled="yes" />
 	<outfit type="1" looktype="1042" name="Makeshift Warrior" premium="yes" unlocked="no" enabled="yes" />
 	<outfit type="1" looktype="1051" name="Siege Master" premium="yes" unlocked="no" enabled="yes" />
 	<outfit type="1" looktype="1056" name="Mercenary" premium="yes" unlocked="no" enabled="yes" />
@@ -153,4 +156,8 @@
 	<outfit type="1" looktype="1094" name="Discoverer" premium="yes" unlocked="no" enabled="yes" />
 	<outfit type="1" looktype="1102" name="Sinister Archer" premium="yes" unlocked="no" enabled="yes" />
 	<outfit type="1" looktype="1127" name="Pumpkin Mummy" premium="yes" unlocked="no" enabled="yes" />
+	<outfit type="1" looktype="1146" name="Dream Warrior" premium="yes" unlocked="no" enabled="yes" />
+	<outfit type="1" looktype="1161" name="Percht Raider" premium="yes" unlocked="no" enabled="yes" />
+	<outfit type="1" looktype="1173" name="Owl Keeper" premium="yes" unlocked="no" enabled="yes" />
+
 </outfits>

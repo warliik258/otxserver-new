@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <monsters>
+	<!-- Falcons -->
+	<monster name="Falcon Knight" file="Falcons/Falcon Knight.xml" />
+	<monster name="Falcon Paladin" file="Falcons/Falcon Paladin.xml" />
+    	<monster name="Grand Commander Soeren" file="Falcons/Grand Commander Soeren.xml" />
+	<monster name="Grand Chaplain Gaunder" file="Falcons/Grand Chaplain Gaunder.xml" />
+	<monster name="Preceptor Lazare" file="Falcons/Preceptor Lazare.xml" />
+	
+	<!-- New Asuras -->
+   	<monster name="Frost Flower Asura" file="NewAsuras/Frost Flower Asura.xml" />
+	<monster name="True Dawnfire Asura" file="NewAsuras/True Dawnfire Asura.xml" />
+	<monster name="True Midnight Asura" file="NewAsuras/True Midnight Asura.xml" />	
+	<monster name="True Frost Flower Asura" file="NewAsuras/True Frost Flower Asura.xml" />	
+	
 	<!-- Trainers -->
 	<monster name="Training Monk" file="customs/Training Monk.xml" />
 
@@ -45,7 +58,7 @@
 	<monster name="WaspOld" file="other/nostalgia/old_wasp.xml" />
 	<monster name="WolfOld" file="other/nostalgia/old_wolf.xml" />
 
-    <!-- Dawnport -->		
+   	 <!-- Dawnport -->		
 	<monster file="places/Dawnport/weakened shlorg.xml" name="Weakened Shlorg"/>
 	<monster file="places/Dawnport/mountain troll.xml" name="Mountain Troll"/>
 	<monster file="places/Dawnport/salamander trainer.xml" name="Salamander Trainer"/>
@@ -101,9 +114,9 @@
 	<monster name="The Freezing Time Guardian" file="places/Hallsofhope/bosses/The Freezing Time Guardian.xml" />
 	<monster name="The Blazing Time Guardian" file="places/Hallsofhope/bosses/The Blazing Time Guardian.xml" />
    
-	<!-- Halls of Hope -->
-	<monster name="The Time Guardian" file="places/Hallsofhope/bosses/The Time Guardian.xml" />
+	<!-- Halls of Hope -->	
 	<monster name="A Shielded Astral Glyph" file="places/Hallsofhope/A Shielded Astral Glyph.xml" />
+	<monster name="An Astral Glyph" file="places/Hallsofhope/An Astral Glyph.xml" />
 	<monster name="An Observer Eye (Imune)" file="places/Hallsofhope/An Observer Eye (Imune).xml" />
 	<monster name="Angry Plant" file="places/Hallsofhope/Angry Plant.xml" />
 	<monster name="Animated Sword" file="places/Hallsofhope/Animated Sword.xml" />
@@ -271,40 +284,40 @@
 
 	<!-- Arena -->
 	<!-- Greenhorn -->
-	<monster name="Achad" file="specialcreatures//arena/greenhorn/achad.xml" />
-	<monster name="Axeitus Headbanger" file="specialcreatures//arena/greenhorn/axeitus_headbanger.xml" />
-	<monster name="Bloodpaw" file="specialcreatures//arena/greenhorn/bloodpaw.xml" />
-	<monster name="Bovinus" file="specialcreatures//arena/greenhorn/bovinus.xml" />
-	<monster name="Colerian The Barbarian" file="specialcreatures//arena/greenhorn/colerian_the_barbarian.xml" />
-	<monster name="Cursed Gladiator" file="specialcreatures//arena/greenhorn/cursed_gladiator.xml" />
-	<monster name="Frostfur" file="specialcreatures//arena/greenhorn/frostfur.xml" />
-	<monster name="Orcus the Cruel" file="specialcreatures//arena/greenhorn/orcus_the_cruel.xml" />
-	<monster name="Rocky" file="specialcreatures//arena/greenhorn/rocky.xml" />
-	<monster name="The Hairy One" file="specialcreatures//arena/greenhorn/the_hairy_one.xml" />
+	<monster name="Achad" file="specialcreatures/arena/greenhorn/achad.xml" />
+	<monster name="Axeitus Headbanger" file="specialcreatures/arena/greenhorn/axeitus_headbanger.xml" />
+	<monster name="Bloodpaw" file="specialcreatures/arena/greenhorn/bloodpaw.xml" />
+	<monster name="Bovinus" file="specialcreatures/arena/greenhorn/bovinus.xml" />
+	<monster name="Colerian The Barbarian" file="specialcreatures/arena/greenhorn/colerian_the_barbarian.xml" />
+	<monster name="Cursed Gladiator" file="specialcreatures/arena/greenhorn/cursed_gladiator.xml" />
+	<monster name="Frostfur" file="specialcreatures/arena/greenhorn/frostfur.xml" />
+	<monster name="Orcus the Cruel" file="specialcreatures/arena/greenhorn/orcus_the_cruel.xml" />
+	<monster name="Rocky" file="specialcreatures/arena/greenhorn/rocky.xml" />
+	<monster name="The Hairy One" file="specialcreatures/arena/greenhorn/the_hairy_one.xml" />
 
 	<!-- Scrapper -->
-	<monster name="Avalanche" file="specialcreatures//arena/scrapper/avalanche.xml" />
-	<monster name="Drasilla" file="specialcreatures//arena/scrapper/drasilla.xml" />
-	<monster name="Grimgor Guteater" file="specialcreatures//arena/scrapper/grimgor_guteater.xml" />
-	<monster name="Kreebosh the Exile" file="specialcreatures//arena/scrapper/kreebosh_the_exile.xml" />
-	<monster name="Slim" file="specialcreatures//arena/scrapper/slim.xml" />
-	<monster name="Spirit of Earth" file="specialcreatures//arena/scrapper/spirit_of_earth.xml" />
-	<monster name="Spirit of Fire" file="specialcreatures//arena/scrapper/spirit_of_fire.xml" />
-	<monster name="Spirit of Water" file="specialcreatures//arena/scrapper/spirit_of_water.xml" />
-	<monster name="The Dark Dancer" file="specialcreatures//arena/scrapper/the_dark_dancer.xml" />
-	<monster name="The Hag" file="specialcreatures//arena/scrapper/the_hag.xml" />
+	<monster name="Avalanche" file="specialcreatures/arena/scrapper/avalanche.xml" />
+	<monster name="Drasilla" file="specialcreatures/arena/scrapper/drasilla.xml" />
+	<monster name="Grimgor Guteater" file="specialcreatures/arena/scrapper/grimgor_guteater.xml" />
+	<monster name="Kreebosh the Exile" file="specialcreatures/arena/scrapper/kreebosh_the_exile.xml" />
+	<monster name="Slim" file="specialcreatures/arena/scrapper/slim.xml" />
+	<monster name="Spirit of Earth" file="specialcreatures/arena/scrapper/spirit_of_earth.xml" />
+	<monster name="Spirit of Fire" file="specialcreatures/arena/scrapper/spirit_of_fire.xml" />
+	<monster name="Spirit of Water" file="specialcreatures/arena/scrapper/spirit_of_water.xml" />
+	<monster name="The Dark Dancer" file="specialcreatures/arena/scrapper/the_dark_dancer.xml" />
+	<monster name="The Hag" file="specialcreatures/arena/scrapper/the_hag.xml" />
 
 	<!-- Warlord -->
-	<monster name="Darakan the Executioner" file="specialcreatures//arena/warlord/darakan_the_executioner.xml" />
-	<monster name="Deathbringer" file="specialcreatures//arena/warlord/deathbringer.xml" />
-	<monster name="Fallen Mooh'tah Master Ghar" file="specialcreatures//arena/warlord/fallen_mooh'tah_master_ghar.xml" />
-	<monster name="Gnorre Chyllson" file="specialcreatures//arena/warlord/gnorre_chyllson.xml" />
-	<monster name="Norgle Glacierbeard" file="specialcreatures//arena/warlord/norgle_glacierbeard.xml" />
-	<monster name="Svoren the Mad" file="specialcreatures//arena/warlord/svoren_the_mad.xml" />
-	<monster name="The Masked Marauder" file="specialcreatures//arena/warlord/the_masked_marauder.xml" />
-	<monster name="The Obliverator" file="specialcreatures//arena/warlord/the_obliverator.xml" />
-	<monster name="The Pit Lord" file="specialcreatures//arena/warlord/the_pit_lord.xml" />
-	<monster name="Webster" file="specialcreatures//arena/warlord/webster.xml" />
+	<monster name="Darakan the Executioner" file="specialcreatures/arena/warlord/darakan_the_executioner.xml" />
+	<monster name="Deathbringer" file="specialcreatures/arena/warlord/deathbringer.xml" />
+	<monster name="Fallen Mooh'tah Master Ghar" file="specialcreatures/arena/warlord/fallen_mooh'tah_master_ghar.xml" />
+	<monster name="Gnorre Chyllson" file="specialcreatures/arena/warlord/gnorre_chyllson.xml" />
+	<monster name="Norgle Glacierbeard" file="specialcreatures/arena/warlord/norgle_glacierbeard.xml" />
+	<monster name="Svoren the Mad" file="specialcreatures/arena/warlord/svoren_the_mad.xml" />
+	<monster name="The Masked Marauder" file="specialcreatures/arena/warlord/the_masked_marauder.xml" />
+	<monster name="The Obliverator" file="specialcreatures/arena/warlord/the_obliverator.xml" />
+	<monster name="The Pit Lord" file="specialcreatures/arena/warlord/the_pit_lord.xml" />
+	<monster name="Webster" file="specialcreatures/arena/warlord/webster.xml" />
 
 	<!-- Barbarians -->
 	<monster name="Barbarian Bloodwalker" file="humans/barbarians/barbarian_bloodwalker.xml" />
@@ -890,16 +903,16 @@
 	
 	<!-- Misc -->
 	<!-- Misc Mammals -->
-	<monster name="Badger" file="misc/misc mammals/badger.xml" />
-	<monster name="Bat" file="misc/misc mammals/bat.xml" />
-	<monster name="Ghoulish Hyaena" file="misc/misc mammals/ghoulish_hyaena.xml" />
-	<monster name="Hyaena" file="misc/misc mammals/hyaena.xml" />
-	<monster name="Skunk" file="misc/misc mammals/skunk.xml" />
-	<monster name="Water Buffalo" file="misc/misc mammals/water_buffalo.xml" />
+	<monster name="Badger" file="misc/Misc Mammals/badger.xml" />
+	<monster name="Bat" file="misc/Misc Mammals/bat.xml" />
+	<monster name="Ghoulish Hyaena" file="misc/Misc Mammals/ghoulish_hyaena.xml" />
+	<monster name="Hyaena" file="misc/Misc Mammals/hyaena.xml" />
+	<monster name="Skunk" file="misc/Misc Mammals/skunk.xml" />
+	<monster name="Water Buffalo" file="misc/Misc Mammals/water_buffalo.xml" />
 
 	<!-- Misc Mounts -->
-	<monster name="Donkey" file="misc/misc mounts/donkey.xml" />
-	<monster name="Modified Gnarlhound" file="misc/misc mounts/modified_gnarlhound.xml" />
+	<monster name="Donkey" file="misc/Misc Mounts/donkey.xml" />
+	<monster name="Modified Gnarlhound" file="misc/Misc Mounts/modified_gnarlhound.xml" />
 
 	<!-- Misc Reptiles -->
 	<monster name="Crocodile" file="misc/misc reptiles/crocodile.xml" />
