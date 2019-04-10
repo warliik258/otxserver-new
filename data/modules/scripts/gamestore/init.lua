@@ -310,7 +310,7 @@ function parseBuyStoreOffer(playerId, msg)
 			end
 			if(isKegItem(offer.thingId)) and player:getFreeCapacity() < ItemType(offer.thingId):getWeight(1) then
 				return addPlayerEvent(sendStoreError, 250, playerId, GameStore.StoreErrors.STORE_ERROR_NETWORK, "Please make sure you have free capacity to hold this item.")
-			elseif player:getFreeCapacity() < ItemType(offer.thingId):getWeight(offer.count) then
+			elseif not isKegItem(offer.thingId) and player:getFreeCapacity() < ItemType(offer.thingId):getWeight(offer.count) then
 				return addPlayerEvent(sendStoreError, 250, playerId, GameStore.StoreErrors.STORE_ERROR_NETWORK, "Please make sure you have free capacity to hold this item.")
 			end
 			local inbox = player:getSlotItem(CONST_SLOT_STORE_INBOX)
