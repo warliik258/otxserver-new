@@ -21,11 +21,11 @@
 		<vocation name="Elder Druid"/>
 	</instant>
 	<!-- under construction -->
-	<conjure group="support" spellid="176" name="Conjure Diamond Arrow" words="exevo gran con hur" lvl="150" mana="1000" soul="0" prem="1" conjureId="29056" conjureCount="100" exhaustion="600000" groupcooldown="2000" needlearn="0" function="conjureItem">
+	<conjure group="support" spellid="176" name="Conjure Diamond Arrow" words="exevo gran con hur" lvl="150" mana="1000" soul="0" prem="1" conjureId="29057" conjureCount="100" exhaustion="600000" groupcooldown="2000" needlearn="0" function="conjureItem">
 		<vocation name="Paladin" />
 		<vocation name="Royal Paladin" />
 	</conjure>
-	<conjure group="support" spellid="192" name="Conjure Spectral Bolt" words="exevo gran con vis" lvl="150" mana="1000" soul="0" prem="1" conjureId="29057" conjureCount="100" exhaustion="600000" groupcooldown="2000" needlearn="0" function="conjureItem">
+	<conjure group="support" spellid="192" name="Conjure Spectral Bolt" words="exevo gran con vis" lvl="150" mana="1000" soul="0" prem="1" conjureId="29058" conjureCount="100" exhaustion="600000" groupcooldown="2000" needlearn="0" function="conjureItem">
 		<vocation name="Paladin" />
 		<vocation name="Royal Paladin" />
 	</conjure>
