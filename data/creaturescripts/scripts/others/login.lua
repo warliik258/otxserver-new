@@ -61,7 +61,7 @@ local events = {
 	'petthink',
 	'UpperSpikeKill',
 	'MiddleSpikeKill',
-	'LowerSpikeKill'
+	'LowerSpikeKill',
   'LadyTenebrisKilled',
   'LloydKilled',
   'ThornKnightKilled',
