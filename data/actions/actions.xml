@@ -967,6 +967,7 @@
 	<action itemid="20254" script="other/constructionkits.lua" />
 	<action itemid="20255" script="other/constructionkits.lua" />
 	<action itemid="20257" script="other/constructionkits.lua" />
+	<action itemid="26054" script="other/store_constructionkits.lua" />
 
 	
 	<action fromid="7904" toid="7907" script="other/bed_modification_kits.lua" />

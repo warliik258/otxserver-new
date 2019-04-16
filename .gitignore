@@ -1,2 +1,10 @@
 /build
 /.vscode
+#clion ide files
+.idea/
+#clion build files
+/cmake-build-debug
+#map
+/data/world/realmap.otbm
+#binary
+tfs

@@ -185,6 +185,7 @@ function Player:onLook(thing, position, distance)
 		if thing:isCreature() then
 			if thing:isPlayer() then
 				description = string.format("%s\nIP: %s.", description, Game.convertIpToString(thing:getIp()))
+				description = string.format("%s\nLooktype: %s.", description,  thing:getOutfit().lookType)
 			end
 		end
 	end
@@ -413,7 +414,7 @@ function Player:onMoveItem(item, count, fromPosition, toPosition, fromCylinder, 
 
 	-- No move parcel very heavy
 	if item:getWeight() > 90000 and item:getId() == ITEM_PARCEL then
-		self:sendCancelMessage('YOU CANNOT MOVE PARCELS TOO HEAVY.')
+		self:sendCancelMessage("You can't move this parcel. It's too heavy.")
 		return false
 	end
 

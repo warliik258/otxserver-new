@@ -26,6 +26,8 @@
 	<talkaction words="/addgm" separator=" " script="add_gm.lua" />
 	<talkaction words="/attr" separator=" " script="attributes.lua" />
 	<talkaction words="/emptyhouses" script="emptyhouses.lua" />
+	<talkaction words="/rmc" separator=" " script="remove_creature_by_id.lua"/>
+	<talkaction words="/rmcn" separator=" " script="remove_creature_by_name.lua"/>
 
 	<!-- Gamemasters -->
 	<talkaction words="/ban" separator=" " script="ban.lua" />
