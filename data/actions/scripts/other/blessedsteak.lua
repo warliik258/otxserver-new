@@ -5,3 +5,4 @@ function onUse(player, item, fromPosition, target, toPosition, isHotkey)
 	item:remove(1)
 	return true
 end
+
