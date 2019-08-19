@@ -1,30 +1,22 @@
 local teleportPosition = Position(33075, 31878, 12)
 
-local function transformTeleport()
-	local teleportItem = Tile(teleportPosition):getItemById(1387)
+local function transformTeleport(open)
+	local id = (open and 18462 or 1387)
+	local teleportItem = Tile(teleportPosition):getItemById(id)
 	if not teleportItem then
 		return
 	end
 
-	teleportItem:transform(18463)
-end
-
-local function clearArena()
-	local spectators = Game.getSpectators(Position(33088, 31911, 12), false, false, 12, 12, 12, 12)
-	local exitPosition = Position(32993, 31912, 12)
-	for i = 1, #spectators do
-		local spectator = spectators[i]
-		if spectator:isPlayer() then
-			spectator:teleportTo(exitPosition)
-			exitPosition:sendMagicEffect(CONST_ME_TELEPORT)
-			spectator:sendTextMessage(MESSAGE_EVENT_ADVANCE, 'You were teleported out by the gnomish emergency device.')
-		else
-			spectator:remove()
-		end
+	teleportPosition:sendMagicEffect(CONST_ME_POFF)
+	if open then
+		teleportItem:transform(18463) -- can pass and summon versperoth
+	else
+		teleportItem:transform(18462) -- cannot summon versperoth
 	end
 end
 
 function onKill(creature, target)
+	local config = warzoneConfig.findByName("Abyssador")
 	local targetMonster = target:getMonster()
 	if not targetMonster then
 		return true
@@ -37,13 +29,18 @@ function onKill(creature, target)
 	Game.setStorageValue(GlobalStorage.Versperoth.Battle, 2)
 	addEvent(Game.setStorageValue, 30 * 60 * 1000, GlobalStorage.Versperoth.Battle, 0)
 
-	local holeItem = Tile(teleportPosition):getItemById(18462)
-	if holeItem then
-		holeItem:transform(1387)
+	blood = Tile(teleportPosition):getItemById(2016)
+		if blood then
+			blood:remove()
+		end
+	local tp = Game.createItem(1387, 1, teleportPosition)
+	if tp then
+		tp:setActionId(45702)
 	end
-	--Game.createMonster('abyssador', Position(33086, 31907, 12))
 
-	addEvent(transformTeleport, 30 * 60 * 1000)
-	addEvent(clearArena, 32 * 60 * 1000)
+	addEvent(transformTeleport, 1 * 60 * 1000, false)
+	addEvent(transformTeleport, 30 * 60 * 1000, true)
+	addEvent(warzoneConfig.spawnBoss, 1 * 80 * 1000, config.boss, config.bossResp)
+	addEvent(warzoneConfig.resetRoom, 30 * 60 * 1000, config, "You were teleported out by the gnomish emergency device.", true)
 	return true
 end

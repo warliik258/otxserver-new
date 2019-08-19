@@ -1,22 +1,23 @@
 local destination = {
 	[4121] = {position = Position(32801, 31766, 9), storageValue = 1, needCrystal = true},
-	[3220] = {position = Position(32627, 31863, 11), storageValue = 1, needCrystal = true},
-	[3128] = {position = Position(33000, 31870, 13), storageValue = 14},
-	[3129] = {position = Position(32795, 31762, 10), storageValue = 14},
-	[3130] = {position = Position(32864, 31844, 11), storageValue = 15},
-	[3131] = {position = Position(32803, 31746, 10), storageValue = 15},
-	[3132] = {position = Position(32986, 31862, 9), storageValue = 1}, -- Gnomebase Alpha
-	[3133] = {position = Position(32796, 31781, 10), storageValue = 1}, -- City
-	[3134] = {position = Position(32959, 31953, 9), storageValue = 16}, -- Golems
-	[3135] = {position = Position(33001, 31915, 9), storageValue = 16}, -- Gnomebase Alpha
-	[3136] = {position = Position(32904, 31894, 13), storageValue = 16},
-	[3137] = {position = Position(32979, 31907, 9), storageValue = 16},
-	[35669] = {position = Position(32986, 31864, 9), storageValue = 1}, -- leave warzone 3
-	[3215] = {position = Position(32369, 32241, 7), storageValue = 1, needCrystal = true},
-	[3216] = {position = Position(32212, 31133, 7), storageValue = 1, needCrystal = true},
-	[3217] = {position = Position(32317, 32825, 7), storageValue = 1, needCrystal = true},
-	[3218] = {position = Position(33213, 32454, 1), storageValue = 1, needCrystal = true},
-	[3219] = {position = Position(33217, 31814, 8), storageValue = 1, needCrystal = true}
+	[3220] = {position = Position(32627, 31864, 11), storageValue = 1, needCrystal = true},
+	[3128] = {position = Position(33000, 31870, 13), storageValue = 1},
+	[3129] = {position = Position(32795, 31762, 10), storageValue = 1},
+	[3130] = {position = Position(32864, 31844, 11), storageValue = 1},
+	[3131] = {position = Position(32803, 31746, 10), storageValue = 1},
+	[3132] = {position = Position(32988, 31862, 9), storageValue = 27}, -- Gnomebase Alpha
+	[3133] = {position = Position(32798, 31783, 10), storageValue = 27}, -- City
+	[3134] = {position = Position(32959, 31953, 9), storageValue = 27}, -- Golems
+	[3135] = {position = Position(33001, 31915, 9), storageValue = 27}, -- back from golems
+	[3136] = {position = Position(32904, 31894, 13), storageValue = 27}, -- vulcongras
+	[3137] = {position = Position(32979, 31907, 9), storageValue = 27}, -- back from vulcongras
+	[3215] = {position = Position(32329, 32172, 9), storageValue = 1, needCrystal = true},
+	[3216] = {position = Position(32195, 31182, 8), storageValue = 1, needCrystal = true},
+	[3217] = {position = Position(32402, 32816, 6), storageValue = 1, needCrystal = true},
+	[3218] = {position = Position(33153, 31833, 10), storageValue = 1, needCrystal = true},
+	[3219] = {position = Position(33186, 32385, 8), storageValue = 1, needCrystal = true},
+	[3222] = {position = Position(32771, 31800, 10), storageValue = 11, needCrystal = false},
+	[3221] = {position = Position(32790, 31795, 10), storageValue = 11, needCrystal = false}
 }
 
 function onStepIn(creature, item, position, fromPosition)
@@ -30,32 +31,28 @@ function onStepIn(creature, item, position, fromPosition)
 		return
 	end
 
-	if player:getStorageValue(Storage.BigfootBurden.QuestLine) < 1 then -- add by luanluciano
-		player:setStorageValue(Storage.BigfootBurden.QuestLine, 1) -- add by luanluciano
-	end -- add by luanluciano
-
-
-	if player:getStorageValue(Storage.BigfootBurden.QuestLine) >= teleportCrystal.storageValue then
-		if not teleportCrystal.needCrystal or player:removeItem(18457, 1) then
-			player:getPosition():sendMagicEffect(CONST_ME_TELEPORT)
-			player:teleportTo(teleportCrystal.position)
-			player:getPosition():sendMagicEffect(CONST_ME_TELEPORT)
-		else
-			player:getPosition():sendMagicEffect(CONST_ME_POFF)
-			player:sendTextMessage(MESSAGE_STATUS_SMALL, 'You need at least one Teleport Crystal!')
-		end
-		return true
+	if player:getStorageValue(Storage.BigfootBurden.QuestLine) < 1 then
+		fromPosition:sendMagicEffect(CONST_ME_POFF)
+		player:teleportTo(fromPosition)
+		player:sendTextMessage(MESSAGE_EVENT_ADVANCE, 'You have no idea on how to use this device. Xelvar in Kazordoon might tell you more about it.')
+		return false
 	end
 
-	-- There is no destination with storageValue == 2, should this check for storage?
-	if teleportCrystal.storageValue == 2 then
+	if player:getStorageValue(Storage.BigfootBurden.QuestLine) < teleportCrystal.storageValue then
+		position:sendMagicEffect(CONST_ME_TELEPORT)
+		player:teleportTo(fromPosition)
+		player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "Your rank among the Gnomes is too low.")
+		return false
+	end
+
+	if not teleportCrystal.needCrystal or player:removeItem(18457, 1) then
 		player:getPosition():sendMagicEffect(CONST_ME_TELEPORT)
-			player:teleportTo(teleportCrystal.position)
-			player:getPosition():sendMagicEffect(CONST_ME_TELEPORT)
+		player:teleportTo(teleportCrystal.position)
+		player:getPosition():sendMagicEffect(CONST_ME_TELEPORT)
 	else
-		player:getPosition():sendMagicEffect(CONST_ME_TELEPORT)
-			player:teleportTo(teleportCrystal.position)
-			player:getPosition():sendMagicEffect(CONST_ME_TELEPORT)
+		fromPosition:sendMagicEffect(CONST_ME_POFF)
+		player:teleportTo(fromPosition)
+		player:sendTextMessage(MESSAGE_EVENT_ADVANCE, 'You need a teleport crystal in order to use this device.')
 	end
 	return true
 end

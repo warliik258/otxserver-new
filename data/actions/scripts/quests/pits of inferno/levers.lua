@@ -11,7 +11,10 @@ local stonePositions = {
 
 local function createStones()
 	for i = 1, #stonePositions do
-		Game.createItem(1304, 1, stonePositions[i])
+		local stone = Tile(stonePositions[i]):getItemById(1304)
+		if not stone then
+			Game.createItem(1304, 1, stonePositions[i])
+		end
 	end
 
 	Game.setStorageValue(GlobalStorage.PitsOfInfernoLevers, 0)

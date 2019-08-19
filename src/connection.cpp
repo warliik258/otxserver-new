@@ -1,6 +1,6 @@
 /**
  * The Forgotten Server - a free and open-source MMORPG server emulator
- * Copyright (C) 2017  Mark Samman <mark.samman@gmail.com>
+ * Copyright (C) 2019 Mark Samman <mark.samman@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -205,7 +205,8 @@ void Connection::parseHeader(const boost::system::error_code& error)
 	if (timePassed > 2) {
 		timeConnected = time(nullptr);
 		packetsSent = 0;
-	}
+    checksumsMap.clear();
+  }
 
 	uint16_t size = msg.getLengthHeader();
 	if (size == 0 || size >= NETWORKMESSAGE_MAXSIZE - 16) {
@@ -252,7 +253,7 @@ void Connection::parsePacket(const boost::system::error_code& error)
 
 		if (!protocol) {
 			// As of 11.11+ update, we need to check if it's a outdated client or a status client server with this ugly check
-			if(msg.getLength() < 280) {
+			if (msg.getLength() < 280) {
 				msg.skipBytes(-NetworkMessage::CHECKSUM_LENGTH); //those 32bits read up there
 			}
 
@@ -268,8 +269,14 @@ void Connection::parsePacket(const boost::system::error_code& error)
 
 		protocol->onRecvFirstMessage(msg);
 	} else {
-		protocol->onRecvMessage(msg); // Send the packet to the current protocol
-	}
+    if (detectAttack(recvPacket)) {
+      std::cout << "[Network protection] - attack detected. IP: [" << convertIPToString(getIP()) << "] - disconnected" << std::endl;
+      close(FORCE_CLOSE);
+    }
+    else {
+      protocol->onRecvMessage(msg); // Send the packet to the current protocol
+    }
+  }
 
 	try {
 		readTimer.expires_from_now(boost::posix_time::seconds(CONNECTION_READ_TIMEOUT));
@@ -284,6 +291,21 @@ void Connection::parsePacket(const boost::system::error_code& error)
 		std::cout << "[Network error - Connection::parsePacket] " << e.what() << std::endl;
 		close(FORCE_CLOSE);
 	}
+}
+
+bool Connection::detectAttack(const uint32_t currentPacketChecksum) {
+  const auto it = checksumsMap.find(currentPacketChecksum);
+  if (it == checksumsMap.end()) { //element doesn't exists
+    checksumsMap.insert(std::make_pair(currentPacketChecksum, 1));
+  }
+  else {
+    it->second += 1; //increase ocurrencies
+    if (it->second > (uint32_t)g_config.getNumber(ConfigManager::NETWORK_ATTACK_THRESHOLD)) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 void Connection::send(const OutputMessage_ptr& msg)
@@ -302,10 +324,6 @@ void Connection::send(const OutputMessage_ptr& msg)
 
 void Connection::internalSend(const OutputMessage_ptr& msg)
 {
-	if (msg->isBroadcastMsg()) {
-		dispatchBroadcastMessage(msg);
-	}
-
 	protocol->onSendMessage(msg);
 	try {
 		writeTimer.expires_from_now(boost::posix_time::seconds(CONNECTION_WRITE_TIMEOUT));
@@ -333,29 +351,6 @@ uint32_t Connection::getIP()
 	}
 
 	return htonl(endpoint.address().to_v4().to_ulong());
-}
-
-void Connection::dispatchBroadcastMessage(const OutputMessage_ptr& msg)
-{
-	auto msgCopy = OutputMessagePool::getOutputMessage();
-	msgCopy->append(msg);
-	socket.get_io_service().dispatch(std::bind(&Connection::broadcastMessage, shared_from_this(), msgCopy));
-}
-
-void Connection::broadcastMessage(OutputMessage_ptr msg)
-{
-	std::lock_guard<std::recursive_mutex> lockClass(connectionLock);
-	const auto client = std::dynamic_pointer_cast<ProtocolGame>(protocol);
-	if (client) {
-		std::lock_guard<decltype(client->liveCastLock)> lockGuard(client->liveCastLock);
-
-		const auto& spectators = client->getLiveCastSpectators();
-		for (const ProtocolSpectator_ptr& spectator : spectators) {
-			auto newMsg = OutputMessagePool::getOutputMessage();
-			newMsg->append(msg);
-			spectator->send(std::move(newMsg));
-		}
-	}
 }
 
 void Connection::onWriteOperation(const boost::system::error_code& error)

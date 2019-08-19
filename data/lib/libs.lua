@@ -11,7 +11,6 @@ dofile('data/lib/rewardboss.lua')
 
 dofile('data/lib/modalwindow.lua')
 
-dofile('data/lib/citywars.lua')
-
 dofile('data/lib/lionrock.lua')
 
+dofile('data/lib/dailyRewardLib.lua')

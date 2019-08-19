@@ -9,6 +9,10 @@ function onThink()				npcHandler:onThink()					end
 
 local function getTable(player)
 	local itemsList = {
+		{name="exercise sword", id=32384, buy=262500},
+		{name="exercise axe", id=32385, buy=262500},
+		{name="exercise club", id=32386, buy=262500},
+		{name="exercise bow", id=32387, buy=262500},
 		{name="axe", id=2386, buy=20, sell=7},
 		{name="battle axe", id=2378, buy=235, sell=80},
 		{name="battle hammer", id=2417, buy=350, sell=120},
@@ -57,66 +61,66 @@ local function getTable(player)
 		{name="wooden shield", id=2512, buy=15, sell=3},
 		{name="two handed sword", id=2377, sell=450},
 		{name="bone shoulderplate", id=11321, sell=150},
-			{name="broken draken mail", id=12616, sell=340},
-			{name="broken halberd", id=11335, sell=100},
-			{name="Broken Slicer", id=12617, sell=120},
-			{name="cursed shoulder spikes", id=11327, sell=320},
-			{name="drachaku", id=11308, sell=10000},
-			{name="draken boots", id=12646, sell=40000},
-			{name="draken wristbands", id=12615, sell=430},
-			{name="drakinata", id=11305, sell=10000},
-			{name="Elite Draken Mail", id=12607, sell=50000},
-			{name="guardian boots", id=11240, sell=35000},
-			{name="high guard's shoulderplates", id=11333, sell=130},
-			{name="sais", id=11306, sell=16500},
-			{name="spiked iron ball", id=11325, sell=100},
-			{name="twiceslicer", id=12613, sell=28000},
-			{name="twin hooks", id=11309, buy=1100, sell=500},
-			{name="wailing widow's necklace", id=11329, sell=3000},
-			{name="warmaster's wristguards", id=11322, sell=200},
-			{name="zaoan armor", id=11301, sell=14000},
-			{name="zaoan halberd", id=11323, buy=1200, sell=500},
-			{name="zaoan helmet", id=11302, sell=45000},
-			{name="zaoan legs", id=11304, sell=14000},
-			{name="zaoan shoes", id=11303, sell=5000},
-			{name="zaoan sword", id=11307, sell=30000},
-			{name="zaogun's shoulderplates", id=11331, sell=150}
-	}
+		{name="broken draken mail", id=12616, sell=340},
+		{name="broken halberd", id=11335, sell=100},
+		{name="Broken Slicer", id=12617, sell=120},
+		{name="cursed shoulder spikes", id=11327, sell=320},
+		{name="drachaku", id=11308, sell=10000},
+		{name="draken boots", id=12646, sell=40000},
+		{name="draken wristbands", id=12615, sell=430},
+		{name="drakinata", id=11305, sell=10000},
+		{name="Elite Draken Mail", id=12607, sell=50000},
+		{name="guardian boots", id=11240, sell=35000},
+		{name="high guard's shoulderplates", id=11333, sell=130},
+		{name="sais", id=11306, sell=16500},
+		{name="spiked iron ball", id=11325, sell=100},
+		{name="twiceslicer", id=12613, sell=28000},
+		{name="twin hooks", id=11309, buy=1100, sell=500},
+		{name="wailing widow's necklace", id=11329, sell=3000},
+		{name="warmaster's wristguards", id=11322, sell=200},
+		{name="zaoan armor", id=11301, sell=14000},
+		{name="zaoan halberd", id=11323, buy=1200, sell=500},
+		{name="zaoan helmet", id=11302, sell=45000},
+		{name="zaoan legs", id=11304, sell=14000},
+		{name="zaoan shoes", id=11303, sell=5000},
+		{name="zaoan sword", id=11307, sell=30000},
+		{name="zaogun's shoulderplates", id=11331, sell=150}
+}
 
 	local tomes = {
 		{
 			-- 3 tomes
-			{name="lizard weapon rack kit", id=11126, buy=500}
+		{name="lizard weapon rack kit", id=11126, buy=500}
 		},
 		{
 			-- 9 tomes
-			{name="bone shoulderplate", id=11321, sell=150},
-			{name="broken draken mail", id=12616, sell=340},
-			{name="broken halberd", id=11335, sell=100},
-			{name="Broken Slicer", id=12617, sell=120},
-			{name="cursed shoulder spikes", id=11327, sell=320},
-			{name="drachaku", id=11308, sell=10000},
-			{name="draken boots", id=12646, sell=40000},
-			{name="draken wristbands", id=12615, sell=430},
-			{name="drakinata", id=11305, sell=10000},
-			{name="Elite Draken Mail", id=12607, sell=50000},
-			{name="guardian boots", id=11240, sell=35000},
-			{name="high guard's shoulderplates", id=11333, sell=130},
-			{name="sais", id=11306, sell=16500},
-			{name="spiked iron ball", id=11325, sell=100},
-			{name="twiceslicer", id=12613, sell=28000},
-			{name="twin hooks", id=11309, buy=1100, sell=500},
-			{name="wailing widow's necklace", id=11329, sell=3000},
-			{name="warmaster's wristguards", id=11322, sell=200},
-			{name="zaoan armor", id=11301, sell=14000},
-			{name="zaoan halberd", id=11323, buy=1200, sell=500},
-			{name="zaoan helmet", id=11302, sell=45000},
-			{name="zaoan legs", id=11304, sell=14000},
-			{name="zaoan shoes", id=11303, sell=5000},
-			{name="zaoan sword", id=11307, sell=30000},
-			{name="zaogun's shoulderplates", id=11331, sell=150}
+		{name="bone shoulderplate", id=11321, sell=150},
+		{name="broken draken mail", id=12616, sell=340},
+		{name="broken halberd", id=11335, sell=100},
+		{name="Broken Slicer", id=12617, sell=120},
+		{name="cursed shoulder spikes", id=11327, sell=320},
+		{name="drachaku", id=11308, sell=10000},
+		{name="draken boots", id=12646, sell=40000},
+		{name="draken wristbands", id=12615, sell=430},
+		{name="drakinata", id=11305, sell=10000},
+		{name="Elite Draken Mail", id=12607, sell=50000},
+		{name="guardian boots", id=11240, sell=35000},
+		{name="high guard's shoulderplates", id=11333, sell=130},
+		{name="sais", id=11306, sell=16500},
+		{name="spiked iron ball", id=11325, sell=100},
+		{name="twiceslicer", id=12613, sell=28000},
+		{name="twin hooks", id=11309, buy=1100, sell=500},
+		{name="wailing widow's necklace", id=11329, sell=3000},
+		{name="warmaster's wristguards", id=11322, sell=200},
+		{name="zaoan armor", id=11301, sell=14000},
+		{name="zaoan halberd", id=11323, buy=1200, sell=500},
+		{name="zaoan helmet", id=11302, sell=45000},
+		{name="zaoan legs", id=11304, sell=14000},
+		{name="zaoan shoes", id=11303, sell=5000},
+		{name="zaoan sword", id=11307, sell=30000},
+		{name="zaogun's shoulderplates", id=11331, sell=150}
 		}
-	}
+}
 
 	if player:getStorageValue(Storage.TheNewFrontier.TomeofKnowledge) >= 3 then
 		-- 3 tomes
@@ -144,6 +148,32 @@ local function setNewTradeTable(table)
 	return items
 end
 
+local function onBuy(cid, item, subType, amount, ignoreCap, inBackpacks)
+	local player = Player(cid)
+	local items = setNewTradeTable(getTable(player))
+	if not ignoreCap and player:getFreeCapacity() < ItemType(items[item].itemId):getWeight(amount) then
+		return player:sendTextMessage(MESSAGE_INFO_DESCR, 'You don\'t have enough cap.')
+	end
+	if not doPlayerRemoveMoney(cid, items[item].buyPrice * amount) then
+		selfSay("You don't have enough money.", cid)
+	else
+		player:addItem(items[item].itemId, amount)
+		return player:sendTextMessage(MESSAGE_INFO_DESCR, 'Bought '..amount..'x '..items[item].realName..' for '..items[item].buyPrice * amount..' gold coins.')
+	end
+	return true
+end
+
+local function onSell(cid, item, subType, amount, ignoreCap, inBackpacks)
+	local player = Player(cid)
+	local items = setNewTradeTable(getTable(player))
+	if items[item].sellPrice and player:removeItem(items[item].itemId, amount) then
+		player:addMoney(items[item].sellPrice * amount)
+		return player:sendTextMessage(MESSAGE_INFO_DESCR, 'Sold '..amount..'x '..items[item].realName..' for '..items[item].sellPrice * amount..' gold coins.')
+	else
+		selfSay("You don't have item to sell.", cid)
+	end
+	return true
+end
 
 local function creatureSayCallback(cid, type, msg)
 	if not npcHandler:isFocused(cid) then
@@ -153,46 +183,6 @@ local function creatureSayCallback(cid, type, msg)
 	if msgcontains(msg, "trade") then
 		local player = Player(cid)
 		local items = setNewTradeTable(getTable(player))
-
-		local function onBuy(cid, item, subType, amount, ignoreCap, inBackpacks)
-			if (ignoreCap == false and (player:getFreeCapacity() < ItemType(items[item].itemId):getWeight(amount) or inBackpacks and player:getFreeCapacity() < (ItemType(items[item].itemId):getWeight(amount) + ItemType(1988):getWeight()))) then
-				return player:sendTextMessage(MESSAGE_STATUS_SMALL, 'You don\'t have enough cap.')
-			end
-			if items[item].buyPrice <= player:getMoney() + player:getBankBalance() then
-				if inBackpacks then
-					local container = Game.createItem(1988, 1)
-					local bp = player:addItemEx(container)
-					if(bp ~= 1) then
-						return player:sendTextMessage(MESSAGE_STATUS_SMALL, 'You don\'t have enough container.')
-					end
-					for i = 1, amount do
-						container:addItem(items[item].itemId, items[item])
-					end
-				else
-					return
-					player:addItem(items[item].itemId, amount, false, items[item]) and
-					player:removeMoneyNpc(amount * items[item].buyPrice) and
-					player:sendTextMessage(MESSAGE_INFO_DESCR, 'You bought '..amount..'x '..items[item].realName..' for '..items[item].buyPrice * amount..' gold coins.')
-				end
-				player:sendTextMessage(MESSAGE_INFO_DESCR, 'You bought '..amount..'x '..items[item].realName..' for '..items[item].buyPrice * amount..' gold coins.')
-				player:removeMoneyNpc(amount * items[item].buyPrice)
-			else
-				player:sendTextMessage(MESSAGE_STATUS_SMALL, 'You do not have enough money.')
-			end
-			return true
-		end
-
-		local function onSell(cid, item, subType, amount, ignoreEquipped)
-			if items[item].sellPrice then
-				return
-				player:removeItem(items[item].itemId, amount, -1, ignoreEquipped) and
-				player:addMoney(items[item].sellPrice * amount) and
-
-				player:sendTextMessage(MESSAGE_INFO_DESCR, 'You sold '..amount..'x '..items[item].realName..' for '..items[item].sellPrice * amount..' gold coins.')
-			end
-			return true
-		end
-
 		openShopWindow(cid, getTable(player), onBuy, onSell)
 		npcHandler:say("Of course, just browse through my wares.", cid)
 	end

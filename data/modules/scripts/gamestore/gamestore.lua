@@ -53,12 +53,12 @@ GameStore.Categories = { {
                 id = 32050,
                 type = GameStore.OfferTypes.OFFER_TYPE_HOUSE,
               } },
-   rookgaard = true,
-   state = GameStore.States.STATE_NONE,
- }, {
-   icons = { "Category_PremiumTime.png" },
-   name = "Premium Time",
-   offers = { {
+				rookgaard = true,
+				state = GameStore.States.STATE_NONE,
+			}, {
+				icons = { "Category_PremiumTime.png" },
+				name = "Premium Time",
+	offers = { {
                 description = "Premium Account for 30 days.",
                 icons = { "Product_PremiumTime30.png" },
                 name = "30 Days of Premium Time",
@@ -95,13 +95,13 @@ GameStore.Categories = { {
                 type = GameStore.OfferTypes.OFFER_TYPE_PREMIUM,
                 validUntil = 30
               } },
-   rookgaard = true,
-   state = GameStore.States.STATE_SALVE,
- }, {
-   description = "Buy an Extra Service to transfer a character to anothergame world or to change your character's name or sex.",
-   icons = { "Category_ExtraServices.png" },
-   name = "Extra Services",
-   offers = { {
+				rookgaard = true,
+				state = GameStore.States.STATE_SALE,
+			}, {
+				description = "Buy an Extra Service to transfer a character to anothergame world or to change your character's name or sex.",
+				icons = { "Category_ExtraServices.png" },
+				name = "Extra Services",
+	offers = { {
                 description = "You must be in a protection zone to change your name. After entering your new name, you will be disconnected from the server. You must logout completely and login again using your account details in order to refresh your character list.",
                 icons = { "namechanger.png" },
                 name = "Character Name Change",
@@ -2591,8 +2591,13 @@ GameStore.Categories = { {
                 price = 25,
                 id = 65537,
                 type = GameStore.OfferTypes.OFFER_TYPE_TEMPLE,
-              },
-              {
+              }, {
+				count=30,
+				icons = {"instantrewardaccess_30.png"},
+				name = "30x Instant Reward Access",
+				price=100,
+				type= GameStore.OfferTypes.OFFER_TYPE_INSTANT_REWARD_ACCESS,
+			  }, {
                 name = "Gold Pouch",
                 id = 26377,
                 count = 1,

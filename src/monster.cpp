@@ -1,6 +1,6 @@
 /**
  * The Forgotten Server - a free and open-source MMORPG server emulator
- * Copyright (C) 2017  Mark Samman <mark.samman@gmail.com>
+ * Copyright (C) 2019 Mark Samman <mark.samman@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,9 +23,11 @@
 #include "configmanager.h"
 #include "game.h"
 #include "spells.h"
+#include "events.h"
 
 extern Game g_game;
 extern Monsters g_monsters;
+extern Events* g_events;
 extern ConfigManager g_config;
 
 int32_t Monster::despawnRange;
@@ -723,6 +725,10 @@ void Monster::onThink(uint32_t interval)
 		}
 	}
 
+	if (!mType->canSpawn(position)) {
+		g_game.removeCreature(this);
+	}
+
 	if (!isInSpawnRange(position)) {
 		g_game.internalTeleport(this, masterPos);
 		setIdle(true);
@@ -780,6 +786,10 @@ void Monster::doAttacking(uint32_t interval)
 	for (const spellBlock_t& spellBlock : mType->info.attackSpells) {
 		bool inRange = false;
 
+		if (attackedCreature == nullptr) {
+			break;
+		}
+
 		if (canUseSpell(myPos, targetPos, spellBlock, interval, inRange, resetTicks)) {
 			if (spellBlock.chance >= static_cast<uint32_t>(uniform_random(1, 100))) {
 				if (updateLook) {
@@ -788,10 +798,11 @@ void Monster::doAttacking(uint32_t interval)
 				}
 
 				float multiplier;
-				if(maxCombatValue > 0) //defense
+				if (maxCombatValue > 0) { //defense
 					multiplier = g_config.getFloat(ConfigManager::RATE_MONSTER_DEFENSE);
-				else //attack
+				} else { //attack
 					multiplier = g_config.getFloat(ConfigManager::RATE_MONSTER_ATTACK);
+				}
 
 				minCombatValue = spellBlock.minCombatValue * multiplier;
 				maxCombatValue = spellBlock.maxCombatValue * multiplier;
@@ -873,6 +884,14 @@ void Monster::onThinkTarget(uint32_t interval)
 		if (mType->info.changeTargetSpeed != 0) {
 			bool canChangeTarget = true;
 
+			if (targetExetaCooldown > 0) {
+				targetExetaCooldown -= interval;
+
+				if (targetExetaCooldown <= 0) {
+					targetExetaCooldown = 0;
+				}
+			}
+
 			if (targetChangeCooldown > 0) {
 				targetChangeCooldown -= interval;
 
@@ -890,6 +909,10 @@ void Monster::onThinkTarget(uint32_t interval)
 				if (targetChangeTicks >= mType->info.changeTargetSpeed) {
 					targetChangeTicks = 0;
 					targetChangeCooldown = mType->info.changeTargetSpeed;
+
+					if (targetExetaCooldown > 0) {
+						targetExetaCooldown = 0;
+					}
 
 					if (mType->info.changeTargetChance >= uniform_random(1, 100)) {
 						if (mType->info.targetDistance <= 1) {
@@ -1119,13 +1142,13 @@ bool Monster::getNextStep(Direction& direction, uint32_t& flags)
 
 	bool result = false;
 	if ((!followCreature || !hasFollowPath) && (!isSummon() || !isMasterInRange)) {
-		if (getWalkDelay() <= 0) {
-			randomSteping = true;
+		if (getTimeSinceLastMove() >= 1000) {
+			randomStepping = true;
 			//choose a random direction
 			result = getRandomStep(getPosition(), direction);
 		}
 	} else if ((isSummon() && isMasterInRange) || followCreature) {
-		randomSteping = false;
+		randomStepping = false;
 		result = Creature::getNextStep(direction, flags);
 		if (result) {
 			flags |= FLAG_PATHFINDING;
@@ -1842,10 +1865,11 @@ bool Monster::getCombatValues(int32_t& min, int32_t& max)
 	}
 
 	float multiplier;
-	if(maxCombatValue > 0) //defense
+	if (maxCombatValue > 0) { //defense
 		multiplier = g_config.getFloat(ConfigManager::RATE_MONSTER_DEFENSE);
-	else //attack
+	} else { //attack
 		multiplier = g_config.getFloat(ConfigManager::RATE_MONSTER_ATTACK);
+	}
 
 	min = minCombatValue * multiplier;
 	max = maxCombatValue * multiplier;
@@ -1914,7 +1938,7 @@ void Monster::updateLookDirection()
 void Monster::dropLoot(Container* corpse, Creature*)
 {
 	if (corpse && lootDrop) {
-		mType->createLoot(corpse);
+		g_events->eventMonsterOnDropLoot(this, corpse);
 	}
 }
 
@@ -1926,6 +1950,11 @@ void Monster::setNormalCreatureLight()
 void Monster::drainHealth(Creature* attacker, int32_t damage)
 {
 	Creature::drainHealth(attacker, damage);
+	if (damage > 0 && randomStepping) {
+		ignoreFieldDamage = true;
+		updateMapCache();
+	}
+
 	if (isInvisible()) {
 		removeCondition(CONDITION_INVISIBLE);
 	}
@@ -1947,6 +1976,7 @@ bool Monster::challengeCreature(Creature* creature)
 	bool result = selectTarget(creature);
 	if (result) {
 		targetChangeCooldown = 8000;
+		targetExetaCooldown = targetChangeCooldown;
 		targetChangeTicks = 0;
 	}
 	return result;

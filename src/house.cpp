@@ -1,6 +1,6 @@
 /**
  * The Forgotten Server - a free and open-source MMORPG server emulator
- * Copyright (C) 2017  Mark Samman <mark.samman@gmail.com>
+ * Copyright (C) 2019 Mark Samman <mark.samman@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -241,8 +241,7 @@ bool House::transferToDepot(Player* player) const
 				}
 				else if (item->isPickupable()) {
 					moveItemList.push_back(item);
-				}
-				else {
+				} else {
 					Container* container = item->getContainer();
 					if (container) {
 						for (Item* containerItem : container->getItemList()) {
@@ -480,7 +479,7 @@ void AccessList::addGuild(const std::string& name)
 	const Guild* guild = getGuildByName(name);
 	if (guild) {
 		for (const auto& rank : guild->getRanks()) {
-			guildRankList.insert(rank.id);
+			guildRankList.insert(rank->id);
 		}
 	}
 }
@@ -489,7 +488,7 @@ void AccessList::addGuildRank(const std::string& name, const std::string& guildN
 {
 	const Guild* guild = getGuildByName(guildName);
 	if (guild) {
-		const GuildRank* rank = guild->getRankByName(name);
+		const GuildRank_ptr rank = guild->getRankByName(name);
 		if (rank) {
 			guildRankList.insert(rank->id);
 		}
@@ -547,7 +546,7 @@ bool AccessList::isInList(const Player* player)
 		return true;
 	}
 
-	const GuildRank* rank = player->getGuildRank();
+	GuildRank_ptr rank = player->getGuildRank();
 	return rank && guildRankList.find(rank->id) != guildRankList.end();
 }
 

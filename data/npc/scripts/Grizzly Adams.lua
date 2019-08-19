@@ -43,7 +43,7 @@ local grizzlyAdamsConfig = {
 			{id=13026, buy=0, sell=750, name='panther head'},
 			{id=13027, buy=0, sell=300, name='panther paw'},
 			{id=12447, buy=0, sell=500, name='quara bone'},
-			{id=12444, buy=0, sell=350, name='quara eye'},
+			{id=12447, buy=0, sell=350, name='quara eye'},
 			{id=12446, buy=0, sell=410, name='quara pincers'},
 			{id=12443, buy=0, sell=140, name='quara tentacle'},
 			{id=13159, buy=0, sell=50, name='rabbit\'s foot'},
@@ -124,8 +124,9 @@ local function onBuy(cid, item, subType, amount, ignoreCap, inBackpacks)
 	if not ignoreCap and player:getFreeCapacity() < ItemType(items[item].id):getWeight(amount) then
 		return player:sendTextMessage(MESSAGE_INFO_DESCR, 'You don\'t have enough cap.')
 	end
-	if items[item].buy then
-		player:removeMoneyNpc(amount * items[item].buy)
+	if not doPlayerRemoveMoney(cid, items[item].buy * amount) then
+		selfSay("You don't have enough money.", cid)
+	else
 		player:addItem(items[item].id, amount)
 		return player:sendTextMessage(MESSAGE_INFO_DESCR, 'Bought '..amount..'x '..items[item].name..' for '..items[item].buy * amount..' gold coins.')
 	end
@@ -134,10 +135,12 @@ end
 
 local function onSell(cid, item, subType, amount, ignoreCap, inBackpacks)
 	local player = Player(cid)
-	if items[item].sell then
-		player:addMoney(items[item].sell * amount)
-		player:removeItem(items[item].id, amount)
-		return player:sendTextMessage(MESSAGE_INFO_DESCR, 'Sold '..amount..'x '..items[item].name..' for '..items[item].sell * amount..' gold coins.')
+	local items = setNewTradeTable(getTable(player))
+	if items[item].sellPrice and player:removeItem(items[item].itemId, amount) then
+		player:addMoney(items[item].sellPrice * amount)
+		return player:sendTextMessage(MESSAGE_INFO_DESCR, 'Sold '..amount..'x '..items[item].realName..' for '..items[item].sellPrice * amount..' gold coins.')
+	else
+		selfSay("You don't have item to sell.", cid)
 	end
 	return true
 end
@@ -150,7 +153,7 @@ local function creatureSayCallback(cid, type, msg)
 	if msgcontains('trade', msg) then
 		local tradeItems = {}
 		if player:getPawAndFurRank() >= 2 then
-			tradeItems = table.copy(grizzlyAdamsConfig.ranks.huntsMan_rank)
+			tradeItems = grizzlyAdamsConfig.ranks.huntsMan_rank
 			if player:getPawAndFurRank() == 4 then
 				tradeItems = joinTables(tradeItems, grizzlyAdamsConfig.ranks.bigGameHunter_rank)
 			elseif player:getPawAndFurRank() == 5 or player:getPawAndFurRank() == 6 then
@@ -404,9 +407,9 @@ local function creatureSayCallback(cid, type, msg)
 				player:setStorageValue(Storage.KillingInTheNameOf.MissionDemodras, 1) -- Won't give this task again.
 			end
 
-			if (player:getStorageValue(Storage.KillingInTheNameOf.MissionDemodras) == 1 and 
+			if (player:getStorageValue(Storage.KillingInTheNameOf.MissionDemodras) == 1 and
 				player:getStorageValue(Storage.KillingInTheNameOf.DemodrasTeleport) == 0 and
-				player:getStorageValue(Storage.KillingInTheNameOf.MissionTiquandasRevenge) == 1 and 
+				player:getStorageValue(Storage.KillingInTheNameOf.MissionTiquandasRevenge) == 1 and
 				player:getStorageValue(Storage.KillingInTheNameOf.TiquandasRevengeTeleport) == 0) then
 				npcHandler:say('You have already finished all special tasks.', cid)
 			end

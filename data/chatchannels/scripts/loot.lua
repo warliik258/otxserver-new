@@ -1,3 +1,7 @@
-function onSpeak(player, type, message)
-    return false
+function canJoin()
+	return true
+end
+
+function onSpeak()
+	return false
 end

@@ -23,8 +23,8 @@ local function creatureSayCallback(cid, type, msg)
 			npcHandler:say('So you brought a cookie to a pirate?', cid)
 			npcHandler.topic[cid] = 1
 		end
-	elseif msgcontains(msg, 'addon') then
-		npcHandler:say('To get pirate hat you need give me brutus bloodbeard\'s hat, lethal lissy\'s shirt, ron the ripper\'s sabre and deadeye devious\' eye patch. Do you have them with you?', cid)
+	elseif msgcontains(msg, 'addon') and player:getStorageValue(Storage.OutfitQuest.PirateBaseOutfit) == 1 then
+		npcHandler:say('To get pirate hat you need give me Brutus Bloodbeard\'s Hat, Lethal Lissy\'s Shirt, Ron the Ripper\'s Sabre and Deadeye Devious\' Eye Patch. Do you have them with you?', cid)
 		npcHandler.topic[cid] = 2
 	elseif msgcontains(msg, 'yes') then
 		if npcHandler.topic[cid] == 1 then

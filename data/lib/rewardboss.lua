@@ -9,8 +9,8 @@ function Monster.setReward(self, enable)
 			return false
 		end
 		globalBosses[self:getId()] = {}
-		self:registerEvent("BossDeath")    
-		self:registerEvent("BossThink")    
+		self:registerEvent("BossDeath")
+		self:registerEvent("BossThink")
 	else
 		globalBosses[self:getId()] = nil
 		self:unregisterEvent("BossDeath")
@@ -46,7 +46,7 @@ function Item.getNameDescription(self)
 		end
 	else
 		pushValues(buffer, ' ', 'an item of type', self:getId())
-	end 
+	end
 
 	return table.concat(buffer)
 end
@@ -118,11 +118,15 @@ end
 function MonsterType.getBossReward(self, lootFactor, topScore)
 	local result = {}
 	if getConfigInfo("rateLoot") > 0 then
-		for _, lootBlock in pairs(self:getLoot()) do
-			if lootBlock.unique and not topScore then
-				--continue
-			else
-				self:createLootItem(lootBlock, lootFactor, result)
+		local loot = self:getLoot() or {}
+		for i = #loot, 0, -1 do
+			local lootBlock = loot[i]
+			if lootBlock then
+				if lootBlock.unique and not topScore then
+					--continue
+				else
+					self:createLootItem(lootBlock, lootFactor, result)
+				end
 			end
 		end
 	end

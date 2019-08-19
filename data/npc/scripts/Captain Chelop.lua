@@ -6,13 +6,13 @@ function onCreatureAppear(cid)			npcHandler:onCreatureAppear(cid)			end
 function onCreatureDisappear(cid)		npcHandler:onCreatureDisappear(cid)			end
 function onCreatureSay(cid, type, msg)		npcHandler:onCreatureSay(cid, type, msg)		end
 function onThink()		npcHandler:onThink()		end
- 
+
 local voices = { {text = 'By direct edict of the honorable Henricus, we are ordered to give passage for all recruits to Thais.'} }
 npcHandler:addModule(VoiceModule:new(voices))
 
 -- Travel
 local travelKeyword = keywordHandler:addKeyword({'thais'}, StdModule.say, {npcHandler = npcHandler, text = 'Do you seek a passage to Thais for |TRAVELCOST|?', cost = 210, discount = 'postman'})
-	travelKeyword:addChildKeyword({'yes'}, StdModule.travel, {npcHandler = npcHandler, premium = true, cost = 210, discount = 'postman', destination = Position(32310, 32210, 6)})
+	travelKeyword:addChildKeyword({'yes'}, StdModule.travel, {npcHandler = npcHandler, premium = false, cost = 210, discount = 'postman', destination = Position(32310, 32210, 6)})
 	travelKeyword:addChildKeyword({'no'}, StdModule.say, {npcHandler = npcHandler, text = 'By direct edict of the honorable Henricus himself... well, you know.', reset = true})
 keywordHandler:addAliasKeyword({'town'})
 

@@ -40,6 +40,20 @@ local function creatureSayCallback(cid, type, msg)
 	end
 
 	local player = Player(cid)
+
+	-- To Appease the Mighty Quest
+	if msgcontains(msg, "mission") and player:getStorageValue(Storage.TibiaTales.ToAppeaseTheMightyQuest) == 1 then
+			npcHandler:say({
+				'I should go and tell Fa\'hradin. ...',
+				'I am impressed you know our address of welcome! I honour that. So tell me who sent you on a mission to our fortress?'}, cid)
+			npcHandler.topic[cid] = 9
+			elseif msgcontains(msg, "kazzan") and npcHandler.topic[cid] == 9 then
+			npcHandler:say({
+				'How dare you lie to me?!? The caliph should choose his envoys more carefully. We will not accept his peace-offering ...',
+				'...but we are always looking for support in our fight against the evil Efreets. Tell me if you would like to join our fight.'}, cid)
+			player:setStorageValue(Storage.TibiaTales.ToAppeaseTheMightyQuest, player:getStorageValue(Storage.TibiaTales.ToAppeaseTheMightyQuest) + 1)
+	end
+
 	if msgcontains(msg, 'passage') then
 		if player:getStorageValue(Storage.DjinnWar.Faction.Marid) ~= 1 then
 			npcHandler:say({

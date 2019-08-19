@@ -56,23 +56,28 @@ end
 
 local function onBuy(cid, item, subType, amount, ignoreCap, inBackpacks)
 	local player = Player(cid)
-	local items = setNewTradeTable(getTable())
-	local count = 0
-	for i = 1, amount do
-		local item = Game.createItem(items[item].itemId, subType)
-		if player:addItemEx(item, false) ~= RETURNVALUE_NOERROR then
-			npcHandler:say('First make sure you have enough space in your inventory.', cid)
-			break
-		end
-		count = i
+	local items = setNewTradeTable(getTable(player))
+	if not ignoreCap and player:getFreeCapacity() < ItemType(items[item].itemId):getWeight(amount) then
+		return player:sendTextMessage(MESSAGE_INFO_DESCR, 'You don\'t have enough cap.')
 	end
-
-	if count == 0 then
-		return true
+	if not doPlayerRemoveMoney(cid, items[item].buyPrice * amount) then
+		selfSay("You don't have enough money.", cid)
+	else
+		player:addItem(items[item].itemId, amount)
+		return player:sendTextMessage(MESSAGE_INFO_DESCR, 'Bought '..amount..'x '..items[item].realName..' for '..items[item].buyPrice * amount..' gold coins.')
 	end
+	return true
+end
 
-	player:removeMoneyNpc(items[item].buyPrice * count)
-	player:sendTextMessage(MESSAGE_INFO_DESCR, string.format('Bought %dx %s for %d gold.', count, items[item].realName, items[item].buyPrice * count))
+local function onSell(cid, item, subType, amount, ignoreCap, inBackpacks)
+	local player = Player(cid)
+	local items = setNewTradeTable(getTable(player))
+	if items[item].sellPrice and player:removeItem(items[item].itemId, amount) then
+		player:addMoney(items[item].sellPrice * amount)
+		return player:sendTextMessage(MESSAGE_INFO_DESCR, 'Sold '..amount..'x '..items[item].realName..' for '..items[item].sellPrice * amount..' gold coins.')
+	else
+		selfSay("You don't have item to sell.", cid)
+	end
 	return true
 end
 
@@ -108,7 +113,7 @@ local function creatureSayCallback(cid, type, msg)
 		t[cid] = msg
 	elseif msgcontains(msg, 'relations') then
 		local player = Player(cid)
-		if player:getStorageValue(Storage.BigfootBurden.QuestLine) >= 14 then
+		if player:getStorageValue(Storage.BigfootBurden.QuestLine) >= 25 then
 			npcHandler:say('Our relations improve with every mission you undertake on our behalf. Another way to improve your relations with us gnomes is to trade in minor crystal tokens. ...', cid)
 			npcHandler:say('Your renown amongst us gnomes is currently {' .. math.max(0, player:getStorageValue(Storage.BigfootBurden.Rank)) .. '}. Do you want to improve your standing by sacrificing tokens? One token will raise your renown by 5 points. ', cid)
 			npcHandler.topic[cid] = 2
@@ -158,6 +163,7 @@ local function creatureSayCallback(cid, type, msg)
 			local player = Player(cid)
 			if player:removeItem(18422, renown[cid]) then
 				player:setStorageValue(Storage.BigfootBurden.Rank, math.max(0, player:getStorageValue(Storage.BigfootBurden.Rank)) + renown[cid] * 5)
+				player:checkGnomeRank()
 				npcHandler:say('As you wish! Your new renown is {' .. player:getStorageValue(Storage.BigfootBurden.Rank) .. '}.', cid)
 			else
 				npcHandler:say('You don\'t have these many tokens.', cid)

@@ -10,22 +10,33 @@ end
 
 local function executeVersperothBattle(mid)
 	if Game.getStorageValue(GlobalStorage.Versperoth.Battle) ~= 1 then
-		return
+		return false
 	end
 
 	if mid then
 		local monster = Monster(mid)
 		if not monster then
-			return
+			return false
+		else
+
 		end
 
-		Game.setStorageValue(GlobalStorage.Versperoth.Health, monster:getMaxHealth() - monster:getHealth())
+		Game.setStorageValue(GlobalStorage.Versperoth.Health, monster:getHealth())
 		monster:remove()
+		local blood = Tile(versperothPosition):getItemById(2019)
+		if blood then
+			blood:remove()
+		end
+
+		local hole = Tile(versperothPosition):getItemById(18462)
+		if not hole then
+			Game.createItem(18462, 1, versperothPosition)
+		end
 		versperothPosition:sendMagicEffect(CONST_ME_POFF)
 
 		local position, minionMonster
-		for i = 1, math.random(8, 10) do
-			position = Position(math.random(33066, 33086), math.random(31870, 31887), 12)
+		for i = 1, 10 do
+			position = Position(math.random(33070, 33081), math.random(31874, 31883), 12)
 			minionMonster = Game.createMonster('Minion of Versperoth', position)
 			position:sendMagicEffect(CONST_ME_TELEPORT)
 			if minionMonster then
@@ -38,8 +49,12 @@ local function executeVersperothBattle(mid)
 
 	local monster = Game.createMonster('Versperoth', versperothPosition, false, true)
 	if monster then
+		local holee = Tile(versperothPosition):getItemById(18462)
+		if holee then
+			holee:remove()
+		end
 		versperothPosition:sendMagicEffect(CONST_ME_GROUNDSHAKER)
-		monster:addHealth(-Game.getStorageValue(GlobalStorage.Versperoth.Health))
+		monster:setHealth(Game.getStorageValue(GlobalStorage.Versperoth.Health))
 
 		addEvent(executeVersperothBattle, 20 * 1000, monster.uid)
 	end
@@ -52,14 +67,17 @@ function onStepIn(creature, item, position, fromPosition)
 		return true
 	end
 
-	if false and Game.getStorageValue(GlobalStorage.Versperoth.Battle) >= 1 then
+	if Game.getStorageValue(GlobalStorage.Versperoth.Battle) >= 1 then
+		player:say("Versperoth has already been defeated in the last 30 minutes.", TALKTYPE_MONSTER_SAY)
 		return true
 	end
 
+
 	player:teleportTo(Position(33072, 31877, 12))
 	Game.setStorageValue(GlobalStorage.Versperoth.Battle, 1)
-	Game.setStorageValue(GlobalStorage.Versperoth.Health, 0)
+	Game.setStorageValue(GlobalStorage.Versperoth.Health, 100000)
 	executeVersperothBattle()
-	item:transform(18462)
+
+	item:remove()
 	return true
 end

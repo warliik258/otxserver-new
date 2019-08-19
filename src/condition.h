@@ -1,6 +1,6 @@
 /**
  * The Forgotten Server - a free and open-source MMORPG server emulator
- * Copyright (C) 2017  Mark Samman <mark.samman@gmail.com>
+ * Copyright (C) 2019 Mark Samman <mark.samman@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -55,6 +55,8 @@ enum ConditionAttr_t {
 	CONDITIONATTR_PERIODDAMAGE,
 	CONDITIONATTR_ISBUFF,
 	CONDITIONATTR_SUBID,
+  CONDITIONATTR_STAMINAGAIN,
+  CONDITIONATTR_STAMINATICKS,
 
 	//reserved for serialization
 	CONDITIONATTR_END = 254,
@@ -413,6 +415,58 @@ class ConditionSpellGroupCooldown final : public ConditionGeneric
 		ConditionSpellGroupCooldown* clone() const final {
 			return new ConditionSpellGroupCooldown(*this);
 		}
+};
+
+class ConditionSoulBonus final : public ConditionGeneric
+{
+public:
+  ConditionSoulBonus(ConditionId_t id, ConditionType_t type, int32_t ticks, bool buff = false, uint32_t subId = 0) :
+    ConditionGeneric(id, type, ticks, buff, subId) {}
+
+  void addCondition(Creature* creature, const Condition* addCondition) final;
+  bool executeCondition(Creature* creature, int32_t interval) final;
+
+  bool setParam(ConditionParam_t param, int32_t value) final;
+
+  ConditionSoulBonus* clone() const final {
+    return new ConditionSoulBonus(*this);
+  }
+
+  //serialization
+  void serialize(PropWriteStream& propWriteStream) final;
+  bool unserializeProp(ConditionAttr_t attr, PropStream& propStream) final;
+
+protected:
+  uint32_t internalSoulTicks = 0;
+  uint32_t soulTicks = 0;
+  uint32_t soulGain = 0;
+};
+
+class ConditionStamina final : public ConditionGeneric {
+public:
+  ConditionStamina(ConditionId_t id, ConditionType_t type, int32_t ticks, bool buff = false, uint32_t subId = 0) :
+    ConditionGeneric(id, type, ticks, buff, subId) {}
+
+  void addCondition(Creature* creature, const Condition* addCondition) final;
+
+  bool executeCondition(Creature* creature, int32_t interval) final;
+
+  bool setParam(ConditionParam_t param, int32_t value) final;
+
+  ConditionStamina* clone() const final {
+    return new ConditionStamina(*this);
+  }
+
+  //serialization
+  void serialize(PropWriteStream& propWriteStream) final;
+
+  bool unserializeProp(ConditionAttr_t attr, PropStream& propStream) final;
+
+protected:
+  uint32_t getStaminaTicksStage(uint16_t currentStaminaMinutes);
+  uint32_t internalStaminaTicks = 0;
+  uint32_t staminaTicks = 0;
+  uint16_t staminaGain = 1;
 };
 
 #endif

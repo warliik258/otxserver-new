@@ -28,6 +28,15 @@ local function creatureSayCallback(cid, type, msg)
 			npcHandler.topic[cid] = 0
 			player:setStorageValue(Storage.TheShatteredIsles.APoemForTheMermaid, 1)
 		end
+	elseif msgcontains(msg, "pirate outfit") then
+		if player:getStorageValue(Storage.TheShatteredIsles.AccessToLagunaIsland) == 1 and player:getStorageValue(Storage.OutfitQuest.PirateBaseOutfit) < 1 then
+			npcHandler:say("Ah, right! The pirate outfit! Here you go, now you are truly one of us.", cid)
+			player:addOutfit(151)
+			player:addOutfit(155)
+			player:getPosition():sendMagicEffect(CONST_ME_MAGIC_GREEN)
+			player:setStorageValue(Storage.OutfitQuest.PirateBaseOutfit, 1)
+			npcHandler.topic[cid] = 0
+		end
 	end
 	return true
 end

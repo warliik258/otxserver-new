@@ -53,7 +53,7 @@ function onUse(player, item, fromPosition, target, toPosition, isHotkey)
 	elseif item.uid > 3147 and item.uid < 3151 then
 		local reward = rewards[item.uid]
 		if not reward then
-			return true
+			return false
 		end
 
 		if player:getStorageValue(reward.storage) ~= 1 then

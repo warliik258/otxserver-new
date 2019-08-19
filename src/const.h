@@ -1,6 +1,6 @@
 /**
  * The Forgotten Server - a free and open-source MMORPG server emulator
- * Copyright (C) 2017  Mark Samman <mark.samman@gmail.com>
+ * Copyright (C) 2019 Mark Samman <mark.samman@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -114,7 +114,32 @@ enum MagicEffectClasses : uint8_t {
 	// 174 is empty
 	CONST_ME_PLUNGING_FISH = 175,
 
-	CONST_ME_LAST = CONST_ME_PLUNGING_FISH,
+	CONST_ME_BLUE_ENERGY_SPARK = 176,
+	CONST_ME_ORANGE_ENERGY_SPARK = 177,
+	CONST_ME_GREEN_ENERGY_SPARK = 178,
+	CONST_ME_PINK_ENERGY_SPARK = 179,
+	CONST_ME_WHITE_ENERGY_SPARK = 180,
+	CONST_ME_YELLOW_ENERGY_SPARK = 181,
+	CONST_ME_MAGIC_POWDER = 182,
+	// 183 is empty
+	CONST_ME_PIXIE_EXPLOSION = 184,
+	CONST_ME_PIXIE_COMING = 185,
+	CONST_ME_PIXIE_GOING = 186,
+	// 187 is empty
+	CONST_ME_STORM = 188,
+	CONST_ME_STONE_STORM = 189,
+	// 190 is empty
+	CONST_ME_BLUE_GHOST = 191,
+	// 192 is empty
+	CONST_ME_PINK_VORTEX = 193,
+	CONST_ME_TREASURE_MAP = 194,
+	CONST_ME_PINK_BEAM = 195,
+	CONST_ME_GREEN_FIREWORKS = 196,
+	CONST_ME_ORANGE_FIREWORKS = 197,
+	CONST_ME_PINK_FIREWORKS = 198,
+	CONST_ME_BLUE_FIREWORKS = 199,
+
+	CONST_ME_LAST = CONST_ME_BLUE_FIREWORKS,
 };
 
 enum ShootType_t : uint8_t {
@@ -174,7 +199,12 @@ enum ShootType_t : uint8_t {
 	CONST_ANI_GLOOTHSPEAR = 53,
 	CONST_ANI_SIMPLEARROW = 54,
 
-	CONST_ANI_LAST = CONST_ANI_SIMPLEARROW,
+	CONST_ANI_LEAFSTAR = 56,
+	CONST_ANI_DIAMONDARROW = 57,
+	CONST_ANI_SPECTRALBOLT = 58,
+	CONST_ANI_ROYALSTAR = 59,
+
+	CONST_ANI_LAST = CONST_ANI_ROYALSTAR,
 
 	// for internal use, don't send to client
 	CONST_ANI_WEAPONTYPE = 0xFE, // 254
@@ -339,6 +369,7 @@ enum TextColor_t : uint8_t {
 	TEXTCOLOR_LIGHTGREY = 129,
 	TEXTCOLOR_SKYBLUE = 143,
 	TEXTCOLOR_PURPLE = 155,
+	TEXTCOLOR_ELECTRICPURPLE = 155,
 	TEXTCOLOR_RED = 180,
 	TEXTCOLOR_ORANGE = 198,
 	TEXTCOLOR_YELLOW = 210,
@@ -363,6 +394,8 @@ enum Icons_t {
 	ICON_REDSWORDS = 1 << 13,
 	ICON_PIGEON = 1 << 14,
 	ICON_BLEEDING = 1 << 15,
+  ICON_WITHIN_RESTING_AREA = 1 << 16 //client 11.40+
+
 };
 
 enum WeaponType_t : uint8_t {
@@ -395,6 +428,7 @@ enum WeaponAction_t : uint8_t {
 };
 
 enum WieldInfo_t {
+	WIELDINFO_NONE = 0 << 0,
 	WIELDINFO_LEVEL = 1 << 0,
 	WIELDINFO_MAGLV = 1 << 1,
 	WIELDINFO_VOCREQ = 1 << 2,
@@ -514,6 +548,9 @@ enum item_t : uint16_t {
 
 	ITEM_TIBIA_COIN = 24774,
 
+	ITEM_EXERCISE_START = 32384,
+	ITEM_EXERCISE_END = 32389,
+
 	/** Casks and Kegs **/
 	ITEM_HEALTH_CASK_START = 28555,
 	ITEM_HEALTH_CASK_END = 28559,
@@ -589,9 +626,11 @@ enum ReloadTypes_t : uint8_t  {
 	RELOAD_TYPE_NPCS,
 	RELOAD_TYPE_QUESTS,
 	RELOAD_TYPE_RAIDS,
+	RELOAD_TYPE_SCRIPTS,
 	RELOAD_TYPE_SPELLS,
 	RELOAD_TYPE_TALKACTIONS,
 	RELOAD_TYPE_WEAPONS,
+	RELOAD_TYPE_IMBUEMENTS,
 };
 
 enum NameEval_t : uint8_t {
@@ -603,14 +642,18 @@ enum NameEval_t : uint8_t {
 	INVALID_CHARACTER
 };
 
+enum DailyRewardStorages_t : uint32_t {
+  DAILYREWARDSTORAGE_NEXTREWARDPICK = 69799,
+  DAILYREWARDSTORAGE_LASTREWARDPICK = 69800,
+  DAILYREWARDSTORAGE_STREAKDAYS = 69801
+};
+
 static constexpr int32_t CHANNEL_GUILD = 0x00;
 static constexpr int32_t CHANNEL_PARTY = 0x01;
 static constexpr int32_t CHANNEL_PRIVATE = 0xFFFF;
 
-static constexpr int32_t CHANNEL_CAST = 40;
-const std::string LIVE_CAST_CHAT_NAME = "Live Cast Chat";
-
 static constexpr int32_t STORAGEVALUE_PROMOTION = 30018;
+static constexpr int32_t STORAGEVALUE_EMOTE = 30019;
 //Reserved player storage key ranges;
 //[10000000 - 20000000];
 static constexpr int32_t PSTRG_RESERVED_RANGE_START = 10000000;

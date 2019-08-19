@@ -1,6 +1,6 @@
 /**
  * The Forgotten Server - a free and open-source MMORPG server emulator
- * Copyright (C) 2017  Mark Samman <mark.samman@gmail.com>
+ * Copyright (C) 2019 Mark Samman <mark.samman@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -126,6 +126,9 @@ class Monster final : public Creature
 		uint32_t getManaCost() const {
 			return mType->info.manaCost;
 		}
+		uint32_t getRespawnType() const {
+			return mType->info.respawnType;
+		}
 		void setSpawn(Spawn* spawn) {
 			this->spawn = spawn;
 		}
@@ -168,15 +171,15 @@ class Monster final : public Creature
 
 		bool isTarget(const Creature* creature) const;
 		bool isFleeing() const {
-			return !isSummon() && getHealth() <= mType->info.runAwayHealth;
+			return !isSummon() && getHealth() <= mType->info.runAwayHealth && targetExetaCooldown <= 0;
 		}
 
 		bool getDistanceStep(const Position& targetPos, Direction& direction, bool flee = false);
 		bool isTargetNearby() const {
 			return stepDuration >= 1;
 		}
-		bool isRandomSteping() const {
-			return randomSteping;
+		bool israndomStepping() const {
+			return randomStepping;
 		}
 		void setIgnoreFieldDamage(bool ignore) {
 			ignoreFieldDamage = ignore;
@@ -209,6 +212,7 @@ class Monster final : public Creature
 		int32_t minCombatValue = 0;
 		int32_t maxCombatValue = 0;
 		int32_t targetChangeCooldown = 0;
+		int32_t targetExetaCooldown = 0;
 		int32_t stepDuration = 0;
 
 		Position masterPos;
@@ -216,7 +220,7 @@ class Monster final : public Creature
 		bool isIdle = true;
 		bool extraMeleeAttack = false;
 		bool isMasterInRange = false;
-		bool randomSteping = false;
+		bool randomStepping = false;
 		bool ignoreFieldDamage = false;
 
 		void onCreatureEnter(Creature* creature);
@@ -282,7 +286,7 @@ class Monster final : public Creature
 		}
 		void getPathSearchParams(const Creature* creature, FindPathParams& fpp) const final;
 		bool useCacheMap() const final {
-			return !randomSteping;
+			return !randomStepping;
 		}
 
 		friend class LuaScriptInterface;

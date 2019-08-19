@@ -1,6 +1,6 @@
 /**
  * The Forgotten Server - a free and open-source MMORPG server emulator
- * Copyright (C) 2017  Mark Samman <mark.samman@gmail.com>
+ * Copyright (C) 2019 Mark Samman <mark.samman@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -120,8 +120,6 @@ class Connection : public std::enable_shared_from_this<Connection>
 		friend class ServicePort;
 
 		NetworkMessage msg;
-		void broadcastMessage(OutputMessage_ptr msg);
-		void dispatchBroadcastMessage(const OutputMessage_ptr& msg);
 
 		boost::asio::deadline_timer readTimer;
 		boost::asio::deadline_timer writeTimer;
@@ -144,6 +142,10 @@ class Connection : public std::enable_shared_from_this<Connection>
 		uint32_t serverNameTime;
 		bool receivedName;
 		bool receivedLastChar;
+    std::unordered_map<uint32_t, uint32_t> checksumsMap;
+
+    bool detectAttack(const uint32_t currentPacketChecksum);
+
 };
 
 #endif

@@ -2,13 +2,13 @@ local holeId = {
 	294, 369, 370, 383, 392, 408, 409, 410, 427, 428, 430, 462, 469, 470, 482,
 	484, 485, 489, 924, 3135, 3136, 7933, 7938, 8170, 8286, 8285, 8284, 8281,
 	8280, 8279, 8277, 8276, 8567, 8585, 8596, 8595, 8249, 8250, 8251,
-	8252, 8253, 8254, 8255, 8256, 8592, 8972, 9606, 9625, 13190, 14461, 19519, 21536
+	8252, 8253, 8254, 8255, 8256, 8592, 8972, 9606, 9625, 13190, 14461, 19519, 21536, 26020
 }
 
-local holes = {468, 481, 483, 7932, 23712} 
+local holes = {468, 481, 483, 7932, 23712}
 
 local JUNGLE_GRASS = { 2782, 3985, 19433 }
-local WILD_GROWTH = { 1499, 11099, 2101, 1775, 1447, 1446} 
+local WILD_GROWTH = { 1499, 11099, 2101, 1775, 1447, 1446}
 
 local fruits = {2673, 2674, 2675, 2676, 2677, 2678, 2679, 2680, 2681, 2682, 2684, 2685, 5097, 8839, 8840, 8841}
 
@@ -85,29 +85,30 @@ local function revertCask(position)
 	end
 end
 
-local cutItems = {  
-    [3794] = 3959, [3795] = 3959, [3796] = 3958, [3797] = 3958, [3798] = 3958, [3799] = 3958, 
-    [1614] = 2251, [1615] = 2251, [1616] = 2251, [1619] = 2251, [1650] = 2253, [1651] = 2253, 
-    [1652] = 2253, [1653] = 2253, [1658] = 2252, [1659] = 2252, [1660] = 2252, [1661] = 2252, 
-    [1666] = 2252, [1667] = 2252, [1668] = 2252, [1669] = 2252, [1670] = 2252, [1671] = 2252, 
-    [1672] = 2252, [1673] = 2252, [1674] = 2253, [1676] = 2252, [1677] = 2253, [1714] = 2251, 
-    [1715] = 2251, [1716] = 2251, [1724] = 2252, [1725] = 2252, [1726] = 2252, [1727] = 2252, 
-    [1728] = 2254, [1729] = 2254, [1730] = 2254, [1731] = 2254, [1732] = 2254, [1733] = 2254, 
-    [1735] = 2254, [1775] = 2250, [2034] = 2252, [4996] = 2252, [2116] = 2254, [2116] = 2254, 
-    [2117] = 2254, [2118] = 2254, [2119] = 2254, [6123] = 2254, [2080] = 2254, [2081] = 2254, 
-    [2082] = 2254, [2083] = 2254, [2084] = 2254, [2085] = 2254, [2093] = 2250, [2094] = 2250, 
-    [2095] = 2250, [2098] = 2250, [2099] = 2250, [2101] = 2250, [2106] = 2250, [2105] = 2250, 
-    [2562] = 2257, [2581] = 2258, [2582] = 2258, [2582] = 2258, [2583] = 2258, [3805] = 6267, 
-    [3806] = 6267, [3807] = 2252, [3808] = 2252, [3809] = 2252, [3810] = 2252, [3811] = 2255, 
-    [3812] = 6267, [3813] = 2252, [3814] = 2252, [3815] = 2252, [3816] = 2252, [3817] = 2252, 
-    [3818] = 2252, [3819] = 2252, [3820] = 2252, [3821] = 2255, [3832] = 2255, [3833] = 2255, 
-    [3834] = 2255, [3835] = 2255, [6356] = 2257, [6357] = 2257, [6358] = 2257, [6359] = 2257, 
-    [6360] = 2257, [6361] = 2257, [6363] = 2257, [6368] = 2250, [6369] = 2250, [6370] = 2250, 
-    [6371] = 2250, [1738] = 2250, [1739] = 2251, [1740] = 2250, [1741] = 2255, [1747] = 2250, 
-    [1748] = 2250, [1749] = 1750, [1750] = 2254, [1751] = 2254, [1752] = 2254, [1753] = 2254, 
-    [1770] = 2251, [1774] = 2250, [6085] = 2254, [7481] = 2251, [7482] = 2251, [7483] = 2251, 
-    [7484] = 2250, [7706] = 2251, [7707] = 2251, [1738] = 2250, [1739] = 2251, [6109] = 2254, 
-    [6110] = 2254, [6111] = 2254, [6112] = 2254, [7538] = 7544, [7539] = 7545, [7585] = 7586
+local cutItems = {
+    [3794] = 3959, [3795] = 3959, [3796] = 3958, [3797] = 3958, [3798] = 3958, [3799] = 3958,
+    [1614] = 2251, [1615] = 2251, [1616] = 2251, [1619] = 2251, [1650] = 2253, [1651] = 2253,
+    [1652] = 2253, [1653] = 2253, [1658] = 2252, [1659] = 2252, [1660] = 2252, [1661] = 2252,
+    [1666] = 2252, [1667] = 2252, [1668] = 2252, [1669] = 2252, [1670] = 2252, [1671] = 2252,
+    [1672] = 2252, [1673] = 2252, [1674] = 2253, [1676] = 2252, [1677] = 2253, [1714] = 2251,
+    [1715] = 2251, [1716] = 2251, [1724] = 2252, [1725] = 2252, [1726] = 2252, [1727] = 2252,
+    [1728] = 2254, [1729] = 2254, [1730] = 2254, [1731] = 2254, [1732] = 2254, [1733] = 2254,
+    [1735] = 2254, [1775] = 2250, [2034] = 2252, [4996] = 2252, [2116] = 2254, [2116] = 2254,
+    [2117] = 2254, [2118] = 2254, [2119] = 2254, [6123] = 2254, [2080] = 2254, [2081] = 2254,
+    [2082] = 2254, [2083] = 2254, [2084] = 2254, [2085] = 2254, [2093] = 2250, [2094] = 2250,
+    [2095] = 2250, [2098] = 2250, [2099] = 2250, [2101] = 2250, [2106] = 2250, [2105] = 2250,
+    [2562] = 2257, [2581] = 2258, [2582] = 2258, [2582] = 2258, [2583] = 2258, [3805] = 6267,
+    [3806] = 6267, [3807] = 2252, [3808] = 2252, [3809] = 2252, [3810] = 2252, [3811] = 2255,
+    [3812] = 6267, [3813] = 2252, [3814] = 2252, [3815] = 2252, [3816] = 2252, [3817] = 2252,
+    [3818] = 2252, [3819] = 2252, [3820] = 2252, [3821] = 2255, [3832] = 2255, [3833] = 2255,
+    [3834] = 2255, [3835] = 2255, [6356] = 2257, [6357] = 2257, [6358] = 2257, [6359] = 2257,
+    [6360] = 2257, [6361] = 2257, [6363] = 2257, [6368] = 2250, [6369] = 2250, [6370] = 2250,
+    [6371] = 2250, [1738] = 2250, [1739] = 2251, [1740] = 2250, [1741] = 2255, [1747] = 2250,
+    [1748] = 2250, [1749] = 1750, [1750] = 2254, [1751] = 2254, [1752] = 2254, [1753] = 2254,
+    [1770] = 2251, [1774] = 2250, [6085] = 2254, [7481] = 2251, [7482] = 2251, [7483] = 2251,
+    [7484] = 2250, [7706] = 2251, [7707] = 2251, [1738] = 2250, [1739] = 2251, [6109] = 2254,
+    [6110] = 2254, [6111] = 2254, [6112] = 2254, [7538] = 7544, [7539] = 7545, [7585] = 7586,
+    [29087] = 0, [29088] = 0
 }
 
 local function containsId(table, id)
@@ -137,7 +138,9 @@ function onDestroyItem(player, item, fromPosition, target, toPosition, isHotkey)
 	local targetId = target.itemid
 	local destroyId = cutItems[targetId] or ItemType(targetId):getDestroyId()
 	if destroyId == 0 then
-		return false
+		if targetId ~= 29087 and targetId ~= 29088 then
+			return false
+		end
 	end
 
 	if math.random(7) == 1 then
@@ -165,7 +168,9 @@ function onDestroyItem(player, item, fromPosition, target, toPosition, isHotkey)
 				end
 			end
 		end
-
+		if targetId == 29087 or targetId == 29088 then -- energy barrier na threatned dreams quest (feyrist)
+			addEvent(Game.createItem, math.random(13000, 17000), targetId, 1, toPosition)
+		end
 		target:remove(1)
 	end
 
@@ -223,11 +228,11 @@ function onUseShovel(player, item, fromPosition, target, toPosition, isHotkey)
 		elseif rand == 1 then
 			Game.createItem(2159, 1, toPosition)
 		elseif rand > 95 then
-			Game.createMonster("Rat", toPosition)
+			Game.createMonster("Scarab", toPosition)
 		end
 		toPosition:sendMagicEffect(CONST_ME_POFF)
 
-	-- Wrath of the emperor quest
+		-- Wrath of the emperor quest
 	elseif targetId == 351 and targetActionId == 8024 then
 		player:addItem(12297, 1)
 		player:say("You dig out a handful of earth from this sacred place.", TALKTYPE_MONSTER_SAY)
@@ -306,7 +311,7 @@ function onUseShovel(player, item, fromPosition, target, toPosition, isHotkey)
 		toPosition:sendMagicEffect(CONST_ME_HITAREA)
 		addEvent(removeRemains, 60000, toPosition)
 
-	elseif targetId == 22674 then
+		elseif targetId == 22674 then
 		if not player:removeItem(5091, 1) then
 			return false
 		end
@@ -320,6 +325,7 @@ function onUseShovel(player, item, fromPosition, target, toPosition, isHotkey)
 
 	return true
 end
+
 
 function onUsePick(player, item, fromPosition, target, toPosition, isHotkey)
 	local stonePos = Position(32648, 32134, 10)
@@ -335,6 +341,29 @@ function onUsePick(player, item, fromPosition, target, toPosition, isHotkey)
 		end
 	end
 
+	--Curse Spreads
+	if target.itemid == 30723 then --gold
+		if player:getStorageValue(50728) == -1 then
+			player:setStorageValue(50728, 1)
+			player:addItem(30679, 1)
+			player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "You quary some gold nuggets.")
+			toPosition:sendMagicEffect(CONST_ME_POFF)
+		else
+			toPosition:sendMagicEffect(CONST_ME_POFF)
+		end
+		return true
+	elseif target.itemid == 30724 then --silver
+		if player:getStorageValue(50727) == -1 then
+			player:setStorageValue(50727, 1)
+			player:addItem(30680, 1)
+			player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "You quary some silver nuggets.")
+			toPosition:sendMagicEffect(CONST_ME_POFF)
+		else
+			toPosition:sendMagicEffect(CONST_ME_POFF)
+		end
+		return true
+	end
+
 	local targetId, targetActionId = target.itemid, target.actionid
 	if isInArray({354, 355}, targetId) and (target:hasAttribute(ITEM_ATTRIBUTE_UNIQUEID) or target:hasAttribute(ITEM_ATTRIBUTE_ACTIONID)) then
 		target:transform(392)
@@ -346,9 +375,9 @@ function onUsePick(player, item, fromPosition, target, toPosition, isHotkey)
 		toPosition:sendMagicEffect(CONST_ME_POFF)
 		player:addItem(23760, 1)
 		player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "You picked a beautiful lion's mane flower.")
-		
+
 	-- shiny stone refining
-		elseif target.itemid == 11227 then 
+		elseif target.itemid == 11227 then
 		local chance = math.random(1,100)
 
 		if chance == 1 then
@@ -367,37 +396,75 @@ function onUsePick(player, item, fromPosition, target, toPosition, isHotkey)
 		target:remove(1)
 		toPosition:sendMagicEffect(CONST_ME_POFF)
 		player:addItem(2152, 10)
-	
+
 		elseif targetId == 7200 then
 		target:transform(7236)
 		target:decay()
 		toPosition:sendMagicEffect(CONST_ME_HITAREA)
-		
+
 		elseif targetId == 468 then
 		target:transform(469)
 		target:decay()
 		toPosition:sendMagicEffect(CONST_ME_HITAREA)
-		
+
+		elseif targetId == 6299 then
+		target:transform(482)
+		target:decay()
+		toPosition:sendMagicEffect(CONST_ME_HITAREA)
+
 		elseif targetId == 23712 then
 		target:transform(23713)
 		target:decay()
 		toPosition:sendMagicEffect(CONST_ME_HITAREA)
-		
+
 		elseif targetId == 481 then
 		target:transform(482)
 		target:decay()
 		toPosition:sendMagicEffect(CONST_ME_HITAREA)
-		
+
 		elseif targetId == 483 then
 		target:transform(484)
 		target:decay()
 		toPosition:sendMagicEffect(CONST_ME_HITAREA)
-		
+
 		elseif targetId == 7932 then
 		target:transform(7933)
 		target:decay()
 		toPosition:sendMagicEffect(CONST_ME_HITAREA)
-		
+
+	--sea of light
+	elseif targetId == 8634 then
+		if target.actionid == 4224 then
+			if math.random(100) <= 30 then
+				if player:getStorageValue(Storage.SeaOfLightQuest.Questline) == 4 and player:getStorageValue(target.actionid) ~= 1 then
+					player:addItem(10614, 1)
+					player:setStorageValue(target.actionid, 1)
+					player:setStorageValue(Storage.SeaOfLightQuest.Questline, 5)
+					player:say("*crush*", TALKTYPE_MONSTER_SAY)
+				end
+			else
+				player:getPosition():sendMagicEffect(CONST_ME_POFF)
+			end
+	end
+
+	-- grimvale quest
+		elseif targetId == 24731 then
+		if player:getExhaustion(Storage.Grimvale.SilverVein) <= 0 then
+			local chance = math.random(1, 10)
+			if chance >= 5 then
+				player:sendTextMessage(MESSAGE_EVENT_ADVANCE, 'Even after a thorough and frustrating search you could not find enough liquified silver in this vein to fill a flask.')
+			elseif chance <= 4 then
+				player:sendTextMessage(MESSAGE_EVENT_ADVANCE, 'Carefully you gather some of the liquified silver from this vein in a small flask. You now feel strangely affected to the moon.')
+				player:addItem(24714)
+				target:transform(4475)
+				addEvent(revertItem, 10 * 60 * 1000, toPosition, 4475, 24731)
+			end
+			player:setExhaustion(Storage.Grimvale.SilverVein, 30)
+		else
+			player:sendTextMessage(MESSAGE_EVENT_ADVANCE, 'You are still exhausted from earlier attempts. Getting liquid silver out of the mountain needs concentration and a steady hand.')
+		end
+		return true
+
 	--The Ice Islands Quest, Nibelor 1: Breaking the Ice
 		elseif targetId == 3621 and targetActionId == 12026 then
 		local missionProgress, pickAmount = player:getStorageValue(Storage.TheIceIslands.Mission02), player:getStorageValue(Storage.TheIceIslands.PickAmount)
@@ -504,7 +571,12 @@ function onUsePick(player, item, fromPosition, target, toPosition, isHotkey)
 			portal:setActionId(50126)
 		end
 
-	-- Wrath of the emperor quest
+
+		-- The Asure
+        elseif targetActionId == 50091 then
+            player:teleportTo(Position(32960, 32676, 4))
+
+		-- Wrath of the emperor quest
 		elseif targetId == 12296 then
 		player:addItem(12295, 1)
 		player:say("The cracked part of the table lets you cut out a large chunk of wood with your pick.", TALKTYPE_MONSTER_SAY)
@@ -530,7 +602,7 @@ if (target ~= nil) and target:isItem() and (target:getId() == 22469) then
     	return true
     end
 end
-	
+
 function onUseMachete(player, item, fromPosition, target, toPosition, isHotkey)
 	local targetId = target.itemid
 	if isInArray(JUNGLE_GRASS, targetId) then
@@ -685,18 +757,24 @@ function onUseScythe(player, item, fromPosition, target, toPosition, isHotkey)
 	if not isInArray({2550, 10513}, item.itemid) then
 		return false
 	end
-	
-	if target.itemid == 5465 then
+
+	local targetId, targetActionId = target.itemid, target.actionid
+	if targetId == 5465 then
 		target:transform(5464)
 		target:decay()
 		Game.createItem(5467, 1, toPosition)
 		return true
 	end
-		
-	if target.itemid == 2739 then
+
+	if targetId == 2739 then
 		target:transform(2737)
 		target:decay()
 		Game.createItem(2694, 1, toPosition)
+		return true
+	end
+		-- Secret Library
+    if targetActionId == 64028 then
+        player:teleportTo(Position(32515, 32535, 12))
 		return true
 	end
 
@@ -719,9 +797,9 @@ function onUseKitchenKnife(player, item, fromPosition, target, toPosition, isHot
 				--player:setStorageValue(Storage.TheIceIslands.FrostbiteHerb, 1)
 				toPosition:sendMagicEffect(CONST_ME_MAGIC_BLUE)
 				player:say('You cut a Rabbits Foot from a rabbit.', TALKTYPE_MONSTER_SAY)
-			
+
 		end
-		
+
 	--The Ice Islands Quest
 	if targetId == 7261 then
 		if player:getStorageValue(Storage.TheIceIslands.Questline) >= 21 then

@@ -96,56 +96,45 @@ local function getTable(player)
 end
 
 local function setNewTradeTable(table)
-	local items = {}
-	for _, v in ipairs(table) do
-		items[v.id] = {itemId = v.id, buyPrice = v.buy, sellPrice = v.sell, subType = 0, realName = v.name}
+	local items, item = {}
+	for i = 1, #table do
+		item = table[i]
+		items[item.id] = {itemId = item.id, buyPrice = item.buy, sellPrice = item.sell, subType = 0, realName = item.name}
 	end
 	return items
+end
+
+local function onBuy(cid, item, subType, amount, ignoreCap, inBackpacks)
+	local player = Player(cid)
+	local items = setNewTradeTable(getTable(player))
+	if not ignoreCap and player:getFreeCapacity() < ItemType(items[item].itemId):getWeight(amount) then
+		return player:sendTextMessage(MESSAGE_INFO_DESCR, 'You don\'t have enough cap.')
+	end
+	if not doPlayerRemoveMoney(cid, items[item].buyPrice * amount) then
+		selfSay("You don't have enough money.", cid)
+	else
+		player:addItem(items[item].itemId, amount)
+		return player:sendTextMessage(MESSAGE_INFO_DESCR, 'Bought '..amount..'x '..items[item].realName..' for '..items[item].buyPrice * amount..' gold coins.')
+	end
+	return true
+end
+
+local function onSell(cid, item, subType, amount, ignoreCap, inBackpacks)
+	local player = Player(cid)
+	local items = setNewTradeTable(getTable(player))
+	if items[item].sellPrice and player:removeItem(items[item].itemId, amount) then
+		player:addMoney(items[item].sellPrice * amount)
+		return player:sendTextMessage(MESSAGE_INFO_DESCR, 'Sold '..amount..'x '..items[item].realName..' for '..items[item].sellPrice * amount..' gold coins.')
+	else
+		selfSay("You don't have item to sell.", cid)
+	end
+	return true
 end
 
 local function creatureSayCallback(cid, type, msg)
 	if msgcontains(msg, "trade") then
 		local player = Player(cid)
 		local items = setNewTradeTable(getTable(player))
-		local function onBuy(cid, item, subType, amount, ignoreCap, inBackpacks)
-			if (ignoreCap == false and (player:getFreeCapacity() < ItemType(items[item].itemId):getWeight(amount) or inBackpacks and player:getFreeCapacity() < (ItemType(items[item].itemId):getWeight(amount) + ItemType(1988):getWeight()))) then
-				return player:sendTextMessage(MESSAGE_STATUS_SMALL, 'You don\'t have enough cap.')
-			end
-			if items[item].buyPrice <= player:getMoney() + player:getBankBalance() then
-				if inBackpacks then
-					local container = Game.createItem(1988, 1)
-					local bp = player:addItemEx(container)
-					if(bp ~= 1) then
-						return player:sendTextMessage(MESSAGE_STATUS_SMALL, 'You don\'t have enough container.')
-					end
-					for i = 1, amount do
-						container:addItem(items[item].itemId, items[item])
-					end
-				else
-					return
-					player:addItem(items[item].itemId, amount, false, items[item]) and
-					player:removeMoneyNpc(amount * items[item].buyPrice) and
-					player:sendTextMessage(MESSAGE_INFO_DESCR, 'You bought '..amount..'x '..items[item].realName..' for '..items[item].buyPrice * amount..' gold coins.')
-				end
-				player:sendTextMessage(MESSAGE_INFO_DESCR, 'You bought '..amount..'x '..items[item].realName..' for '..items[item].buyPrice * amount..' gold coins.')
-				player:removeMoneyNpc(amount * items[item].buyPrice)
-			else
-				player:sendTextMessage(MESSAGE_STATUS_SMALL, 'You do not have enough money.')
-			end
-			return true
-			end
-
-		local function onSell(cid, item, subType, amount, ignoreEquipped)
-			if items[item].sellbuy then
-				return
-				player:removeItem(items[item].itemId, amount, -1, ignoreEquipped) and
-				player:addMoney(items[item].sellbuy * amount) and
-
-				player:sendTextMessage(MESSAGE_INFO_DESCR, 'You sold '..amount..'x '..items[item].realName..' for '..items[item].sellbuy * amount..' gold coins.')
-			end
-			return true
-		end
-
 		openShopWindow(cid, getTable(player), onBuy, onSell)
 		npcHandler:say("Keep in mind you won't find better offers here. Just browse through my wares.", cid)
 	end

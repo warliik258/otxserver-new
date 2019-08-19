@@ -1,6 +1,6 @@
 /**
  * The Forgotten Server - a free and open-source MMORPG server emulator
- * Copyright (C) 2017  Mark Samman <mark.samman@gmail.com>
+ * Copyright (C) 2019 Mark Samman <mark.samman@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@
 
 extern RSA g_RSA;
 
-void Protocol::onSendMessage(const OutputMessage_ptr& msg) const
+void Protocol::onSendMessage(const OutputMessage_ptr& msg)
 {
 	if (!rawMessages) {
 		msg->writeMessageLength();
@@ -33,9 +33,9 @@ void Protocol::onSendMessage(const OutputMessage_ptr& msg) const
 		if (encryptionEnabled) {
 			XTEA_encrypt(*msg);
 			if (!compactCrypt) {
-				msg->addCryptoHeader((checksumEnabled ? 1 : 0));
+				msg->addCryptoHeader((checksumEnabled ? 1 : 0), sequenceNumber);
 			} else {
-				msg->addCryptoHeader(2);
+				msg->addCryptoHeader(2, sequenceNumber);
 			}
 		}
 	}
@@ -53,12 +53,13 @@ void Protocol::onRecvMessage(NetworkMessage& msg)
 OutputMessage_ptr Protocol::getOutputBuffer(int32_t size)
 {
 	//dispatcher thread
-	if (outputBuffer && NetworkMessage::MAX_PROTOCOL_BODY_LENGTH >= outputBuffer->getLength() + size) {
-		return outputBuffer;
-	} else {
+	if (!outputBuffer) {
 		outputBuffer = OutputMessagePool::getOutputMessage();
-		return outputBuffer;
+	} else if ((outputBuffer->getLength() + size) > NetworkMessage::MAX_PROTOCOL_BODY_LENGTH) {
+		send(outputBuffer);
+		outputBuffer = OutputMessagePool::getOutputMessage();
 	}
+	return outputBuffer;
 }
 
 void Protocol::XTEA_encrypt(OutputMessage& msg) const
@@ -128,7 +129,7 @@ bool Protocol::XTEA_decrypt(NetworkMessage& msg) const
 		readPos += 4;
 	}
 
-	int innerLength = msg.get<uint16_t>();
+	NetworkMessage::MsgSize_t innerLength = msg.get<uint16_t>();
 	if (innerLength > msg.getLength() - 8) {
 		return false;
 	}

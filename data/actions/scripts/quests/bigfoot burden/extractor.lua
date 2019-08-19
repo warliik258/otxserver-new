@@ -1,11 +1,16 @@
 function onUse(player, item, fromPosition, target, toPosition, isHotkey)
-	if target.itemid ~= 18484 then
-		return false
-	end
-
 	local extractedCount = player:getStorageValue(Storage.BigfootBurden.ExtractedCount)
 	if extractedCount == 7
 			or player:getStorageValue(Storage.BigfootBurden.MissionRaidersOfTheLostSpark) ~= 1 then
+		return false
+	end
+
+	if target.itemid == 18487 then
+		player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "This body is not ready yet.")
+		return true
+	end
+
+	if target.itemid ~= 18484 then
 		return false
 	end
 

@@ -161,15 +161,15 @@ if Modules == nil then
 		local parseInfo = {[TAG_BLESSCOST] = getBlessingsCost(player:getLevel()), [TAG_PVPBLESSCOST] = getPvpBlessingCost(player:getLevel())}
 		if player:hasBlessing(parameters.bless) then
 			npcHandler:say("You already possess this blessing.", cid)
-		elseif parameters.bless == 3 and player:getStorageValue(Storage.KawillBlessing) ~= 1 then
+		elseif parameters.bless == 7 and player:getStorageValue(Storage.KawillBlessing) ~= 1 then
 			npcHandler:say("You need the blessing of the great geomancer first.", cid)
 		elseif parameters.bless == 1 and player:getBlessings() == 0 and not player:getItemById(2173, true) then
 			npcHandler:say("You don't have any of the other blessings nor an amulet of loss, so it wouldn't make sense to bestow this protection on you now. Remember that it can only protect you from the loss of those!", cid)
-		elseif not player:removeMoneyNpc(type(parameters.cost) == "string" and tonumber(npcHandler:parseMessage(parameters.cost, parseInfo)) or parameters.cost) then
+		elseif not player:removeMoneyNpc(type(parameters.cost) == "string" and npcHandler:parseMessage(parameters.cost, parseInfo) or parameters.cost) then
 			npcHandler:say("Oh. You do not have enough money.", cid)
 		else
 			npcHandler:say(parameters.text or "You have been blessed by one of the seven gods!", cid)
-			if parameters.bless == 3 then
+			if parameters.bless == 7 then
 				player:setStorageValue(Storage.KawillBlessing, 0)
 			end
 			player:addBlessing(parameters.bless, 1)
@@ -203,9 +203,9 @@ if Modules == nil then
 		else
 			cost = 0
 		end
-		
+
 		local exhausts
-		
+
 		if parameters.premium and not player:isPremium() then
 			npcHandler:say("I'm sorry, but you need a premium account in order to travel onboard our ships.", cid)
 		elseif parameters.level and player:getLevel() < parameters.level then
@@ -230,10 +230,10 @@ if Modules == nil then
 			player:teleportTo(destination)
 			destination:sendMagicEffect(CONST_ME_TELEPORT)
 
-			setPlayerStorageValue(cid, exhausts, 3 + os.time()) 
+			setPlayerStorageValue(cid, exhausts, 3 + os.time())
 			player:teleportTo(destination)
 			destination:sendMagicEffect(CONST_ME_TELEPORT)
-			
+
 			-- What a foolish Quest - Mission 3
 			if player:getStorageValue(Storage.WhatAFoolishQuest.PieBoxTimer) > os.time() then
 				if destination ~= Position(32660, 31957, 15) then -- kazordoon steamboat
@@ -1170,8 +1170,10 @@ if Modules == nil then
 		shop_npcuid[cid] = 0
 
 		local parentParameters = node:getParent():getParameters()
+
+        local player = Player(cid)
 		local parseInfo = {
-			[TAG_PLAYERNAME] = Player(cid):getName(),
+			[TAG_PLAYERNAME] = player:getName(),
 			[TAG_ITEMCOUNT] = shop_amount[cid],
 			[TAG_TOTALCOST] = shop_cost[cid] * shop_amount[cid],
 			[TAG_ITEMNAME] = shop_rlname[cid]
@@ -1190,7 +1192,7 @@ if Modules == nil then
 			end
 		elseif shop_eventtype[cid] == SHOPMODULE_BUY_ITEM then
 			local cost = shop_cost[cid] * shop_amount[cid]
-			if Player(cid):getMoney() + player:getBankBalance() < cost then
+			if player:getMoney() + player:getBankBalance() < cost then
 				local msg = module.npcHandler:getMessage(MESSAGE_MISSINGMONEY)
 				msg = module.npcHandler:parseMessage(msg, parseInfo)
 				module.npcHandler:say(msg, cid)
@@ -1208,7 +1210,7 @@ if Modules == nil then
 				msg = module.npcHandler:parseMessage(msg, parseInfo)
 				module.npcHandler:say(msg, cid)
 				if a > 0 then
-					Player(cid):removeMoneyNpc(a * shop_cost[cid])
+					player:removeMoneyNpc(a * shop_cost[cid])
 					if shop_itemid[cid] == ITEM_PARCEL then
 						doNpcSellItem(cid, ITEM_LABEL, shop_amount[cid], shop_subtype[cid], true, false, 1988)
 					end
@@ -1219,7 +1221,7 @@ if Modules == nil then
 				local msg = module.npcHandler:getMessage(MESSAGE_ONBUY)
 				msg = module.npcHandler:parseMessage(msg, parseInfo)
 				module.npcHandler:say(msg, cid)
-				Player(cid):removeMoneyNpc(cost)
+				player:removeMoneyNpc(cost)
 				if shop_itemid[cid] == ITEM_PARCEL then
 					doNpcSellItem(cid, ITEM_LABEL, shop_amount[cid], shop_subtype[cid], true, false, 1988)
 				end

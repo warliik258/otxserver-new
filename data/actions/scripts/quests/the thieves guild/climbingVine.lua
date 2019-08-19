@@ -8,8 +8,12 @@ function onUse(player, item, fromPosition, target, toPosition, isHotkey)
 	if not targetPosition then
 		return true
 	end
-
-	player:teleportTo(targetPosition)
+	if player:isPzLocked() then
+		player:sendTextMessage(MESSAGE_STATUS_SMALL, "You can not enter a protection zone after attacking another player.")
+        player:getPosition():sendMagicEffect(CONST_ME_POFF)
+		return true
+	end
+		player:teleportTo(targetPosition)
 
 	return true
 end

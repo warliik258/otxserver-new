@@ -8,7 +8,7 @@ local config = {
 function onUse(player, item, fromPosition, target, toPosition, isHotkey)
 	local spores = config[item.itemid]
 	if not spores then
-		return true
+		return false
 	end
 
 	local sporeCount = player:getStorageValue(Storage.BigfootBurden.SporeCount)

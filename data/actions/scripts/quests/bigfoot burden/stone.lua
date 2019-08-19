@@ -6,7 +6,7 @@ function onUse(player, item, fromPosition, target, toPosition, isHotkey)
 	toPosition:sendMagicEffect(CONST_ME_HITBYFIRE)
 	item:transform(18335)
 
-	if math.random(15) ~= 15 then
+	if math.random(15) <= 12 then
 		player:sendTextMessage(MESSAGE_EVENT_ADVANCE, 'You had no luck this time.')
 		return true
 	end

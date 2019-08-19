@@ -1,6 +1,6 @@
 /**
  * The Forgotten Server - a free and open-source MMORPG server emulator
- * Copyright (C) 2017  Mark Samman <mark.samman@gmail.com>
+ * Copyright (C) 2019 Mark Samman <mark.samman@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,6 +41,7 @@ class IOLoginData
 		static bool preloadPlayer(Player* player, const std::string& name);
 
 		static bool loadPlayerById(Player* player, uint32_t id);
+		static bool loadPlayerPreyData(Player * player);
 		static bool loadPlayerPreyById(Player* player, uint32_t id);
 		static bool loadPlayerByName(Player* player, const std::string& name);
 		static bool loadPlayer(Player* player, DBResult_ptr result);

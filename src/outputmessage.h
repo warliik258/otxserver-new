@@ -1,6 +1,6 @@
 /**
  * The Forgotten Server - a free and open-source MMORPG server emulator
- * Copyright (C) 2017  Mark Samman <mark.samman@gmail.com>
+ * Copyright (C) 2019 Mark Samman <mark.samman@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,7 +43,7 @@ class OutputMessage : public NetworkMessage
 			add_header(info.length);
 		}
 
-		void addCryptoHeader(uint8_t addChecksum) {
+		void addCryptoHeader(uint8_t addChecksum, uint32_t& sequence) {
 			if (addChecksum == 1) {
 				add_header(adlerChecksum(buffer + outputBufferStart, info.length));
 			} else if (addChecksum == 2) {
@@ -67,16 +67,6 @@ class OutputMessage : public NetworkMessage
 			info.position += msgLen;
 		}
 
-		bool isBroadcastMsg() const {
-			return isBroadcastMesssage;
-		}
-		void setBroadcastMsg(bool isBroadcastMesssage) {
-			this->isBroadcastMesssage = isBroadcastMesssage;
-		}
-
-	private:
-		uint32_t sequence = 0;
-
 	protected:
 		template <typename T>
 		void add_header(T add) {
@@ -87,7 +77,6 @@ class OutputMessage : public NetworkMessage
 			info.length += sizeof(T);
 		}
 
-		bool isBroadcastMesssage {false};
 		MsgSize_t outputBufferStart = INITIAL_BUFFER_POSITION;
 };
 

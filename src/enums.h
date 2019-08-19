@@ -1,6 +1,6 @@
 /**
  * The Forgotten Server - a free and open-source MMORPG server emulator
- * Copyright (C) 2017  Mark Samman <mark.samman@gmail.com>
+ * Copyright (C) 2019 Mark Samman <mark.samman@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -91,6 +91,8 @@ enum itemAttrTypes : uint32_t {
 	ITEM_ATTRIBUTE_DOORID = 1 << 22,
 	ITEM_ATTRIBUTE_SPECIAL = 1 << 23,
 	ITEM_ATTRIBUTE_IMBUINGSLOTS = 1 << 24,
+
+	ITEM_ATTRIBUTE_CUSTOM = 1U << 31
 };
 
 enum VipStatus_t : uint8_t {
@@ -129,7 +131,9 @@ enum CreatureType_t : uint8_t {
 	CREATURETYPE_PLAYER = 0,
 	CREATURETYPE_MONSTER = 1,
 	CREATURETYPE_NPC = 2,
-	CREATURETYPE_SUMMONPLAYER = 3
+	CREATURETYPE_SUMMONPLAYER = 3,
+	CREATURETYPE_SUMMON_OWN = 3,
+	CREATURETYPE_SUMMON_OTHERS = 4,
 };
 
 enum OperatingSystem_t : uint8_t {
@@ -152,6 +156,48 @@ enum SpellGroup_t : uint8_t {
 	SPELLGROUP_SUPPORT = 3,
 	SPELLGROUP_SPECIAL = 4,
 	SPELLGROUP_CONJURE = 5,
+};
+
+// New Prey
+enum PreySlotNum_t : uint8_t
+{
+	PREY_SLOTNUM_FIRST = 0,
+	PREY_SLOTNUM_SECOND = 1,
+	PREY_SLOTNUM_THIRD = 2,
+};
+
+enum PreySlotStatus_t : uint8_t
+{
+	PREY_SLOT_LOCKED = 0,
+	PREY_SLOT_UNLOCKED = 1,
+};
+
+
+enum PreyState_t : uint8_t
+{
+	PREY_STATE_LOCKED = 0,
+	PREY_STATE_INACTIVE = 1,
+	PREY_STATE_ACTIVE = 2,
+	PREY_STATE_SELECTION = 3,
+	PREY_STATE_SELECTION_CHANGE_MONSTER = 4,
+};
+
+enum PreyBonusType_t : uint8_t
+{
+	PREY_BONUS_DAMAGE_BOOST = 0,
+	PREY_BONUS_DAMAGE_REDUCTION = 1,
+	PREY_BONUS_XP_BONUS = 2,
+	PREY_BONUS_IMPROVED_LOOT = 3,
+	PREY_BONUS_NONE = 4,
+
+	PREY_BONUS_FIRST = PREY_BONUS_DAMAGE_BOOST,
+	PREY_BONUS_LAST = PREY_BONUS_IMPROVED_LOOT,
+};
+
+enum SpellType_t : uint8_t {
+	SPELL_UNDEFINED = 0,
+	SPELL_INSTANT = 1,
+	SPELL_RUNE = 2,
 };
 
 enum AccountType_t : uint8_t {
@@ -263,13 +309,9 @@ enum ConditionParam_t {
 	CONDITION_PARAM_SKILL_LIFE_LEECH_AMOUNT = 50,
 	CONDITION_PARAM_SKILL_MANA_LEECH_CHANCE = 51,
 	CONDITION_PARAM_SKILL_MANA_LEECH_AMOUNT = 52,
-	CONDITION_PARAM_SKILL_CRITICAL_HIT_CHANCEPERCENT = 53,
-	CONDITION_PARAM_SKILL_CRITICAL_HIT_DAMAGEPERCENT = 54,
-	CONDITION_PARAM_SKILL_LIFE_LEECH_CHANCEPERCENT = 55,
-	CONDITION_PARAM_SKILL_LIFE_LEECH_AMOUNTPERCENT = 56,
-	CONDITION_PARAM_SKILL_MANA_LEECH_CHANCEPERCENT = 57,
-	CONDITION_PARAM_SKILL_MANA_LEECH_AMOUNTPERCENT = 58,
-	CONDITION_PARAM_DISABLE_DEFENSE = 59,
+	CONDITION_PARAM_DISABLE_DEFENSE = 53,
+  CONDITION_PARAM_STAMINAGAIN = 54,
+  CONDITION_PARAM_STAMINATICKS = 55,
 };
 
 enum BlockType_t : uint8_t {
@@ -349,6 +391,10 @@ enum ConditionType_t {
 	CONDITION_PACIFIED = 1 << 25,
 	CONDITION_SPELLCOOLDOWN = 1 << 26,
 	CONDITION_SPELLGROUPCOOLDOWN = 1 << 27,
+  CONDITION_STAMINAREGEN = 1 << 28,
+  CONDITION_SOULBONUS = 1 << 29,
+  CONDITION_EXHAUST = 1 << 30, //NON-DEFAULT /*leu
+  CONDITION_SUMMON = 1 << 31, // stay here for add new summons system
 };
 
 enum ConditionId_t : int8_t {
@@ -468,6 +514,15 @@ enum SpeechBubble_t
 	SPEECHBUBBLE_QUESTTRADER = 4,
 };
 
+enum SpawnType_t
+{
+	RESPAWN_IN_ALL = 0,
+	RESPAWN_IN_DAY = 1,
+	RESPAWN_IN_NIGHT = 2,
+	RESPAWN_IN_DAY_CAVE = 3,
+	RESPAWN_IN_NIGHT_CAVE = 4,
+};
+
 enum MapMark_t
 {
 	MAPMARK_TICK = 0,
@@ -490,6 +545,16 @@ enum MapMark_t
 	MAPMARK_REDWEST = 17,
 	MAPMARK_GREENNORTH = 18,
 	MAPMARK_GREENSOUTH = 19,
+};
+
+enum StreakBonus_t : int8_t {
+  STREAKBONUS_NOBONUS = 0,
+  STREAKBONUS_HEALTHBONUS = 1,
+  STREAKBONUS_MANABONUS = 2,
+  STREAKBONUS_STAMINABONUS = 3,
+  STREAKBONUS_DOUBLEHEALTHBONUS = 4,
+  STREAKBONUS_DOUBLEMANABONUS = 5,
+  STREAKBONUS_SOULBONUS = 6
 };
 
 struct Outfit_t {
@@ -607,6 +672,7 @@ struct CombatDamage
 
 	CombatOrigin origin;
 	bool critical;
+	int affected;
 
 	CombatDamage()
 	{
@@ -614,6 +680,7 @@ struct CombatDamage
 		primary.type = secondary.type = COMBAT_NONE;
 		primary.value = secondary.value = 0;
 		critical = false;
+		affected = 1;
 	}
 };
 

@@ -1,6 +1,6 @@
 /**
  * The Forgotten Server - a free and open-source MMORPG server emulator
- * Copyright (C) 2017  Mark Samman <mark.samman@gmail.com>
+ * Copyright (C) 2019 Mark Samman <mark.samman@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,6 +39,7 @@
 #include "reward.h"
 #include "rewardchest.h"
 #include "gamestore.h"
+#include "imbuements.h"
 
 class House;
 class NetworkMessage;
@@ -49,6 +50,7 @@ class Party;
 class SchedulerTask;
 class Bed;
 class Guild;
+class Imbuement;
 
 enum skillsid_t {
 	SKILLVALUE_LEVEL = 0,
@@ -198,8 +200,58 @@ class Player final : public Creature, public Cylinder
 		uint16_t getStaminaMinutes() const {
 			return staminaMinutes;
 		}
+		
+		// New Prey
+		uint16_t getPreyState(uint16_t slot) const {
+			return preySlotState[slot];
+		}
 
-		uint16_t getPreyStamina(uint16_t index) const {
+		uint16_t getPreyUnlocked(uint16_t slot) const {
+			return preySlotUnlocked[slot];
+		}
+
+		std::string getPreyCurrentMonster(uint16_t slot) const {
+			return preySlotCurrentMonster[slot];
+		}
+
+		std::string getPreyMonsterList(uint16_t slot) const {
+			return preySlotMonsterList[slot];
+		}
+
+		uint16_t getPreyFreeRerollIn(uint16_t slot) const {
+			return preySlotFreeRerollIn[slot];
+		}
+
+		uint16_t getPreyTimeLeft(uint16_t slot) const {
+			return preySlotTimeLeft[slot];
+		}
+
+		uint32_t getPreyNextUse(uint16_t slot) const {
+			return preySlotNextUse[slot];
+		}
+
+		uint16_t getPreyBonusType(uint16_t slot) const {
+			return preySlotBonusType[slot];
+		}
+
+		uint16_t getPreyBonusValue(uint16_t slot) const {
+			return preySlotBonusValue[slot];
+		}
+
+		uint16_t getPreyBonusGrade(uint16_t slot) const {
+			return preySlotBonusGrade[slot];
+		}
+		uint16_t getPreyBonusRerolls() const {
+			return preyBonusRerolls;
+		}
+		//
+
+    void setStaminaMinutes(uint16_t stamina) {
+      staminaMinutes = std::min<uint16_t>(2520, stamina);
+      sendStats();
+    }
+
+    uint16_t getPreyStamina(uint16_t index) const {
 			return preyStaminaMinutes[index];
 		}
 		uint16_t getPreyType(uint16_t index) const {
@@ -238,15 +290,23 @@ class Player final : public Creature, public Cylinder
 			bankBalance = balance;
 		}
 
-		Guild* getGuild() const {
+    void setInstantRewardTokens(uint64_t tokens) {
+      instantRewardTokens = tokens;
+    }
+
+    uint64_t getInstantRewardTokens() const {
+      return instantRewardTokens;
+    }
+
+    Guild* getGuild() const {
 			return guild;
 		}
 		void setGuild(Guild* guild);
 
-		const GuildRank* getGuildRank() const {
+		  GuildRank_ptr getGuildRank() const {
 			return guildRank;
 		}
-		void setGuildRank(const GuildRank* newGuildRank) {
+		void setGuildRank(GuildRank_ptr newGuildRank) {
 			guildRank = newGuildRank;
 		}
 
@@ -335,6 +395,11 @@ class Player final : public Creature, public Cylinder
 			bedItem = b;
 		}
 
+		bool inImbuing() {
+			return imbuing != nullptr;
+		}
+		void inImbuing(Item* item);
+		
 		void addBlessing(uint8_t index, uint8_t count) {
 			if (blessings[index - 1] == 255) {
 				return;
@@ -645,6 +710,10 @@ class Player final : public Creature, public Cylinder
 		}
 
 		uint16_t getSkillLevel(uint8_t skill) const {
+			if (skill == SKILL_LIFE_LEECH_CHANCE || skill == SKILL_MANA_LEECH_CHANCE) {
+				return std::min<int32_t>(100, std::max<int32_t>(0, skills[skill].level + varSkills[skill]));
+			}
+
 			return std::max<int32_t>(0, skills[skill].level + varSkills[skill]);
 		}
 		uint16_t getBaseSkill(uint8_t skill) const {
@@ -700,14 +769,13 @@ class Player final : public Creature, public Cylinder
 		void onIdleStatus() final;
 		void onPlacedCreature() final;
 
-		void getCreatureLight(LightInfo& light) const final;
+		LightInfo getCreatureLight() const final;
 
 		Skulls_t getSkull() const final;
 		Skulls_t getSkullClient(const Creature* creature) const final;
 		int64_t getSkullTicks() const { return skullTicks; }
 		void setSkullTicks(int64_t ticks) { skullTicks = ticks; }
 
-		bool hasKilled(const Player* player) const;
 		bool hasAttacked(const Player* attacked) const;
 		void addAttacked(const Player* attacked);
 		void removeAttacked(const Player* attacked);
@@ -727,6 +795,8 @@ class Player final : public Creature, public Cylinder
 		bool getOutfitAddons(const Outfit& outfit, uint8_t& addons) const;
 
 		bool canLogout();
+
+		bool hasKilled(const Player* player) const;
 
 		size_t getMaxVIPEntries() const;
 		size_t getMaxDepotItems() const;
@@ -883,6 +953,12 @@ class Player final : public Creature, public Cylinder
 		}
 
 		//inventory
+		void sendCoinBalance() {
+			if (client) {
+				client->sendCoinBalance();
+			}
+		}
+
 		void sendInventoryItem(slots_t slot, const Item* item) {
 			if (client) {
 				client->sendInventoryItem(slot, item);
@@ -998,10 +1074,15 @@ class Player final : public Creature, public Cylinder
 			}
 		}
 		void sendClosePrivate(uint16_t channelId);
-		void sendIcons() const {
+    void sendRestingAreaIcon(uint16_t currentIcons) const;
+
+    void sendIcons() const {
 			if (client) {
-				client->sendIcons(getClientIcons());
-			}
+        uint16_t icons = getClientIcons();
+        client->sendIcons(icons);
+        //Send resting area icon
+        sendRestingAreaIcon(icons);
+      }
 		}
 		void sendClientCheck() const {
 			if (client) {
@@ -1136,7 +1217,7 @@ class Player final : public Creature, public Cylinder
 				client->sendCloseTrade();
 			}
 		}
-		void sendWorldLight(const LightInfo& lightInfo) {
+		void sendWorldLight(LightInfo lightInfo) {
 			if (client) {
 				client->sendWorldLight(lightInfo);
 			}
@@ -1154,6 +1235,11 @@ class Player final : public Creature, public Cylinder
 		void sendOutfitWindow() {
 			if (client) {
 				client->sendOutfitWindow();
+			}
+		}
+		void sendImbuementWindow(Item* item) {
+			if (client) {
+				client->sendImbuementWindow(item);
 			}
 		}
 		void sendCloseContainer(uint8_t cid) {
@@ -1197,24 +1283,17 @@ class Player final : public Creature, public Cylinder
 				client->sendFightModes();
 			}
 		}
-		void sendNetworkMessage(const NetworkMessage& message, bool broadcast = true) {
+		void sendNetworkMessage(const NetworkMessage& message) {
 			if (client) {
-				client->writeToOutputBuffer(message, broadcast);
-			}
-		}
-
-		void sendCoinBalanceUpdating(bool updating) {
-			if(client) {
-				client->sendCoinBalanceUpdating(updating);
+				client->writeToOutputBuffer(message);
 			}
 		}
 
 		void sendStoreOpen(uint8_t serviceType) {
-			if(client)
+			if (client) {
 				client->sendOpenStore(serviceType);
+			}
 		}
-
-
 
 		void receivePing() {
 			lastPong = OTSYS_TIME();
@@ -1257,32 +1336,15 @@ class Player final : public Creature, public Cylinder
 		void forgetInstantSpell(const std::string& spellName);
 		bool hasLearnedInstantSpell(const std::string& spellName) const;
 
-		bool startLiveCast(const std::string& password) {
-			return client && client->startLiveCast(password);
-		}
-		bool stopLiveCast() {
-			return client && client->stopLiveCast();
-		}
-		bool isLiveCaster() const {
-			return client && client->isLiveCaster();
-		}
-		bool getSpectators(std::vector<ProtocolSpectator_ptr>& spectators) const {
-			if (!isLiveCaster()) {
-				return false;
-			}
-			spectators = client->spectators;
-			return true;
-		}
-
-		const std::map<uint8_t, OpenContainer>& getOpenContainers() const {
-			return openContainers;
-		}
+		//Autoloot
+		void addAutoLootItem(uint16_t itemId);
+		void removeAutoLootItem(uint16_t itemId);
+		bool getAutoLootItem(uint16_t itemId);
 
 		uint16_t getBaseXpGain() const {
 			return baseXpGain;
 		}
 		void setBaseXpGain(uint16_t value) {
-
 			baseXpGain = std::min<uint16_t>(std::numeric_limits<uint16_t>::max(), value);
 		}
 		uint16_t getVoucherXpBoost() const {
@@ -1322,13 +1384,18 @@ class Player final : public Creature, public Cylinder
 			return idleTime;
 		}
 
-		void doCriticalDamage(CombatDamage& damage) const;
-		bool isMarketExhausted() const; //Custom: Anti bug do market
+		void onEquipImbueItem(Imbuement* imbuement);
+		void onDeEquipImbueItem(Imbuement* imbuement);
+
 		//Custom: Anti bug do market
-		void updateMarketExhausted(){
+		bool isMarketExhausted() const;
+		void updateMarketExhausted() {
 			lastMarketInteraction = OTSYS_TIME();
 		}
-	protected:
+
+    StreakBonus_t getStreakDaysBonus()const;
+
+    protected:
 		std::forward_list<Condition*> getMuteConditions() const;
 
 		void checkTradeState(const Item* item);
@@ -1378,6 +1445,11 @@ class Player final : public Creature, public Cylinder
 		void internalAddThing(uint32_t index, Thing* thing) final;
 
 		std::unordered_set<uint32_t> attackedSet;
+
+		 //Autoloot
+		std::unordered_set<uint32_t> autoLootList;
+		//std::unordered_set<uint32_t> autoLootList; (use this if you have ubuntu 16+)
+
 		std::unordered_set<uint32_t> VIPList;
 
 		std::map<uint8_t, OpenContainer> openContainers;
@@ -1422,14 +1494,16 @@ class Player final : public Creature, public Cylinder
 		int64_t lastPing;
 		int64_t lastPong;
 		int64_t nextAction = 0;
+    uint64_t instantRewardTokens = 0;
 
 		std::vector<Kill> unjustifiedKills;
 
 		BedItem* bedItem = nullptr;
 		Guild* guild = nullptr;
-		const GuildRank* guildRank = nullptr;
+		GuildRank_ptr guildRank;
 		Group* group = nullptr;
 		Inbox* inbox;
+		Item* imbuing = nullptr; // for intarnal use
 		Item* tradeItem = nullptr;
  		Item* inventory[CONST_SLOT_LAST + 1] = {};
 		Item* writeItem = nullptr;
@@ -1452,6 +1526,7 @@ class Player final : public Creature, public Cylinder
 		uint32_t magLevel = 0;
 		uint32_t actionTaskEvent = 0;
 		uint32_t nextStepEvent = 0;
+		uint32_t maxInboxItems = 8000;
 		uint32_t walkTaskEvent = 0;
 		uint32_t MessageBufferTicks = 0;
 		uint32_t lastIP = 0;
@@ -1466,12 +1541,12 @@ class Player final : public Creature, public Cylinder
 		int32_t saleCallback = -1;
 		int32_t MessageBufferCount = 0;
 		int32_t premiumDays = 0;
-		int32_t tibiaCoins = 0;
 		int32_t bloodHitCount = 0;
 		int32_t shieldBlockCount = 0;
 		int32_t offlineTrainingSkill = -1;
 		int32_t offlineTrainingTime = 0;
 		int32_t idleTime = 0;
+		int32_t coinBalance = 0;
 		uint16_t expBoostStamina = 0;
 
 		uint16_t lastStatsTrainingTime = 0;
@@ -1488,6 +1563,19 @@ class Player final : public Creature, public Cylinder
 		uint16_t storeXpBoost = 0;
 		uint16_t staminaXpBoost = 100;
 		int16_t lastDepotId = -1;
+		
+		// New Prey
+		uint16_t preyBonusRerolls = 0;
+		std::vector<uint16_t> preySlotState = {0, 0, 0};
+		std::vector<uint16_t> preySlotUnlocked = {0, 0, 0};
+		std::vector<std::string> preySlotCurrentMonster = { "", "", "" };
+		std::vector<std::string> preySlotMonsterList = { "", "", "" };
+		std::vector<uint16_t> preySlotFreeRerollIn = { 0, 0, 0 };
+		std::vector<uint16_t> preySlotTimeLeft = {7200, 7200, 7200};
+		std::vector<uint32_t> preySlotNextUse = { 0, 0, 0 };
+		std::vector<uint16_t> preySlotBonusType = {0, 0, 0};
+		std::vector<uint16_t> preySlotBonusValue = {0, 0, 0};
+		std::vector<uint16_t> preySlotBonusGrade = { 0, 0, 0 };
 
 		uint8_t soul = 0;
 		uint8_t levelPercent = 0;
@@ -1554,7 +1642,6 @@ class Player final : public Creature, public Cylinder
 		friend class Actions;
 		friend class IOLoginData;
 		friend class ProtocolGame;
-		friend class ProtocolGameBase;
 };
 
 #endif

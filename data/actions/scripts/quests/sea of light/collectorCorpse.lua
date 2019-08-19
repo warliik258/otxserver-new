@@ -8,7 +8,7 @@ function onUse(player, item, fromPosition, target, toPosition, isHotkey)
 	end
 
 	player:say('You carefully put the mirror crystal into the astronomers\'s device.', TALKTYPE_MONSTER_SAY)
-	player:getStorageValue(Storage.SeaOfLightQuest.Questline, 9)
+	player:setStorageValue(Storage.SeaOfLightQuest.Questline, 9)
 	player:setStorageValue(Storage.SeaOfLightQuest.Mission3, 3)
 	item:transform(10616)
 	return true

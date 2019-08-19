@@ -25,7 +25,8 @@ GameStore.OfferTypes = {
   OFFER_TYPE_BLESSINGS = 14,
   OFFER_TYPE_PREMIUM = 15,
   OFFER_TYPE_POUNCH = 16,
-  OFFER_TYPE_ALLBLESSINGS = 17
+  OFFER_TYPE_ALLBLESSINGS = 17,
+  OFFER_TYPE_INSTANT_REWARD_ACCESS = 18
 }
 
 GameStore.ClientOfferTypes = {
@@ -77,6 +78,7 @@ GameStore.RecivedPackets = {
   C_TransferCoins = 0xEF, -- 239
   C_OpenStore = 0xFA, -- 250
   C_RequestStoreOffers = 0xFB, -- 251
+  C_StoreSelectOffer = 0xE8, -- 232
   C_BuyStoreOffer = 0xFC, -- 252
   C_OpenTransactionHistory = 0xFD, -- 253
   C_RequestTransactionHistory = 0xFE, -- 254
@@ -106,7 +108,8 @@ GameStore.DefaultDescriptions = {
   EXPBOOST    = { "Are you tired of leveling slow? try it!" },
   PREYSLOT    = { "It's hunting season! Activate a prey to gain a bonus when hunting a certain monster. Every character can purchase one Permanent Prey Slot, which enables the activation of an additional prey. \nIf you activate a prey, you can select one monster out of nine. The bonus for your prey will be selected randomly from one of the following: damage boost, damage reduction, bonus XP, improved loot. The bonus value may range from 5% to 50%. Your prey will be active for 2 hours hunting time: the duration of an active prey will only be reduced while you are hunting." },
   PREYBONUS   = { "You activated a prey but do not like the randomly selected bonus? Roll for a new one! Here you can purchase five Prey Bonus Rerolls! \nA Bonus Reroll allows you to get a bonus with a higher value (max. 50%). The bonus for your prey will be selected randomly from one of the following: damage boost, damage reduction, bonus XP, improved loot. The 2 hours hunting time will start anew once you have rolled for a new bonus. Your prey monster will stay the same." },
-  TEMPLE      = { "Need a quick way home? Buy this transportation service to get instantly teleported to your home temple. \n\nNote, you cannot use this service while having a battle sign or a protection zone block. Further, the service will not work in no-logout zones or close to your home temple." }
+  TEMPLE      = { "Need a quick way home? Buy this transportation service to get instantly teleported to your home temple. \n\nNote, you cannot use this service while having a battle sign or a protection zone block. Further, the service will not work in no-logout zones or close to your home temple." },
+  INSTANT_REWARD_ACCESS = {"No time to travel to a Daily Reward Shrine? Purchase %dx Instant Reward Access!\nNo matter where you are in Tibia, an Instant Reward Access allow you to claim your daily reward on the spot.\nNote that the Instant Reward Access can only be used by the character that purchased it in the Store."}
 }
 
 --==Parsing==--
@@ -138,6 +141,8 @@ function onRecvbyte(player, msg, byte)
     parseOpenStore(player:getId(), msg)
   elseif byte == GameStore.RecivedPackets.C_RequestStoreOffers then
     parseRequestStoreOffers(player:getId(), msg)
+  elseif byte == GameStore.RecivedPackets.C_StoreSelectOffer then
+    parseSendDescription(player:getId(), msg)
   elseif byte == GameStore.RecivedPackets.C_BuyStoreOffer then
     parseBuyStoreOffer(player:getId(), msg)
   elseif byte == GameStore.RecivedPackets.C_OpenTransactionHistory then
@@ -146,6 +151,20 @@ function onRecvbyte(player, msg, byte)
     parseRequestTransactionHistory(player:getId(), msg)
   end
   return true
+end
+
+function parseSendDescription(playerId, msg)
+  local player = Player(playerId)
+  if not player then
+    return false
+  end
+  if player:getClient().version < 1180 then
+    return false
+  end
+  local offerId = msg:getU32()
+  if offerId then
+    addPlayerEvent(sendShowDescription, 350, playerId, offerId)
+  end
 end
 
 function parseTransferCoins(playerId, msg)
@@ -243,6 +262,7 @@ function parseBuyStoreOffer(playerId, msg)
           offer.type ~= GameStore.OfferTypes.OFFER_TYPE_TEMPLE and
           offer.type ~= GameStore.OfferTypes.OFFER_TYPE_SEXCHANGE and
           offer.type ~= GameStore.OfferTypes.OFFER_TYPE_POUNCH and
+          offer.type ~= GameStore.OfferTypes.OFFER_TYPE_INSTANT_REWARD_ACCESS and
           not offer.id) then
     return queueSendStoreAlertToUser("This offer is unavailable [1]", 350, playerId, GameStore.StoreErrors.STORE_ERROR_INFORMATION)
   end
@@ -275,6 +295,7 @@ function parseBuyStoreOffer(playerId, msg)
       elseif offer.type == GameStore.OfferTypes.OFFER_TYPE_PREYBONUS      then GameStore.processPreyBonusReroll(nil, offer.count)
       elseif offer.type == GameStore.OfferTypes.OFFER_TYPE_TEMPLE         then GameStore.processTempleTeleportPurchase(player)
       elseif offer.type == GameStore.OfferTypes.OFFER_TYPE_PROMOTION      then GameStore.processPromotionPurchase(player, offer.id)
+      elseif offer.type == GameStore.OfferTypes.OFFER_TYPE_INSTANT_REWARD_ACCESS      then GameStore.processInstantRewardAccess(nil, offer.count)
     else
       -- This should never happen by our convention, but just in case the guarding condition is messed up...
       error({code = 0, message = "This offer is unavailable [2]"})
@@ -336,7 +357,9 @@ function openStore(playerId)
   end
   local msg = NetworkMessage()
   msg:addByte(GameStore.SendingPackets.S_OpenStore)
-  msg:addByte(0x00)
+  if player:getClient().version < 1180 then
+    msg:addByte(0x00)
+  end
 
   local GameStoreCategories, GameStoreCount = nil, 0
   if (player:getVocation():getId() == 0) then
@@ -349,7 +372,9 @@ function openStore(playerId)
     msg:addU16(GameStoreCount)
     for k, category in ipairs(GameStoreCategories) do
       msg:addString(category.name)
-      msg:addString(category.description)
+      if player:getClient().version < 1180 then
+        msg:addString(category.description)
+      end
 
       if player:getClient().version >= 1093 then
         msg:addByte(category.state or GameStore.States.STATE_NONE)
@@ -368,6 +393,19 @@ function openStore(playerId)
   end
 end
 
+function sendShowDescription(playerId, offerId)
+  local player = Player(playerId)
+  if not player then
+    return false
+  end
+  local offer = GameStore.getOfferById(offerId)
+  local msg = NetworkMessage()
+  msg:addByte(0xea)
+  msg:addU32(offerId)
+  msg:addString(offer.description or "No description to be displayed")
+  msg:sendToPlayer(player)
+end
+
 function sendShowStoreOffers(playerId, category)
   local player = Player(playerId)
   if not player then
@@ -379,65 +417,50 @@ function sendShowStoreOffers(playerId, category)
   msg:addByte(GameStore.SendingPackets.S_StoreOffers)
 
   msg:addString(category.name)
-
+  if player:getClient().version >= 1180 then
+    msg:addU32(0)
+    if player:getClient().version >= 1185 then
+        msg:addU32(0)
+    else
+        msg:addU16(0)
+    end
+  end
   msg:addU16(category.offers and #category.offers or 0x00)
 
   if category.offers then
     for k, offer in ipairs(category.offers) do
-      msg:addU32(offer.id and offer.id or 0xFFFF) -- we later detect this number!
-
-      local name = ""
-      if offer.type == GameStore.OfferTypes.OFFER_TYPE_ITEM and offer.count then
-        name = offer.count .. "x "
-      end
-
-      if offer.type == GameStore.OfferTypes.OFFER_TYPE_STACKABLE and offer.count then
-        name = offer.count .. "x "
-      end
-
-      name = name .. (offer.name or "Something Special")
-
-      msg:addString(name)
-      msg:addString(offer.description or GameStore.getDefaultDescription(offer.type))
-
-      local newPrice = nil
-      if (offer.state == GameStore.States.STATE_SALE) then
-        local daySub = offer.validUntil - os.date("*t").day
-        if (daySub < 0) then
-          newPrice = offer.basePrice
+        local name = ""
+        if offer.type == GameStore.OfferTypes.OFFER_TYPE_ITEM and offer.count then
+            name = offer.count .. "x "
         end
-      end
+    
+        if offer.type == GameStore.OfferTypes.OFFER_TYPE_STACKABLE and offer.count then
+            name = offer.count .. "x "
+        end
+    
+        name = name .. (offer.name or "Something Special")
 
-      xpBoostPrice = nil
-      if offer.type == GameStore.OfferTypes.OFFER_TYPE_EXPBOOST then
-        xpBoostPrice = GameStore.ExpBoostValues[player:getStorageValue(51052)]
-      end
-
-      if xpBoostPrice then
-        msg:addU32(xpBoostPrice)
-      else
-        msg:addU32(newPrice or offer.price or 0xFFFF)
-      end
-
-      if (offer.state) then
+        local newPrice = nil
+        local offerPrice = 0
         if (offer.state == GameStore.States.STATE_SALE) then
-          local daySub = offer.validUntil - os.date("*t").day
-          if (daySub >= 0) then
-            msg:addByte(offer.state)
-            msg:addU32(os.time() + daySub * 86400)
-            msg:addU32(offer.basePrice)
-            haveSaleOffer = 1
-          else
-            msg:addByte(GameStore.States.STATE_NONE)
-          end
-        else
-          msg:addByte(offer.state)
+            local daySub = offer.validUntil - os.date("*t").day
+            if (daySub < 0) then
+            newPrice = offer.basePrice
+            end
         end
-      else
-        msg:addByte(GameStore.States.STATE_NONE)
-      end
 
-      local disabled, disabledReason = 0, ""
+        xpBoostPrice = nil
+        if offer.type == GameStore.OfferTypes.OFFER_TYPE_EXPBOOST then
+            xpBoostPrice = GameStore.ExpBoostValues[player:getStorageValue(51052)]
+        end
+
+        if xpBoostPrice then
+            offerPrice = xpBoostPrice
+        else
+            offerPrice = newPrice or offer.price or 0xFFFF
+        end
+
+        local disabled, disabledReason = 0, ""
       if offer.disabled == true or not offer.type then
         disabled = 1
       end
@@ -449,6 +472,7 @@ function sendShowStoreOffers(playerId, category)
           offer.type ~= GameStore.OfferTypes.OFFER_TYPE_TEMPLE and
           offer.type ~= GameStore.OfferTypes.OFFER_TYPE_SEXCHANGE and
           offer.type ~= GameStore.OfferTypes.OFFER_TYPE_POUNCH and
+          offer.type ~= GameStore.OfferTypes.OFFER_TYPE_INSTANT_REWARD_ACCESS and 
           not offer.id then
         disabled = 1
       end
@@ -527,27 +551,93 @@ function sendShowStoreOffers(playerId, category)
         end
       end
 
-      if table.contains({ CLIENTOS_OTCLIENT_LINUX, CLIENTOS_OTCLIENT_WINDOWS, CLIENTOS_OTCLIENT_MAC }, player:getClient().os) then
-        if disabled == 1 then
-          msg:addByte(0) -- offer type 0 means disabled
+        if player:getClient().version >= 1180 then
+            msg:addString(name);
+			msg:addByte(0x01);
+			msg:addU32(offer.id and offer.id or 0xFFFF);
+			msg:addU16(1);
+            msg:addU32(offerPrice);
+
+            msg:addByte(0x00);
+  
+            msg:addByte(disabled)
+            if disabled == 1 and player:getClient().version >= 1093 then
+                msg:addByte(0x01);
+                msg:addString(disabledReason)
+            end
+
+            if (offer.state) then
+                if (offer.state == GameStore.States.STATE_SALE) then
+                  local daySub = offer.validUntil - os.date("*t").day
+                  if (daySub >= 0) then
+                    msg:addByte(offer.state)
+                    msg:addU32(os.time() + daySub * 86400)
+                    msg:addU32(offer.basePrice)
+                    haveSaleOffer = 1
+                  else
+                    msg:addByte(GameStore.States.STATE_NONE)
+                  end
+                else
+                  msg:addByte(offer.state)
+                end
+              else
+                msg:addByte(GameStore.States.STATE_NONE)
+              end
+            msg:addByte(0x00);
+
+            msg:addString(offer.icons[1])
+            
+            msg:addU16(0);
+			msg:addU16(0x01);
+			msg:addU16(0x0182);
+			msg:addU16(0);
+			msg:addU16(0);
+			msg:addByte(0x00);
         else
-          msg:addByte(offer.type)
+            msg:addU32(offer.id and offer.id or 0xFFFF) -- offerid
+            msg:addString(name)
+            msg:addString(offer.description or GameStore.getDefaultDescription(offer.type))
+            msg:addU32(offerPrice)
+
+            if (offer.state) then
+                if (offer.state == GameStore.States.STATE_SALE) then
+                  local daySub = offer.validUntil - os.date("*t").day
+                  if (daySub >= 0) then
+                    msg:addByte(offer.state)
+                    msg:addU32(os.time() + daySub * 86400)
+                    msg:addU32(offer.basePrice)
+                    haveSaleOffer = 1
+                  else
+                    msg:addByte(GameStore.States.STATE_NONE)
+                  end
+                else
+                  msg:addByte(offer.state)
+                end
+              else
+                msg:addByte(GameStore.States.STATE_NONE)
+              end
+
+              if table.contains({ CLIENTOS_OTCLIENT_LINUX, CLIENTOS_OTCLIENT_WINDOWS, CLIENTOS_OTCLIENT_MAC }, player:getClient().os) then
+                if disabled == 1 then
+                  msg:addByte(0) -- offer type 0 means disabled
+                else
+                  msg:addByte(offer.type)
+                end
+              else
+                -- supporting the old way
+                msg:addByte(disabled)
+              end
+              if disabled == 1 and player:getClient().version >= 1093 then
+                msg:addString(disabledReason)
+              end
+        
+              msg:addByte(#offer.icons)
+              for k, icon in ipairs(offer.icons) do
+                msg:addString(icon)
+              end
+        
+              msg:addU16(0) -- We still don't support SubOffers!
         end
-      else
-        -- supporting the old way
-        msg:addByte(disabled)
-      end
-
-      if disabled == 1 and player:getClient().version >= 1093 then
-        msg:addString(disabledReason)
-      end
-
-      msg:addByte(#offer.icons)
-      for k, icon in ipairs(offer.icons) do
-        msg:addString(icon)
-      end
-
-      msg:addU16(0) -- We still don't support SubOffers!
     end
   end
 
@@ -764,6 +854,8 @@ GameStore.getDefaultDescription = function(offerType)
     descList = GameStore.DefaultDescriptions.PREYBONUS
   elseif offerType == t.OFFER_TYPE_TEMPLE then
     descList = GameStore.DefaultDescriptions.TEMPLE
+  elseif offerType == t.OFFER_TYPE_INSTANT_REWARD_ACCESS then
+    descList = GameStore.DefaultDescriptions.INSTANT_REWARD_ACCESS
   else
     return ""
   end
@@ -967,17 +1059,17 @@ function GameStore.processPremiumPurchase(player, offerId)
 end
 
 function GameStore.processStackablePurchase(player, offerId, offerCount, offerName)
-  local function isKegItem(itemId)
-    return itemId >= ITEM_KEG_START and itemId <= ITEM_KEG_END
+  local function isKegExerciseItem(itemId)
+    return ((itemId >= ITEM_KEG_START and itemId <= ITEM_KEG_END) or (itemId >= ITEM_EXERCISE_START and itemId <= ITEM_EXERCISE_END))
   end
 
-  if (isKegItem(offerId) and player:getFreeCapacity() < ItemType(offerId):getWeight(1)) or player:getFreeCapacity() < ItemType(offerId):getWeight(offerCount)then
+  if (isKegExerciseItem(offerId) and player:getFreeCapacity() < ItemType(offerId):getWeight(1)) or player:getFreeCapacity() < ItemType(offerId):getWeight(offerCount)then
     return error({code = 0, message = "Please make sure you have free capacity to hold this item."})
   end
 
   local inbox = player:getSlotItem(CONST_SLOT_STORE_INBOX)
   if inbox and inbox:getEmptySlots() > 0 then
-    if (isKegItem(offerId)) then
+    if (isKegExerciseItem(offerId)) then
       if (offerCount >= 500) then
         local parcel = Item(inbox:addItem(2596, 1):getUniqueId())
         local function changeParcel(parcel)
@@ -992,16 +1084,16 @@ function GameStore.processStackablePurchase(player, offerId, offerCount, offerNa
               else
                 pack = pendingCount
               end
-              local kegItem = parcel:addItem(offerId, 1)
-              kegItem:setAttribute(ITEM_ATTRIBUTE_CHARGES, pack)
+              local kegExerciseItem = parcel:addItem(offerId, 1)
+              kegExerciseItem:setAttribute(ITEM_ATTRIBUTE_CHARGES, pack)
               pendingCount = pendingCount - pack
             end
           end
         end
         addEvent(function() changeParcel(parcel) end, 250)
       else
-        local kegItem = inbox:addItem(offerId, 1)
-        kegItem:setAttribute(ITEM_ATTRIBUTE_CHARGES, offerCount)
+        local kegExerciseItem = inbox:addItem(offerId, 1)
+        kegExerciseItem:setAttribute(ITEM_ATTRIBUTE_CHARGES, offerCount)
       end
     elseif (offerCount > 100) then
       local parcel = Item(inbox:addItem(2596, 1):getUniqueId())
@@ -1158,8 +1250,12 @@ function GameStore.processPreyBonusReroll(player, offerCount)
   player:addBonusReroll(offerCount)
 end
 
+function GameStore.processInstantRewardAccess(player, offerCount)
+   	player:addRewardTokens(offer.count or 1)
+end
+
 function GameStore.processTempleTeleportPurchase(player)
-  if (player:getCondition(CONDITION_INFIGHT) or player:isPzLocked()) then
+  if player:getCondition(CONDITION_INFIGHT) or player:isPzLocked() then
     return error({code = 0, message = "You can't use temple teleport in fight!"})
   end
 

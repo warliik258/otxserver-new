@@ -1,6 +1,6 @@
 /**
  * The Forgotten Server - a free and open-source MMORPG server emulator
- * Copyright (C) 2017  Mark Samman <mark.samman@gmail.com>
+ * Copyright (C) 2019 Mark Samman <mark.samman@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -383,11 +383,9 @@ class Creature : virtual public Thing
 		virtual void onAttackedCreatureChangeZone(ZoneType_t zone);
 		virtual void onIdleStatus();
 
-		virtual void getCreatureLight(LightInfo& light) const;
+		virtual LightInfo getCreatureLight() const;
 		virtual void setNormalCreatureLight();
-		void setCreatureLight(LightInfo light) {
-			internalLight = light;
-		}
+		void setCreatureLight(LightInfo lightInfo);
 
 		virtual void onThink(uint32_t interval);
 		void onAttacking(uint32_t interval);

@@ -1,6 +1,6 @@
 /**
  * The Forgotten Server - a free and open-source MMORPG server emulator
- * Copyright (C) 2017  Mark Samman <mark.samman@gmail.com>
+ * Copyright (C) 2019 Mark Samman <mark.samman@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,6 +28,7 @@
 #include "game.h"
 #include "bed.h"
 #include "rewardchest.h"
+#include "imbuements.h"
 
 #include "actions.h"
 #include "spells.h"
@@ -35,6 +36,7 @@
 extern Game g_game;
 extern Spells* g_spells;
 extern Vocations g_vocations;
+extern Imbuements g_imbuements;
 
 Items Item::items;
 
@@ -90,6 +92,27 @@ Item* Item::CreateItem(const uint16_t type, uint16_t count /*= 0*/)
 	}
 
 	return newItem;
+}
+
+uint32_t Item::getImbuement(uint8_t slot) {
+	int64_t slotid = IMBUEMENT_SLOT + slot;
+	const ItemAttributes::CustomAttribute* attr = getCustomAttribute(slotid);
+	if (attr) {
+		uint32_t info = static_cast<uint32_t>(boost::get<int64_t>(attr->value));
+		if(info << 8)
+			return info;
+	}
+
+	return 0;
+}
+
+void Item::setImbuement(uint8_t slot, int64_t info) {
+	int64_t slotid = IMBUEMENT_SLOT + slot;
+	std::string key = boost::lexical_cast<std::string>(slotid);
+	ItemAttributes::CustomAttribute val;
+	val.set<int64_t>(info);
+	setCustomAttribute(key, val);
+	return;
 }
 
 Container* Item::CreateItemAsContainer(const uint16_t type, uint16_t size)
@@ -184,12 +207,13 @@ Item* Item::clone() const
 	Item* item = Item::CreateItem(id, count);
 	if (attributes) {
 		item->attributes.reset(new ItemAttributes(*attributes));
+		if (item->getDuration() > 0) {
+			item->incrementReferenceCounter();
+			item->setDecaying(DECAYING_TRUE);
+			g_game.toDecayItems.push_front(item);
+		}
 	}
 
-	if(hasAttribute(ITEM_ATTRIBUTE_DECAYSTATE) && getDecaying()>DECAYING_FALSE){
-		item->setDuration(getDuration());
-		item->startDecaying();
-	}
 	return item;
 }
 
@@ -647,6 +671,30 @@ Attr_ReadValue Item::readAttr(AttrTypes_t attr, PropStream& propStream)
 			return ATTR_READ_ERROR;
 		}
 
+		case ATTR_CUSTOM_ATTRIBUTES: {
+			uint64_t size;
+			if (!propStream.read<uint64_t>(size)) {
+				return ATTR_READ_ERROR;
+			}
+
+			for (uint64_t i = 0; i < size; i++) {
+				// Unserialize key type and value
+				std::string key;
+				if (!propStream.readString(key)) {
+					return ATTR_READ_ERROR;
+				};
+
+				// Unserialize value type and value
+				ItemAttributes::CustomAttribute val;
+				if (!val.unserialize(propStream)) {
+					return ATTR_READ_ERROR;
+				}
+
+				setCustomAttribute(key, val);
+			}
+			break;
+		}
+
 		default:
 			return ATTR_READ_ERROR;
 	}
@@ -788,6 +836,19 @@ void Item::serializeAttr(PropWriteStream& propWriteStream) const
 	if (hasAttribute(ITEM_ATTRIBUTE_SPECIAL)) {
 		propWriteStream.write<uint8_t>(ATTR_SPECIAL);
 		propWriteStream.writeString(getStrAttr(ITEM_ATTRIBUTE_SPECIAL));
+	}
+
+	if (hasAttribute(ITEM_ATTRIBUTE_CUSTOM)) {
+		const ItemAttributes::CustomAttributeMap* customAttrMap = attributes->getCustomAttributeMap();
+		propWriteStream.write<uint8_t>(ATTR_CUSTOM_ATTRIBUTES);
+		propWriteStream.write<uint64_t>(static_cast<uint64_t>(customAttrMap->size()));
+		for (const auto &entry : *customAttrMap) {
+			// Serializing key type and value
+			propWriteStream.writeString(entry.first);
+
+			// Serializing value type and value
+			entry.second.serialize(propWriteStream);
+		}
 	}
 }
 
@@ -1737,14 +1798,16 @@ uint32_t Item::getWorth() const
 	}
 }
 
-void Item::getLight(LightInfo& lightInfo) const
+LightInfo Item::getLightInfo() const
 {
 	const ItemType& it = items[id];
-	lightInfo.color = it.lightColor;
-	lightInfo.level = it.lightLevel;
+	return {it.lightLevel, it.lightColor};
 }
 
 std::string ItemAttributes::emptyString;
+int64_t ItemAttributes::emptyInt;
+double ItemAttributes::emptyDouble;
+bool ItemAttributes::emptyBool;
 
 const std::string& ItemAttributes::getStrAttr(itemAttrTypes type) const
 {
@@ -1880,5 +1943,52 @@ bool Item::hasMarketAttributes() const
 			return false;
 		}
 	}
+
+	if (items[id].imbuingSlots > 0) {
+		for (uint8_t slot = 0; slot < items[id].imbuingSlots; slot++) {
+			Item* item = const_cast<Item*>(this);
+			uint32_t info = item->getImbuement(slot);
+			if (info >> 8 != 0) {
+				return false;
+			}
+		}
+	}
+
 	return true;
+}
+
+template<>
+const std::string& ItemAttributes::CustomAttribute::get<std::string>() {
+	if (value.type() == typeid(std::string)) {
+		return boost::get<std::string>(value);
+	}
+
+	return emptyString;
+}
+
+template<>
+const int64_t& ItemAttributes::CustomAttribute::get<int64_t>() {
+	if (value.type() == typeid(int64_t)) {
+		return boost::get<int64_t>(value);
+	}
+
+	return emptyInt;
+}
+
+template<>
+const double& ItemAttributes::CustomAttribute::get<double>() {
+	if (value.type() == typeid(double)) {
+		return boost::get<double>(value);
+	}
+
+	return emptyDouble;
+}
+
+template<>
+const bool& ItemAttributes::CustomAttribute::get<bool>() {
+	if (value.type() == typeid(bool)) {
+		return boost::get<bool>(value);
+	}
+
+	return emptyBool;
 }
