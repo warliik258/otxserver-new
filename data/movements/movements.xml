@@ -329,8 +329,6 @@
 	<movevent event="StepIn" actionid="5555" script="others/teleports/sorcererGuildThais.lua" />
 	<movevent event="StepIn" fromaid="50084" toaid="50086" script="others/teleports/deeperBanutaShortcutTeleports.lua" />
 	<movevent event="StepIn" fromaid="50220" toaid="50229" script="others/teleports/vengothTeleports.lua" />
-	<movevent event="StepIn" actionid="64017" script="others/teleports/portHopeDeathlingsEntrance.lua" />
-	<movevent event="StepIn" actionid="64018" script="others/teleports/portHopeDeathlingsExit.lua" />
 
 	<!-- Thais Lighthouse Quest -->
 	<movevent event="StepIn" fromaid="50025" toaid="50026" script="others/quests/thaisLighthouse.lua" />

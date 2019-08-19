@@ -642,12 +642,6 @@
 	<action itemid="10614" script="quests/sea of light/rareCrystal.lua" />
 	<action itemid="10615" script="quests/sea of light/collectorCorpse.lua" />
 
-	<!-- Secret Library -->
-	<action actionid="34000" script="quests/secret library/brokulLever.lua" />
-	<action actionid="64008" script="quests/secret library/bucket.lua"/>
-	<action fromaid="64009" toaid="64012" script="quests/secret library/paddle.lua" />
-	<action actionid="64019" script="quests/secret library/mirror.lua"/>
-
 	<!-- Secret Service Quest -->
 	<action itemid="7700" script="quests/secret service/amazonDisguiseKit.lua" />
 	<action itemid="7697" script="quests/secret service/ring.lua" />
@@ -796,7 +790,10 @@
 	<action uniqueid="3402" script="quests/the outlaw camp/powerburn.lua" />
 
 	<!-- The Secret Library Quest -->
-	<action actionid="64019" script="quests/the secret library/asuraMirror.lua" />
+	<action actionid="34000" script="quests/the secret library/brokulLever.lua" />
+	<action actionid="64008" script="quests/the secret library/bucket.lua"/>
+	<action fromaid="64009" toaid="64012" script="quests/the secret library/paddle.lua" />
+	<action actionid="64019" script="quests/the secret library/mirror.lua"/>
 	
 	<!-- The Tainted Soul Quest -->
 	<action itemid="2800" script="quests/the tainted soul/star herb.lua" />

@@ -83,8 +83,8 @@ timeBetweenExActions = 1200
 -- Map
 -- NOTE: set mapName WITHOUT .otbm at the end
 -- NOTE: unzip the map world.rar
-mapName = "otservbr"
-mapAuthor = "Open-TibiaBR"
+mapName = "realmap"
+mapAuthor = "Cipsoft"
 
 -- Market
 marketOfferDuration = 30 * 24 * 60 * 60

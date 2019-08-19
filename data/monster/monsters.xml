@@ -33,6 +33,7 @@
 	<!-- Falcons -->
 	<monster name="Falcon Knight" file="Falcons/Falcon Knight.xml"/>
 	<monster name="Falcon Paladin" file="Falcons/Falcon Paladin.xml"/>
+	<monster name="Dazzled Leaf Golem" file="Falcons/Dazzled Leaf Golem.xml"/>
 	<!-- Fafnar Cultists -->
 	<monster name="Black Sphinx Acolyte" file="Fafnar Cultists/Black Sphinx Acolyte.xml"/>
 	<monster name="Burning Gladiator" file="Fafnar Cultists/Burning Gladiator.xml"/>
@@ -554,6 +555,7 @@
 	<monster name="Gryphon" file="Misc/Misc Mounts/Gryphon.xml"/>
 	<monster name="Manticore" file="Anuma/Manticore.xml"/>
 	<monster name="Sphinx" file="Anuma/Sphinx.xml"/>
+	<monster name="Lamassu" file="Anuma/Lamassu.xml"/>
 
 	<!-- Apes -->
 	<monster name="Kongra" file="Apes/kongra.xml"/>

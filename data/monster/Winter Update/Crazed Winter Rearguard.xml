@@ -53,28 +53,28 @@
 	</immunities>
 	<loot>
 <!--common-->
-<item name="platinum coin" count="5" chance="100000" /> 
-<item name="red crystal fragment" chance="1000000" /> 
-<item name="red gem" chance="1000000" /> 
+<item name="platinum coin" countmax="5" chance="100000"/>
+<item name="red crystal fragment" chance="1000000"/>
+<item name="red gem" chance="1000000"/>
 <!--uncommon-->
-<item name="ice rapier" chance="15000" />
-<item name="ultimate health potion" chance="11550" />    
-<item name="great spirit potion" chance="13550" />
-<item name="ice flower" count="2" chance="14750" />
-<item name="life crystal" chance="17550" />
-<item name="dream essence egg" chance="12350" />
-<item name="elven astral observer" chance="14600" />
-<item name="glacier mask" chance="13850" />    
-<item name="moonlight rod" chance="11250" />
-<item name="small enchanted sapphire" count="7" chance="12850" />
+<item name="ice rapier" chance="15000"/>
+<item name="ultimate health potion" chance="11550"/>
+<item name="great spirit potion" chance="13550"/>
+<item id="34696" countmax="2" chance="14750"/>  <!-- ice flower -->
+<item name="life crystal" chance="17550"/>
+<item name="dream essence egg" chance="12350"/>
+<item name="elven astral observer" chance="14600"/>
+<item name="glacier mask" chance="13850"/>
+<item name="moonlight rod" chance="11250"/>
+<item name="small enchanted sapphire" countmax="7" chance="12850"/>
 <!--semi-rare-->
-<item name="northwind rod" chance="25100" /> 
-<item name="glacier amulet" chance="13050" /> 
-<item name="hailstorm rod" chance="12800" /> 
-<item name="glacier robe" chance="12000" />
-<item name="cyan crystal fragment" chance="30000" />
-<item name="elven amulet" chance="25000" />
-<!--rare-->  
-<item name="blue gem" chance="1800" /> 
-</loot>
+<item name="northwind rod" chance="1000"/>
+<item name="glacier amulet" chance="500"/>
+<item name="hailstorm rod" chance="1000"/>
+<item name="glacier robe" chance="500"/>
+<item name="cyan crystal fragment" chance="500"/>
+<item name="elven amulet" chance="500"/>
+<!--rare-->
+<item name="blue gem" chance="1800"/>
+	</loot>
 </monster>
