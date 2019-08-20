@@ -804,8 +804,8 @@ DepotChest* Player::getDepotBox()
 	DepotChest* depotBoxs = new DepotChest(ITEM_DEPOT);
 	depotBoxs->incrementReferenceCounter();
 	depotBoxs->setMaxDepotItems(getMaxDepotItems()); //check each depotID, if depot limit is 1000, so all depots have 17k items max, causes crash?? I think not
-	for (uint32_t index = 1; index <= 18; ++index) {
-		depotBoxs->internalAddThing(getDepotChest(19 - index, true));
+	for (uint32_t index = 1; index <= 17; ++index) {
+		depotBoxs->internalAddThing(getDepotChest(18 - index, true));
 	}
 	return depotBoxs;
 }
@@ -854,7 +854,6 @@ DepotLocker* Player::getDepotLocker(uint32_t depotId)
 	Container* depotChest = Item::CreateItemAsContainer(ITEM_DEPOT, g_config.getNumber(ConfigManager::DEPOT_BOXES));
 	for (uint8_t i = g_config.getNumber(ConfigManager::DEPOT_BOXES); i > 0; i--) {
 		DepotChest* depotBox = getDepotChest(i, true);
-		depotChest->internalAddThing(Item::CreateItem(36632));
 		depotChest->internalAddThing(depotBox);
 		depotBox->setParent(depotChest);
 	}
