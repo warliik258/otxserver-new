@@ -14,3 +14,5 @@ dofile('data/lib/modalwindow.lua')
 dofile('data/lib/lionrock.lua')
 
 dofile('data/lib/dailyRewardLib.lua')
+
+dofile('data/lib/bestiary/bestiaryAssets.lua')

@@ -663,6 +663,11 @@ Storage = {
 		AssassinFirstAddon = 50081,
 		AssassinSecondAddon = 50082,
 
+		-- Golden Outfit
+		GoldenBaseOutfit = 50580,
+		GoldenFirstAddon = 50581,
+		GoldenSecondAddon = 50582,
+
 		NightmareOutfit = 50083,
 		NightmareDoor = 3040,
 		BrotherhoodOutfit = 50084,
@@ -1318,6 +1323,12 @@ Storage = {
 	},
 
 	DreamersChallenge = {
+		LeverNightmare1 = 50815,
+		LeverNightmare2 = 50816,
+		LeverNightmare3 = 50817,
+		LeverBrotherhood1 = 50818,
+		LeverBrotherhood2 = 50819,
+		LeverBrotherhood3 = 50820,
 		Reward = 9050
 	},
 
@@ -1335,6 +1346,10 @@ Storage = {
 	Factions = 50723,
 	blockMovementStorage = 100000,
 	PetSummon = 60045,
+	CupCakes = 5637,
+	HirelingFood = 5638,
+	JeanPierreFood = 5639,
+	DrowningSpeed = 5640,
 	
 	CurseSpreads = { --curse spreads - foxtail amulet
 		roteiroquest = 50723,
