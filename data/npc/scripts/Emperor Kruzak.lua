@@ -40,21 +40,21 @@ function creatureSayCallback(cid, type, msg)
 			selfSay("What will it be?", cid)
 			npcHandler.topic[cid] = 4
 		elseif npcHandler.topic[cid] == 5 then
-			if player:removeMoney(500000000) and player:getStorageValue(Storage.OutfitQuest.GoldenBaseOutfit) < 1) then
+			if player:removeMoney(500000000) and player:getStorageValue(Storage.OutfitQuest.GoldenBaseOutfit) < 1 then
 				npcHandler:say("Take this armor as a token of great gratitude. Let us forever remember this day, my friend. ", cid)
 				npcHandler.topic[cid] = 0
 				player:addOutfit(1210)
 				player:addOutfit(1211)
 				player:setStorageValue(Storage.OutfitQuest.GoldenBaseOutfit, 1)
 		elseif npcHandler.topic[cid] == 6 then
-			if player:removeMoney(250000000) and player:getStorageValue(Storage.OutfitQuest.GoldenBaseOutfit) == 1 and player:getStorageValue(Storage.OutfitQuest.GoldenFirstAddon) < 1) then
+			if player:removeMoney(250000000) and player:getStorageValue(Storage.OutfitQuest.GoldenBaseOutfit) == 1 and player:getStorageValue((Storage.OutfitQuest.GoldenFirstAddon) < 1) then
 				npcHandler:say("Take this boots as a token of great gratitude. Let us forever remember this day, my friend. ", cid)
 				npcHandler.topic[cid] = 0
 				player:addOutfitAddon(1210, 1)
 				player:addOutfitAddon(1211, 1)
 				player:setStorageValue(Storage.OutfitQuest.GoldenFirstAddon, 1)
 		elseif npcHandler.topic[cid] == 7 then
-			if player:removeMoney(250000000) and player:getStorageValue(Storage.OutfitQuest.GoldenBaseOutfit) == 1  and player:getStorageValue(Storage.OutfitQuest.GoldenSecondAddon) < 1) then
+			if player:removeMoney(250000000) and player:getStorageValue(Storage.OutfitQuest.GoldenBaseOutfit) == 1  and player:getStorageValue((Storage.OutfitQuest.GoldenSecondAddon) < 1) then
 				npcHandler:say("Take this helmet as a token of great gratitude. Let us forever remember this day, my friend. ", cid)
 				npcHandler.topic[cid] = 0
 				player:addOutfitAddon(1210, 2)
@@ -72,6 +72,9 @@ function creatureSayCallback(cid, type, msg)
 		npcHandler.topic[cid] = 7
 	end
 	return true
+end
+end
+end
 end
 
 -- Promotion
