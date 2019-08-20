@@ -1385,7 +1385,8 @@ void ProtocolGame::sendCreatureType(const Creature* creature, uint8_t creatureTy
 		}
 	}
 
-	writeToOutputBuffer(msg);
+
+  writeToOutputBuffer(msg);
 }
 
 void ProtocolGame::sendCreatureHelpers(uint32_t creatureId, uint16_t helpers)
@@ -3525,7 +3526,6 @@ void ProtocolGame::AddCreature(NetworkMessage& msg, const Creature* creature, bo
   if (player->getProtocolVersion() < 1120) {
     if (creatureType == CREATURETYPE_MONSTER) {
       const Creature* master = creature->getMaster();
-
       if (master) {
         const Player* masterPlayer = master->getPlayer();
         if (masterPlayer) {

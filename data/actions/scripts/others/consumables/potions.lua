@@ -133,7 +133,7 @@ function Player:canUsePotion(potionId, ignoreLevel --[[=false]])
     if self:getGroup():getAccess() then
         return true
     end
-    local potion = config[potionId]
+    local potion = potions[item:getId()]
     if potion then
         return (potion.level and self:getLevel() >= potion.level or ignoreLevel)
                 and (potion.vocations and table.contains(potion.vocations, self:getVocation():getBase():getId()) or not potion.vocations)

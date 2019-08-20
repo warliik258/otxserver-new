@@ -5076,29 +5076,29 @@ void Game::updatePlayerHelpers(const Player& player)
 
 void Game::updateCreatureType(Creature* creature)
 {
-	const Player* masterPlayer = nullptr;
+  const Player* masterPlayer = nullptr;
 
-	CreatureType_t creatureType = creature->getType();
-	if (creatureType == CREATURETYPE_MONSTER) {
-		const Creature* master = creature->getMaster();
-		if (master) {
-			masterPlayer = master->getPlayer();
+  CreatureType_t creatureType = creature->getType();
+  if (creatureType == CREATURETYPE_MONSTER) {
+    const Creature* master = creature->getMaster();
+    if (master) {
+      masterPlayer = master->getPlayer();
       if (masterPlayer && masterPlayer->getProtocolVersion() < 1120) {
         creatureType = CREATURETYPE_SUMMON_OTHERS;
       } else {
         creatureType = CREATURETYPE_SUMMONPLAYER;
       }
-		}
-	}
+    }
+  }
 
-	//send to clients
-	SpectatorHashSet spectators;
-	map.getSpectators(spectators, creature->getPosition(), true, true);
+  //send to clients
+  SpectatorHashSet spectators;
+  map.getSpectators(spectators, creature->getPosition(), true, true);
 
-  if (creatureType == CREATURETYPE_SUMMON_OTHERS) {
+  if (creatureType == CREATURETYPE_SUMMON_OTHERS && masterPlayer->getProtocolVersion() < 1120) {
     for (Creature* spectator : spectators) {
       Player* player = spectator->getPlayer();
-      if (masterPlayer == player && player->getProtocolVersion() < 1120) {
+      if (masterPlayer == player) {
         player->sendCreatureType(creature, CREATURETYPE_SUMMON_OWN);
       } else {
         player->sendCreatureType(creature, creatureType);
