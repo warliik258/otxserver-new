@@ -47,6 +47,7 @@
 		<voice sentence="Crush the intruders!"/>
 	</voices>
 	<loot>
+		<item id="2023" chance="100"/><!-- amphora -->
 		<item name="crystal necklace" chance="2530"/>
 		<item name="gold coin" countmax="100" chance="595300"/>
 		<item name="gold coin" countmax="99" chance="40000"/>
@@ -54,6 +55,7 @@
 		<item name="platinum coin" countmax="5" chance="59800"/>
 		<item name="strange symbol" chance="750"/>
 		<item id="2231" chance="670"/><!-- big bone -->
+		<item id="2553" chance="670"/><!-- pick -->
 		<item name="two handed sword" chance="5980"/>
 		<item name="double axe" chance="10510"/>
 		<item name="giant sword" chance="1006"/>
