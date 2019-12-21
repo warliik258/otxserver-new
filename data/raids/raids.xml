@@ -11,9 +11,9 @@
 	<raid name="Yeti" file="Carlin/yeti.xml" interval2="500" margin="70" />
 
 	<!-- Raids Thais -->
-	<raid name="OrcsThais" file="Thais/orcs.xml" interval2="500" margin="70" />
-	<raid name="RatsThais" file="Thais/rats.xml" interval2="500" margin="80" />
-	<raid name="Cyclops" file="Thais/cyclops.xml" interval2="500" margin="30" />
+	<raid name="OrcsThais" file="Thais/Orcs.xml" interval2="500" margin="70" />
+	<raid name="RatsThais" file="Thais/Rats.xml" interval2="500" margin="80" />
+	<raid name="Cyclops" file="Thais/Cyclops.xml" interval2="500" margin="30" />
 	<raid name="Orc SamBP" file="Thais/orcsambp.xml" interval2="300" margin="110" />
 	<raid name="Wild Horses" file="Thais/wildhorses.xml" interval2="500" margin="80" />
 
@@ -44,10 +44,10 @@
 	<raid name="Gargoyle" file="Ankrahmun/Gargoyle.xml" interval2="500" margin="70" />
 
 	<!-- Raids Darashia -->
-	<raid name="Undead Darashia" file="Darashia/undead_Darashia.xml" interval2="500" margin="70" />
-	<raid name="Lions" file="Darashia/lions.xml" interval2="500" margin="70" />
-	<raid name="Minos" file="Darashia/minotaurs.xml" interval2="500" margin="100" />
-	<raid name="Pirates" file="Darashia/pirates.xml" interval2="500" margin="90" />
+	<raid name="Undead Darashia" file="Darashia/undead_darashia.xml" interval2="500" margin="70" />
+	<raid name="Lions" file="Darashia/Lions.xml" interval2="500" margin="70" />
+	<raid name="Minos" file="Darashia/Minotaurs.xml" interval2="500" margin="100" />
+	<raid name="Pirates" file="Darashia/Pirates.xml" interval2="500" margin="90" />
 	<raid name="Arachir the Ancient One" file="Darashia/arachir_the_ancient_one.xml" interval2="1440" margin="80" />
 	<raid name="White Pale" file="Darashia/white_pale.xml" interval2="440" margin="60"/>
 	<raid name="The Pale Count" file="Darashia/the_pale_count.xml" interval2="490" margin="60" />
@@ -113,7 +113,7 @@
 	<raid name="Omrafir" file="roshamuul/omrafir.xml" interval2="1440" margin="80" />
 
 	<!-- Raids Kazordoon -->
-	<raid name="GoFemor" file="Kazordoon/goblins.xml" interval2="500" margin="70" />
+	<raid name="GoFemor" file="Kazordoon/Goblins.xml" interval2="500" margin="70" />
 	<raid name="Horned Fox" file="Kazordoon/horned.xml" interval2="1440" margin="180" />
 
 	<!-- Raids Oramond -->
