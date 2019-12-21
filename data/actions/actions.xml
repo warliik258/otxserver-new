@@ -2,13 +2,13 @@
 <actions>
 	<!-- Addons -->
 	<action fromid="18517" toid="18522" script="addons/addons.lua" />
-	<action fromid="13540" toid="13545" script="addons/afflictedOutfit.lua" />
-	<action fromid="13925" toid="13926" script="addons/afflictedOutfit.lua" />
+	<action fromid="13540" toid="13545" script="addons/afflictedoutfit.lua" />
+	<action fromid="13925" toid="13926" script="addons/afflictedoutfit.lua" />
 	<action fromid="30890" toid="30892" script="addons/addons.lua" />
 
 	<!-- Adventurer's Guild -->
 	<action itemid="18559" script="adventurers guild/adventurersStone.lua" />
-	<action fromid="19598" toid="19599" script="adventurers guild/magicDoor.lua" />
+	<action fromid="19598" toid="19599" script="adventurers guild/magicdoor.lua" />
 	<action actionid="50806" script="quests/adventurers guild/warrior skeleton.lua" />
 	<action actionid="50808" script="quests/adventurers guild/treasure.lua" />
 
@@ -366,7 +366,7 @@
 	<action fromaid="50230" toaid="50233" script="kazordoon/oreWagons.lua" />
 	<action fromaid="50011" toaid="50012" script="kazordoon/elevatorLever.lua" />
 	<action actionid="50237" script="kazordoon/stone.lua" />
-	<action actionid="50238" script="kazordoon/trapDoor.lua" />
+	<action actionid="50238" script="kazordoon/trapdoor.lua" />
 
 	<!-- Koshei Amulet Quest -->
 	<action itemid="8266" script="quests/koshei amulet/boss.lua" />
