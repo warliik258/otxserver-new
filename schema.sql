@@ -584,7 +584,7 @@ CREATE TABLE `players` (
   `marriage_spouse` int(11) NOT NULL DEFAULT -1,
   `loyalty_ranking` tinyint(1) NOT NULL DEFAULT 0,
   `bonus_rerolls` bigint(20) NOT NULL DEFAULT 0,
-  `sbw_points` int(11) NOT NULL DEFAULT 0
+  `sbw_points` int(11) NOT NULL DEFAULT 0,
   `instantrewardtokens` int(11) UNSIGNED NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
