@@ -1,93 +1,371 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 		Knight 			Paladin 		Socerer 		Druid 	 		Assassin	 	
+Knight 		Elite Knight 	Templar 		Magic Knight 	Warden 			Berserker
+Paladin 	Hunter 			Royal paladin 	Undead Paladin 	Ranger 			Gunslinger
+Sorcerer 	Wizard			Chronomancer	Master Sorcerer Elementalist	Warlock
+Druid 		Bard 			Priest 			Alchemist		Elder Druid 	Necromancer	
+Assassin 	Samurai 		Pirate 			Gambler	 		A+D				Shinobi
+ -->
+
 <vocations>
-	<vocation id="0" clientid="0" name="None" description="none" gaincap="10" gainhp="5" gainmana="5" gainhpticks="12" gainhpamount="1" gainmanaticks="6" gainmanaamount="2" manamultiplier="4.0" attackspeed="2000" basespeed="220" soulmax="100" gainsoulticks="120" fromvoc="0">
+	<vocation id="0" clientid="0" name="None" description="none" gaincap="5" gainhp="5" gainmana="5" gainhpticks="12" gainhpamount="1" gainmanaticks="6" gainmanaamount="2" manamultiplier="4.0" attackspeed="4000" basespeed="200" soulmax="100" gainsoulticks="120" fromvoc="0">
 		<formula meleeDamage="1.0" distDamage="1.0" defense="1.0" armor="1.0" />
-		<skill id="0" multiplier="1.5" />
-		<skill id="1" multiplier="2.0" />
-		<skill id="2" multiplier="2.0" />
-		<skill id="3" multiplier="2.0" />
-		<skill id="4" multiplier="2.0" />
-		<skill id="5" multiplier="1.5" />
-		<skill id="6" multiplier="1.1" />
+		<skill id="0" multiplier="2.0" /> <!-- Fist -->
+		<skill id="1" multiplier="2.0" /> <!-- Club -->
+		<skill id="2" multiplier="2.0" /> <!-- Sword -->
+		<skill id="3" multiplier="2.0" /> <!-- Axe -->
+		<skill id="4" multiplier="2.0" /> <!-- Distance -->
+		<skill id="5" multiplier="2.0" /> <!-- Shield -->
+		<skill id="6" multiplier="1.1" /> <!-- Fishing -->
 	</vocation>
-	<vocation id="1" clientid="3" name="Sorcerer" description="a sorcerer" gaincap="10" gainhp="5" gainmana="30" gainhpticks="12" gainhpamount="1" gainmanaticks="3" gainmanaamount="2" manamultiplier="1.1" attackspeed="2000" basespeed="220" soulmax="100" gainsoulticks="120" fromvoc="1">
+<!-- Knight Tree -->
+		<!-- Knight -->
+	<vocation id="1" clientid="1" name="Knight" description="a Knight" gaincap="15" gainhp="15" gainmana="5" gainhpticks="6" gainhpamount="2" gainmanaticks="3" gainmanaamount="4" manamultiplier="3.0" attackspeed="2000" basespeed="220" soulmax="200" gainsoulticks="10" fromvoc="1">
 		<formula meleeDamage="1.0" distDamage="1.0" defense="1.0" armor="1.0" />
-		<skill id="0" multiplier="1.5" />
-		<skill id="1" multiplier="2.0" />
-		<skill id="2" multiplier="2.0" />
-		<skill id="3" multiplier="2.0" />
-		<skill id="4" multiplier="2.0" />
-		<skill id="5" multiplier="1.5" />
-		<skill id="6" multiplier="1.1" />
+		<skill id="0" multiplier="1.8" /> <!-- Fist -->
+		<skill id="1" multiplier="1.8" /> <!-- Club -->
+		<skill id="2" multiplier="1.8" /> <!-- Sword -->
+		<skill id="3" multiplier="1.8" /> <!-- Axe -->
+		<skill id="4" multiplier="2.0" /> <!-- Distance -->
+		<skill id="5" multiplier="1.8" /> <!-- Shield -->
+		<skill id="6" multiplier="1.1" /> <!-- Fishing -->
 	</vocation>
-	<vocation id="2" clientid="4" name="Druid" description="a druid" gaincap="10" gainhp="5" gainmana="30" gainhpticks="12" gainhpamount="1" gainmanaticks="3" gainmanaamount="2" manamultiplier="1.1" attackspeed="2000" basespeed="220" soulmax="100" gainsoulticks="120" fromvoc="2">
+		
+		<!-- Elite Knight -->
+	<vocation id="2" clientid="1" name="Elite Knight" description="a Elite Knight" gaincap="30" gainhp="30" gainmana="10" gainhpticks="3" gainhpamount="4" gainmanaticks="2" gainmanaamount="8" manamultiplier="3.0" attackspeed="1500" basespeed="250" soulmax="200" gainsoulticks="5" fromvoc="1">
+		<formula meleeDamage="1.1" distDamage="1.0" defense="1.2" armor="1.2" />
+		<skill id="0" multiplier="1.1" /> <!-- Fist -->
+		<skill id="1" multiplier="1.1" /> <!-- Club -->
+		<skill id="2" multiplier="1.1" /> <!-- Sword -->
+		<skill id="3" multiplier="1.1" /> <!-- Axe -->
+		<skill id="4" multiplier="2.0" /> <!-- Distance -->
+		<skill id="5" multiplier="1.1" /> <!-- Shield -->
+		<skill id="6" multiplier="1.1" /> <!-- Fishing -->
+	</vocation>
+		<!-- Templar -->
+	<vocation id="3" clientid="1" name="Templar" description="a Templar" gaincap="28" gainhp="26" gainmana="18" gainhpticks="3" gainhpamount="4" gainmanaticks="2" gainmanaamount="8" manamultiplier="2.0" attackspeed="1500" basespeed="250" soulmax="200" gainsoulticks="5" fromvoc="1">
+		<formula meleeDamage="1.1" distDamage="1.1" defense="1.1" armor="1.1" />
+		<skill id="0" multiplier="1.1" /> <!-- Fist -->
+		<skill id="1" multiplier="1.8" /> <!-- Club -->
+		<skill id="2" multiplier="1.09" /> <!-- Sword -->
+		<skill id="3" multiplier="1.8" /> <!-- Axe -->
+		<skill id="4" multiplier="1.5" /> <!-- Distance -->
+		<skill id="5" multiplier="1.2" /> <!-- Shield -->
+		<skill id="6" multiplier="1.1" /> <!-- Fishing -->
+	</vocation>
+		<!-- Magic Knight -->
+	<vocation id="4" clientid="1" name="Magic Knight" description="a Magic Knight" gaincap="22" gainhp="20" gainmana="30" gainhpticks="3" gainhpamount="4" gainmanaticks="2" gainmanaamount="8" manamultiplier="1.4" attackspeed="2000" basespeed="250" soulmax="200" gainsoulticks="5" fromvoc="1">
+		<formula meleeDamage="1.1" distDamage="1.0" defense="1.0" armor="1.0" />
+		<skill id="0" multiplier="1.8" /> <!-- Fist -->
+		<skill id="1" multiplier="1.8" /> <!-- Club -->
+		<skill id="2" multiplier="1.1" /> <!-- Sword -->
+		<skill id="3" multiplier="1.8" /> <!-- Axe -->
+		<skill id="4" multiplier="2.0" /> <!-- Distance -->
+		<skill id="5" multiplier="1.4" /> <!-- Shield -->
+		<skill id="6" multiplier="1.1" /> <!-- Fishing -->
+	</vocation>
+		<!-- Warden -->
+	<vocation id="5" clientid="1" name="Warden" description="a Warden" gaincap="22" gainhp="28" gainmana="14" gainhpticks="3" gainhpamount="4" gainmanaticks="2" gainmanaamount="8" manamultiplier="1.5" attackspeed="2000" basespeed="250" soulmax="200" gainsoulticks="5" fromvoc="1">
+		<formula meleeDamage="1.0" distDamage="1.0" defense="1.2" armor="1.2" />
+		<skill id="0" multiplier="1.8" /> <!-- Fist -->
+		<skill id="1" multiplier="1.1" /> <!-- Club -->
+		<skill id="2" multiplier="1.8" /> <!-- Sword -->
+		<skill id="3" multiplier="1.8" /> <!-- Axe -->
+		<skill id="4" multiplier="2.0" /> <!-- Distance -->
+		<skill id="5" multiplier="1.2" /> <!-- Shield -->
+		<skill id="6" multiplier="1.1" /> <!-- Fishing -->
+	</vocation>
+		<!-- Beserker -->
+	<vocation id="6" clientid="1" name="Beserker" description="a Beserker" gaincap="25" gainhp="32" gainmana="6" gainhpticks="3" gainhpamount="4" gainmanaticks="2" gainmanaamount="8" manamultiplier="3.0" attackspeed="1500" basespeed="300" soulmax="200" gainsoulticks="5" fromvoc="1">
+		<formula meleeDamage="1.2" distDamage="1.0" defense="1.1" armor="1.0" />
+		<skill id="0" multiplier="1.8" /> <!-- Fist -->
+		<skill id="1" multiplier="1.8" /> <!-- Club -->
+		<skill id="2" multiplier="1.8" /> <!-- Sword -->
+		<skill id="3" multiplier="1.09" /> <!-- Axe -->
+		<skill id="4" multiplier="2.0" /> <!-- Distance -->
+		<skill id="5" multiplier="1.8" /> <!-- Shield -->
+		<skill id="6" multiplier="1.1" /> <!-- Fishing -->
+	</vocation>
+		
+<!-- Knight Tree END -->
+<!-- Paladin Tree -->
+			<!-- Paladin -->
+	<vocation id="7" clientid="2" name="Paladin" description="a Paladin" gaincap="10" gainhp="10" gainmana="15" gainhpticks="6" gainhpamount="2" gainmanaticks="3" gainmanaamount="4" manamultiplier="3.0" attackspeed="2000" basespeed="220" soulmax="100" gainsoulticks="10" fromvoc="7">
 		<formula meleeDamage="1.0" distDamage="1.0" defense="1.0" armor="1.0" />
-		<skill id="0" multiplier="1.5" />
-		<skill id="1" multiplier="1.8" />
-		<skill id="2" multiplier="1.8" />
-		<skill id="3" multiplier="1.8" />
-		<skill id="4" multiplier="1.8" />
-		<skill id="5" multiplier="1.5" />
-		<skill id="6" multiplier="1.1" />
+		<skill id="0" multiplier="2.0" /> <!-- Fist -->
+		<skill id="1" multiplier="2.0" /> <!-- Club -->
+		<skill id="2" multiplier="2.0" /> <!-- Sword -->
+		<skill id="3" multiplier="2.0" /> <!-- Axe -->
+		<skill id="4" multiplier="1.8" /> <!-- Distance -->
+		<skill id="5" multiplier="2.0" /> <!-- Shield -->
+		<skill id="6" multiplier="1.1" /> <!-- Fishing -->
 	</vocation>
-	<vocation id="3" clientid="2" name="Paladin" description="a paladin" gaincap="20" gainhp="10" gainmana="15" gainhpticks="8" gainhpamount="1" gainmanaticks="4" gainmanaamount="2" manamultiplier="1.4" attackspeed="2000" basespeed="220" soulmax="100" gainsoulticks="120" fromvoc="3">
-		<formula meleeDamage="1.0" distDamage="1.0" defense="1.0" armor="1.0" />
-		<skill id="0" multiplier="1.2" />
-		<skill id="1" multiplier="1.2" />
-		<skill id="2" multiplier="1.2" />
-		<skill id="3" multiplier="1.2" />
-		<skill id="4" multiplier="1.1" />
-		<skill id="5" multiplier="1.1" />
-		<skill id="6" multiplier="1.1" />
+		<!-- Hunter -->
+	<vocation id="8" clientid="2" name="Hunter" description="a Hunter" gaincap="25" gainhp="25" gainmana="20" gainhpticks="3" gainhpamount="4" gainmanaticks="2" gainmanaamount="8" manamultiplier="2.0" attackspeed="1500" basespeed="250" soulmax="200" gainsoulticks="5" fromvoc="7">
+		<formula meleeDamage="1.0" distDamage="1.2" defense="1.0" armor="1.0" />
+		<skill id="0" multiplier="2.0" /> <!-- Fist -->
+		<skill id="1" multiplier="2.0" /> <!-- Club -->
+		<skill id="2" multiplier="2.0" /> <!-- Sword -->
+		<skill id="3" multiplier="2.0" /> <!-- Axe -->
+		<skill id="4" multiplier="1.1" /> <!-- Distance -->
+		<skill id="5" multiplier="1.5" /> <!-- Shield -->
+		<skill id="6" multiplier="1.1" /> <!-- Fishing -->
 	</vocation>
-	<vocation id="4" clientid="1" name="Knight" description="a knight" gaincap="25" gainhp="15" gainmana="5" gainhpticks="6" gainhpamount="1" gainmanaticks="6" gainmanaamount="2" manamultiplier="3.0" attackspeed="2000" basespeed="220" soulmax="100" gainsoulticks="120" fromvoc="4">
-		<formula meleeDamage="1.0" distDamage="1.0" defense="1.0" armor="1.0" />
-		<skill id="0" multiplier="1.1" />
-		<skill id="1" multiplier="1.1" />
-		<skill id="2" multiplier="1.1" />
-		<skill id="3" multiplier="1.1" />
-		<skill id="4" multiplier="1.4" />
-		<skill id="5" multiplier="1.1" />
-		<skill id="6" multiplier="1.1" />
+		<!-- Royal Paladin -->
+	<vocation id="9" clientid="2" name="Royal Paladin" description="a Royal Paladin" gaincap="20" gainhp="30" gainmana="30" gainhpticks="6" gainhpamount="2" gainmanaticks="3" gainmanaamount="4" manamultiplier="1.4" attackspeed="1500" basespeed="250" soulmax="200" gainsoulticks="5" fromvoc="7">
+		<formula meleeDamage="1.0" distDamage="1.2" defense="1.0" armor="1.0" />
+		<skill id="0" multiplier="2.0" /> <!-- Fist -->
+		<skill id="1" multiplier="2.0" /> <!-- Club -->
+		<skill id="2" multiplier="2.0" /> <!-- Sword -->
+		<skill id="3" multiplier="2.0" /> <!-- Axe -->
+		<skill id="4" multiplier="1.09" /> <!-- Distance -->
+		<skill id="5" multiplier="1.5" /> <!-- Shield -->
+		<skill id="6" multiplier="1.1" /> <!-- Fishing -->
 	</vocation>
-	<vocation id="5" clientid="3" name="Master Sorcerer" description="a master sorcerer" gaincap="10" gainhp="5" gainmana="30" gainhpticks="12" gainhpamount="1" gainmanaticks="2" gainmanaamount="2" manamultiplier="1.1" attackspeed="2000" basespeed="220" soulmax="200" gainsoulticks="15" fromvoc="1">
-		<formula meleeDamage="1.0" distDamage="1.0" defense="1.0" armor="1.0" />
-		<skill id="0" multiplier="1.5" />
-		<skill id="1" multiplier="2.0" />
-		<skill id="2" multiplier="2.0" />
-		<skill id="3" multiplier="2.0" />
-		<skill id="4" multiplier="2.0" />
-		<skill id="5" multiplier="1.5" />
-		<skill id="6" multiplier="1.1" />
+		<!-- Undead Paladin -->
+	<vocation id="10" clientid="2" name="Undead Paladin" description="a Undead Paladin" gaincap="1" gainhp="68" gainmana="50" gainhpticks="6" gainhpamount="2" gainmanaticks="3" gainmanaamount="4" manamultiplier="1.2" attackspeed="1500" basespeed="250" soulmax="200" gainsoulticks="5" fromvoc="7">
+		<formula meleeDamage="1.1" distDamage="1.1" defense="1.0" armor="1.0" />
+		<skill id="0" multiplier="2.0" /> <!-- Fist -->
+		<skill id="1" multiplier="2.0" /> <!-- Club -->
+		<skill id="2" multiplier="2.0" /> <!-- Sword -->
+		<skill id="3" multiplier="2.0" /> <!-- Axe -->
+		<skill id="4" multiplier="1.3" /> <!-- Distance -->
+		<skill id="5" multiplier="1.5" /> <!-- Shield -->
+		<skill id="6" multiplier="1.1" /> <!-- Fishing -->
 	</vocation>
-	<vocation id="6" clientid="4" name="Elder Druid" description="an elder druid" gaincap="10" gainhp="5" gainmana="30" gainhpticks="12" gainhpamount="1" gainmanaticks="2" gainmanaamount="2" manamultiplier="1.1" attackspeed="2000" basespeed="220" soulmax="200" gainsoulticks="15" fromvoc="2">
-		<formula meleeDamage="1.0" distDamage="1.0" defense="1.0" armor="1.0" />
-		<skill id="0" multiplier="1.5" />
-		<skill id="1" multiplier="1.8" />
-		<skill id="2" multiplier="1.8" />
-		<skill id="3" multiplier="1.8" />
-		<skill id="4" multiplier="1.8" />
-		<skill id="5" multiplier="1.5" />
-		<skill id="6" multiplier="1.1" />
+		<!-- Ranger -->
+	<vocation id="11" clientid="2" name="Ranger" description="a Ranger" gaincap="18" gainhp="15" gainmana="35" gainhpticks="6" gainhpamount="2" gainmanaticks="3" gainmanaamount="4" manamultiplier="1.3" attackspeed="1500" basespeed="250" soulmax="200" gainsoulticks="5" fromvoc="7">
+		<formula meleeDamage="1.0" distDamage="1.2" defense="1.0" armor="1.0" />
+		<skill id="0" multiplier="2.0" /> <!-- Fist -->
+		<skill id="1" multiplier="2.0" /> <!-- Club -->
+		<skill id="2" multiplier="2.0" /> <!-- Sword -->
+		<skill id="3" multiplier="2.0" /> <!-- Axe -->
+		<skill id="4" multiplier="1.1" /> <!-- Distance -->
+		<skill id="5" multiplier="2.0" /> <!-- Shield -->
+		<skill id="6" multiplier="1.1" /> <!-- Fishing -->
 	</vocation>
-	<vocation id="7" clientid="2" name="Royal Paladin" description="a royal paladin" gaincap="20" gainhp="10" gainmana="15" gainhpticks="6" gainhpamount="1" gainmanaticks="3" gainmanaamount="2" manamultiplier="1.4" attackspeed="2000" basespeed="220" soulmax="200" gainsoulticks="15" fromvoc="3">
-		<formula meleeDamage="1.0" distDamage="1.0" defense="1.0" armor="1.0" />
-		<skill id="0" multiplier="1.2" />
-		<skill id="1" multiplier="1.2" />
-		<skill id="2" multiplier="1.2" />
-		<skill id="3" multiplier="1.2" />
-		<skill id="4" multiplier="1.1" />
-		<skill id="5" multiplier="1.1" />
-		<skill id="6" multiplier="1.1" />
+		<!-- Gunslinger -->
+	<vocation id="12" clientid="2" name="Gunslinger" description="a Gunslinger" gaincap="20" gainhp="26" gainmana="18" gainhpticks="6" gainhpamount="2" gainmanaticks="3" gainmanaamount="4" manamultiplier="3.0" attackspeed="1500" basespeed="300" soulmax="200" gainsoulticks="5" fromvoc="7">
+		<formula meleeDamage="1.0" distDamage="1.4" defense="0.9" armor="0.9" />
+		<skill id="0" multiplier="2.0" /> <!-- Fist -->
+		<skill id="1" multiplier="2.0" /> <!-- Club -->
+		<skill id="2" multiplier="2.0" /> <!-- Sword -->
+		<skill id="3" multiplier="2.0" /> <!-- Axe -->
+		<skill id="4" multiplier="1.09" /> <!-- Distance -->
+		<skill id="5" multiplier="2.0" /> <!-- Shield -->
+		<skill id="6" multiplier="1.1" /> <!-- Fishing -->
 	</vocation>
-	<vocation id="8" clientid="1" name="Elite Knight" description="an elite knight" gaincap="25" gainhp="15" gainmana="5" gainhpticks="4" gainhpamount="1" gainmanaticks="6" gainmanaamount="2" manamultiplier="3.0" attackspeed="2000" basespeed="220" soulmax="200" gainsoulticks="15" fromvoc="4">
-		<formula meleeDamage="1.0" distDamage="1.0" defense="1.0" armor="1.0" />
-		<skill id="0" multiplier="1.1" />
-		<skill id="1" multiplier="1.1" />
-		<skill id="2" multiplier="1.1" />
-		<skill id="3" multiplier="1.1" />
-		<skill id="4" multiplier="1.4" />
-		<skill id="5" multiplier="1.1" />
-		<skill id="6" multiplier="1.1" />
+<!-- Paladin Tree END -->
+
+<!-- Sorcerer Tree -->
+	<!-- Sorcerer -->
+	<vocation id="13" clientid="3" name="Sorcerer" description="a Sorcerer" gaincap="8" gainhp="5" gainmana="30" gainhpticks="6" gainhpamount="2" gainmanaticks="3" gainmanaamount="4" manamultiplier="2.0" attackspeed="2000" basespeed="220" soulmax="200" gainsoulticks="10" fromvoc="13">
+		<formula meleeDamage="1.1" distDamage="1.0" defense="1.0" armor="1.0" />
+		<skill id="0" multiplier="2.0" /> <!-- Fist -->
+		<skill id="1" multiplier="2.0" /> <!-- Club -->
+		<skill id="2" multiplier="2.0" /> <!-- Sword -->
+		<skill id="3" multiplier="2.0" /> <!-- Axe -->
+		<skill id="4" multiplier="2.0" /> <!-- Distance -->
+		<skill id="5" multiplier="2.0" /> <!-- Shield -->
+		<skill id="6" multiplier="1.1" /> <!-- Fishing -->
 	</vocation>
+		<!-- Master Sorcerer -->
+	<vocation id="14" clientid="3" name="Master Sorcerer" description="a Master Sorcerer" gaincap="16" gainhp="10" gainmana="60" gainhpticks="3" gainhpamount="4" gainmanaticks="2" gainmanaamount="8" manamultiplier="1.1" attackspeed="2000" basespeed="250" soulmax="400" gainsoulticks="5" fromvoc="13">
+		<formula meleeDamage="1.0" distDamage="1.0" defense="1.0" armor="1.1" />
+		<skill id="0" multiplier="2.0" /> <!-- Fist -->
+		<skill id="1" multiplier="2.0" /> <!-- Club -->
+		<skill id="2" multiplier="2.0" /> <!-- Sword -->
+		<skill id="3" multiplier="2.0" /> <!-- Axe -->
+		<skill id="4" multiplier="2.0" /> <!-- Distance -->
+		<skill id="5" multiplier="1.5" /> <!-- Shield -->
+		<skill id="6" multiplier="1.1" /> <!-- Fishing -->
+	</vocation>
+		<!-- Wizard -->
+	<vocation id="15" clientid="3" name="Wizard" description="a Wizard" gaincap="23" gainhp="25" gainmana="30" gainhpticks="3" gainhpamount="4" gainmanaticks="2" gainmanaamount="8" manamultiplier="1.2" attackspeed="1500" basespeed="250" soulmax="400" gainsoulticks="5" fromvoc="13">
+		<formula meleeDamage="1.0" distDamage="1.0" defense="1.1" armor="1.1" />
+		<skill id="0" multiplier="2.0" /> <!-- Fist -->
+		<skill id="1" multiplier="2.0" /> <!-- Club -->
+		<skill id="2" multiplier="2.0" /> <!-- Sword -->
+		<skill id="3" multiplier="2.0" /> <!-- Axe -->
+		<skill id="4" multiplier="2.0" /> <!-- Distance -->
+		<skill id="5" multiplier="1.2" /> <!-- Shield -->
+		<skill id="6" multiplier="1.1" /> <!-- Fishing -->
+	</vocation>
+		<!-- Chronomancer -->
+	<vocation id="16" clientid="3" name="Chronomancer" description="a Chronomancer" gaincap="18" gainhp="20" gainmana="40" gainhpticks="3" gainhpamount="4" gainmanaticks="2" gainmanaamount="8" manamultiplier="1.1" attackspeed="2000" basespeed="250" soulmax="400" gainsoulticks="5" fromvoc="13">
+		<formula meleeDamage="1.0" distDamage="1.0" defense="1.0" armor="1.1" />
+		<skill id="0" multiplier="2.0" /> <!-- Fist -->
+		<skill id="1" multiplier="2.0" /> <!-- Club -->
+		<skill id="2" multiplier="2.0" /> <!-- Sword -->
+		<skill id="3" multiplier="2.0" /> <!-- Axe -->
+		<skill id="4" multiplier="1.5" /> <!-- Distance -->
+		<skill id="5" multiplier="1.4" /> <!-- Shield -->
+		<skill id="6" multiplier="1.1" /> <!-- Fishing -->
+	</vocation>
+		<!-- Elementalist -->
+	<vocation id="17" clientid="3" name="Elementalist" description="a Elementalist" gaincap="16" gainhp="5" gainmana="70" gainhpticks="3" gainhpamount="4" gainmanaticks="2" gainmanaamount="8" manamultiplier="1.09" attackspeed="2000" basespeed="250" soulmax="400" gainsoulticks="5" fromvoc="13">
+		<formula meleeDamage="1.0" distDamage="1.0" defense="1.0" armor="1.1" />
+		<skill id="0" multiplier="2.0" /> <!-- Fist -->
+		<skill id="1" multiplier="2.0" /> <!-- Club -->
+		<skill id="2" multiplier="2.0" /> <!-- Sword -->
+		<skill id="3" multiplier="2.0" /> <!-- Axe -->
+		<skill id="4" multiplier="2.0" /> <!-- Distance -->
+		<skill id="5" multiplier="1.8" /> <!-- Shield -->
+		<skill id="6" multiplier="1.1" /> <!-- Fishing -->
+	</vocation>
+		<!-- Warlock -->
+	<vocation id="18" clientid="3" name="Warlock" description="a Warlock" gaincap="18" gainhp="15" gainmana="50" gainhpticks="3" gainhpamount="4" gainmanaticks="2" gainmanaamount="8" manamultiplier="1.1" attackspeed="1500" basespeed="250" soulmax="400" gainsoulticks="5" fromvoc="13">
+		<formula meleeDamage="1.0" distDamage="1.0" defense="1.0" armor="1.1" />
+		<skill id="0" multiplier="2.0" /> <!-- Fist -->
+		<skill id="1" multiplier="2.0" /> <!-- Club -->
+		<skill id="2" multiplier="2.0" /> <!-- Sword -->
+		<skill id="3" multiplier="2.0" /> <!-- Axe -->
+		<skill id="4" multiplier="2.0" /> <!-- Distance -->
+		<skill id="5" multiplier="1.8" /> <!-- Shield -->
+		<skill id="6" multiplier="1.1" /> <!-- Fishing -->
+	</vocation>
+<!-- Sorcerer Tree END-->
+
+<!-- Druid Tree -->
+			<!-- Druid -->
+		<vocation id="19" clientid="4" name="Druid" description="a Druid" gaincap="8" gainhp="6" gainmana="28" gainhpticks="6" gainhpamount="2" gainmanaticks="3" gainmanaamount="4" manamultiplier="2.0" attackspeed="1000" basespeed="220" soulmax="200" gainsoulticks="10" fromvoc="19">
+			<formula meleeDamage="1.1" distDamage="1.0" defense="1.0" armor="1.0" />
+			<skill id="0" multiplier="2.0" /> <!-- Fist -->
+			<skill id="1" multiplier="2.0" /> <!-- Club -->
+			<skill id="2" multiplier="2.0" /> <!-- Sword -->
+			<skill id="3" multiplier="2.0" /> <!-- Axe -->
+			<skill id="4" multiplier="2.0" /> <!-- Distance -->
+			<skill id="5" multiplier="2.0" /> <!-- Shield -->
+			<skill id="6" multiplier="1.1" /> <!-- Fishing -->
+		</vocation>
+			<!-- Elder Druid -->
+		<vocation id="20" clientid="4" name="Elder Druid" description="a Elder Druid" gaincap="16" gainhp="12" gainmana="56" gainhpticks="3" gainhpamount="4" gainmanaticks="2" gainmanaamount="8" manamultiplier="1.1" attackspeed="2000" basespeed="250" soulmax="400" gainsoulticks="5" fromvoc="19">
+			<formula meleeDamage="1.0" distDamage="1.0" defense="1.1" armor="1.0" />
+			<skill id="0" multiplier="2.0" /> <!-- Fist -->
+			<skill id="1" multiplier="2.0" /> <!-- Club -->
+			<skill id="2" multiplier="2.0" /> <!-- Sword -->
+			<skill id="3" multiplier="2.0" /> <!-- Axe -->
+			<skill id="4" multiplier="2.0" /> <!-- Distance -->
+			<skill id="5" multiplier="1.5" /> <!-- Shield -->
+			<skill id="6" multiplier="1.1" /> <!-- Fishing -->
+		</vocation>
+			<!-- Bard -->
+		<vocation id="21" clientid="4" name="Bard" description="a Bard" gaincap="23" gainhp="27" gainmana="26" gainhpticks="3" gainhpamount="4" gainmanaticks="2" gainmanaamount="8" manamultiplier="1.3" attackspeed="1500" basespeed="250" soulmax="400" gainsoulticks="5" fromvoc="19">
+			<formula meleeDamage="1.0" distDamage="1.1" defense="1.1" armor="1.0" />
+			<skill id="0" multiplier="2.0" /> <!-- Fist -->
+			<skill id="1" multiplier="2.0" /> <!-- Club -->
+			<skill id="2" multiplier="2.0" /> <!-- Sword -->
+			<skill id="3" multiplier="2.0" /> <!-- Axe -->
+			<skill id="4" multiplier="1.3" /> <!-- Distance -->
+			<skill id="5" multiplier="1.5" /> <!-- Shield -->
+			<skill id="6" multiplier="1.1" /> <!-- Fishing -->
+		</vocation>
+			<!-- Priest -->
+		<vocation id="22" clientid="4" name="Priest" description="a Priest" gaincap="18" gainhp="22" gainmana="36" gainhpticks="3" gainhpamount="4" gainmanaticks="2" gainmanaamount="8" manamultiplier="1.1" attackspeed="1500" basespeed="250" soulmax="400" gainsoulticks="5" fromvoc="19">
+			<formula meleeDamage="1.0" distDamage="1.0" defense="1.1" armor="1.0" />
+			<skill id="0" multiplier="2.0" /> <!-- Fist -->
+			<skill id="1" multiplier="2.0" /> <!-- Club -->
+			<skill id="2" multiplier="2.0" /> <!-- Sword -->
+			<skill id="3" multiplier="2.0" /> <!-- Axe -->
+			<skill id="4" multiplier="2.0" /> <!-- Distance -->
+			<skill id="5" multiplier="1.5" /> <!-- Shield -->
+			<skill id="6" multiplier="1.1" /> <!-- Fishing -->
+		</vocation>
+			<!-- Alchemist -->
+		<vocation id="23" clientid="4" name="Alchemist" description="a Alchemist" gaincap="30" gainhp="12" gainmana="56" gainhpticks="3" gainhpamount="4" gainmanaticks="2" gainmanaamount="8" manamultiplier="1.1" attackspeed="1500" basespeed="250" soulmax="400" gainsoulticks="5" fromvoc="19">
+			<formula meleeDamage="1.0" distDamage="1.0" defense="1.1" armor="1.0" />
+			<skill id="0" multiplier="2.0" /> <!-- Fist -->
+			<skill id="1" multiplier="2.0" /> <!-- Club -->
+			<skill id="2" multiplier="2.0" /> <!-- Sword -->
+			<skill id="3" multiplier="2.0" /> <!-- Axe -->
+			<skill id="4" multiplier="2.0" /> <!-- Distance -->
+			<skill id="5" multiplier="1.5" /> <!-- Shield -->
+			<skill id="6" multiplier="1.1" /> <!-- Fishing -->
+		</vocation>
+			<!-- Necromancer -->
+		<vocation id="24" clientid="4" name="Necromancer" description="a Necromancer" gaincap="18" gainhp="8" gainmana="64" gainhpticks="3" gainhpamount="4" gainmanaticks="2" gainmanaamount="8" manamultiplier="1.09" attackspeed="1500" basespeed="250" soulmax="400" gainsoulticks="5" fromvoc="19">
+			<formula meleeDamage="1.0" distDamage="1.0" defense="1.0" armor="1.0" />
+			<skill id="0" multiplier="2.0" /> <!-- Fist -->
+			<skill id="1" multiplier="2.0" /> <!-- Club -->
+			<skill id="2" multiplier="2.0" /> <!-- Sword -->
+			<skill id="3" multiplier="2.0" /> <!-- Axe -->
+			<skill id="4" multiplier="2.0" /> <!-- Distance -->
+			<skill id="5" multiplier="1.8" /> <!-- Shield -->
+			<skill id="6" multiplier="1.1" /> <!-- Fishing -->
+		</vocation>
+
+
+
+<!-- Druid Tree END -->
+
+
+		<!-- Assassins Tree -->
+			<!-- Assassin -->
+	<vocation id="25" clientid="5" name="Assassin" description="a Assassin" gaincap="10" gainhp="15" gainmana="10" gainhpticks="6" gainhpamount="2" gainmanaticks="3" gainmanaamount="4" manamultiplier="2.0" attackspeed="1500" basespeed="220" soulmax="200" gainsoulticks="10" fromvoc="25">
+		<formula meleeDamage="1.1" distDamage="1.0" defense="1.0" armor="1.0" />
+		<skill id="0" multiplier="2.0" /> <!-- Fist -->
+		<skill id="1" multiplier="2.0" /> <!-- Club -->
+		<skill id="2" multiplier="1.8" /> <!-- Sword -->
+		<skill id="3" multiplier="2.0" /> <!-- Axe -->
+		<skill id="4" multiplier="2.0" /> <!-- Distance -->
+		<skill id="5" multiplier="2.0" /> <!-- Shield -->
+		<skill id="6" multiplier="1.1" /> <!-- Fishing -->
+	</vocation>
+			<!-- Shinobi -->
+	<vocation id="26" clientid="5" name="Shinobi" description="a Shinobi" gaincap="20" gainhp="30" gainmana="20" gainhpticks="3" gainhpamount="4" gainmanaticks="2" gainmanaamount="8" manamultiplier="2.0" attackspeed="1000" basespeed="400" soulmax="200" gainsoulticks="10" fromvoc="25">
+		<formula meleeDamage="1.2" distDamage="1.2" defense="0.8" armor="0.8" />
+		<skill id="0" multiplier="2.0" /> <!-- Fist -->
+		<skill id="1" multiplier="2.0" /> <!-- Club -->
+		<skill id="2" multiplier="1.1" /> <!-- Sword -->
+		<skill id="3" multiplier="2.0" /> <!-- Axe -->
+		<skill id="4" multiplier="1.1" /> <!-- Distance -->
+		<skill id="5" multiplier="2.0" /> <!-- Shield -->
+		<skill id="6" multiplier="1.1" /> <!-- Fishing -->
+	</vocation>
+		<!-- Samurai -->
+	<vocation id="27" clientid="5" name="Samurai" description="a Samurai" gaincap="25" gainhp="35" gainmana="10" gainhpticks="3" gainhpamount="4" gainmanaticks="2" gainmanaamount="8" manamultiplier="2.0" attackspeed="1000" basespeed="300" soulmax="200" gainsoulticks="10" fromvoc="25">
+		<formula meleeDamage="1.4" distDamage="1.0" defense="0.8" armor="0.8" />
+		<skill id="0" multiplier="2.0" /> <!-- Fist -->
+		<skill id="1" multiplier="2.0" /> <!-- Club -->
+		<skill id="2" multiplier="1.09" /> <!-- Sword -->
+		<skill id="3" multiplier="2.0" /> <!-- Axe -->
+		<skill id="4" multiplier="2.0" /> <!-- Distance -->
+		<skill id="5" multiplier="2.0" /> <!-- Shield -->
+		<skill id="6" multiplier="1.1" /> <!-- Fishing -->
+	</vocation>
+		<!-- Pirate -->
+	<vocation id="28" clientid="5" name="Pirate" description="a Pirate" gaincap="40" gainhp="30" gainmana="20" gainhpticks="3" gainhpamount="4" gainmanaticks="2" gainmanaamount="8" manamultiplier="2.0" attackspeed="1000" basespeed="300" soulmax="200" gainsoulticks="10" fromvoc="25">
+		<formula meleeDamage="1.0" distDamage="1.4" defense="0.8" armor="0.8" />
+		<skill id="0" multiplier="2.0" /> <!-- Fist -->
+		<skill id="1" multiplier="2.0" /> <!-- Club -->
+		<skill id="2" multiplier="1.8" /> <!-- Sword -->
+		<skill id="3" multiplier="2.0" /> <!-- Axe -->
+		<skill id="4" multiplier="1.1" /> <!-- Distance -->
+		<skill id="5" multiplier="2.0" /> <!-- Shield -->
+		<skill id="6" multiplier="1.1" /> <!-- Fishing -->
+	</vocation>
+		<!-- Gambler -->
+	<vocation id="29" clientid="5" name="Gambler" description="a Gambler" gaincap="40" gainhp="20" gainmana="40" gainhpticks="3" gainhpamount="4" gainmanaticks="2" gainmanaamount="8" manamultiplier="1.4" attackspeed="1000" basespeed="300" soulmax="200" gainsoulticks="10" fromvoc="25">
+		<formula meleeDamage="1.0" distDamage="1.4" defense="0.8" armor="0.8" />
+		<skill id="0" multiplier="2.0" /> <!-- Fist -->
+		<skill id="1" multiplier="2.0" /> <!-- Club -->
+		<skill id="2" multiplier="1.8" /> <!-- Sword -->
+		<skill id="3" multiplier="2.0" /> <!-- Axe -->
+		<skill id="4" multiplier="1.1" /> <!-- Distance -->
+		<skill id="5" multiplier="2.0" /> <!-- Shield -->
+		<skill id="6" multiplier="1.1" /> <!-- Fishing -->
+	</vocation>
+
+		<!-- Rogue -->
+	<vocation id="30" clientid="5" name="Rogue" description="a Rogue" gaincap="40" gainhp="22" gainmana="36" gainhpticks="3" gainhpamount="4" gainmanaticks="2" gainmanaamount="8" manamultiplier="1.6" attackspeed="1000" basespeed="300" soulmax="200" gainsoulticks="10" fromvoc="25">
+		<formula meleeDamage="1.2" distDamage="1.0" defense="0.8" armor="0.8" />
+		<skill id="0" multiplier="2.0" /> <!-- Fist -->
+		<skill id="1" multiplier="2.0" /> <!-- Club -->
+		<skill id="2" multiplier="1.1" /> <!-- Sword -->
+		<skill id="3" multiplier="2.0" /> <!-- Axe -->
+		<skill id="4" multiplier="2.0" /> <!-- Distance -->
+		<skill id="5" multiplier="2.0" /> <!-- Shield -->
+		<skill id="6" multiplier="1.1" /> <!-- Fishing -->
+	</vocation>
+
 </vocations>
